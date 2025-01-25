@@ -64,7 +64,7 @@ const InteractiveGames = () => {
           viewport={{ once: true }}
           className="text-4xl font-bold text-center text-white mb-16"
         >
-          Interactive Experiences
+          Interactive Games
           <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-500 mx-auto mt-4 rounded-full" />
         </motion.h2>
 

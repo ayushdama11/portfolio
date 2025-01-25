@@ -3,14 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Trophy,
   RefreshCcw,
-  Home,
   ArrowLeft,
   Palette,
   Loader,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
-  GradientBackground,
   AnimatedCard,
   NotificationToast,
 } from "./ReusableComponents";
