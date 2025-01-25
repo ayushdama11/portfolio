@@ -24,7 +24,7 @@ import {
   Loader,
 } from "lucide-react";
 import { ChevronUp } from "lucide-react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BlogPage from "./BlogPage";
 
 const CyberLines = () => (

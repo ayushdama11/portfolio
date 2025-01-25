@@ -12,8 +12,9 @@ import {
   ScrollToTop,
   FloatingCubes,
 } from "./components/components";
-
-
+import InteractiveGames from "./games/InteractiveGames";
+import ColorMatchGame from "./games/ColorMatchGame";
+import TypingSpeedTest from "./games/TypingSpeedTest";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -46,6 +47,7 @@ const App = () => {
                   >
                     <Hero />
                     <ScrollToTop />
+                    <InteractiveGames />
                     <Experience />
                     <Projects />
                     <Skills />
@@ -66,6 +68,10 @@ const App = () => {
           }
         />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/color-match" element={<ColorMatchGame />} />
+        <Route path="/typing-test" element={<TypingSpeedTest />} />
+
+        <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </BrowserRouter>
   );
