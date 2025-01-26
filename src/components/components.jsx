@@ -974,15 +974,15 @@ const Contact = () => {
         <motion.button
           onClick={handleEmailClick}
           disabled={isSubmitting}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className={`relative my-12 px-8 py-4 
-                     bg-indigo-600 hover:bg-indigo-700
-                     text-white rounded-lg font-medium
-                     transition-colors duration-300
-                     disabled:opacity-50 disabled:cursor-not-allowed
-                     flex items-center justify-center gap-2
-                     mx-auto`}
+          whileHover={{
+            boxShadow:
+              "2px 2px 8px rgba(0,0,0,0.1), -1px -1px 6px rgba(255,255,255,0.2)",
+          }}
+          className="px-6 py-3 bg-gradient-to-r from-indigo-50 to-indigo-100 hover:from-indigo-100 
+           hover:to-indigo-200 text-indigo-700 rounded-lg font-semibold disabled:opacity-50 
+           transition-all duration-300 disabled:cursor-not-allowed flex items-center gap-2
+           mx-auto border border-indigo-100 hover:border-indigo-200 hover:scale-105
+           hover:text-indigo-800 shadow-md hover:shadow-indigo-100/20 mb-6 mt-6"
         >
           {isSubmitting ? (
             <Loader className="w-5 h-5 animate-spin" />
@@ -991,8 +991,32 @@ const Contact = () => {
           )}
           Get in Touch
         </motion.button>
-      </div>
 
+        <div className="p-1.5 bg-black/80 border border-indigo-500/10 rounded-lg backdrop-blur-sm inline-block">
+          <div className="flex justify-center gap-4">
+            {[
+              { icon: GithubIcon, href: "https://github.com/Ashparshp" },
+              {
+                icon: LinkedinIcon,
+                href: "https://www.linkedin.com/in/ashparsh",
+              },
+            ].map(({ icon: Icon, href }) => (
+              <motion.a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="p-2 bg-indigo-500/10 rounded-md text-indigo-400 
+                         hover:text-white hover:bg-indigo-500/20 transition-all duration-300"
+              >
+                <Icon className="w-5 h-5" />
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </div>
       <AnimatePresence>
         {notification && (
           <NotificationToast
