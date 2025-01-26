@@ -770,14 +770,12 @@ const Skills = () => {
       role="listitem"
     >
       <div
-        className="relative p-4 bg-black rounded-2xl border border-indigo-500/20
-                    text-center font-mono text-indigo-400
-                    group-hover:text-white group-hover:border-indigo-400
-                    transition-all duration-300"
+        className="relative p-4 bg-black/80 rounded-2xl border border-indigo-500/20
+                    text-center font-mono text-indigo-400 backdrop-blur-sm"
       >
         <div
           className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 
-                      rounded-2xl blur opacity-0 group-hover:opacity-20 transition-all duration-300"
+                      rounded-2xl blur-sm opacity-0 group-hover:opacity-30 transition-all duration-300"
         />
         <div className="relative z-10 flex items-center justify-center space-x-2">
           <span className="text-base lg:text-lg">{name}</span>
@@ -801,7 +799,7 @@ const Skills = () => {
   return (
     <section className="py-20 relative bg-black">
       <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/1 via-black to-black" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.05),transparent_30%)]" />
 
       <motion.div
         variants={containerVariants}
