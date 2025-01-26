@@ -480,7 +480,7 @@ const Experience = () => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-center text-white mb-16"
+          className="text-3xl font-bold text-center text-white mb-16"
         >
           Experience
           <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-500 mx-auto mt-4 rounded-full" />
@@ -634,7 +634,7 @@ const Projects = () => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-center text-white mb-16"
+          className="text-3xl font-bold text-center text-white mb-16"
         >
           Projects
           <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-500 mx-auto mt-4 rounded-full" />
@@ -813,7 +813,7 @@ const Skills = () => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-center text-white mb-16"
+          className="text-3xl font-bold text-center text-white mb-16"
         >
           Skills & Technologies
           <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-500 mx-auto mt-4 rounded-full" />
@@ -943,7 +943,7 @@ const Contact = () => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl font-bold text-center text-white mb-16"
+          className="text-3xl font-bold text-center text-white mb-16"
         >
           Let's Connect
           <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-500 mx-auto mt-4 rounded-full" />
