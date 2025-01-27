@@ -52,13 +52,6 @@ const InteractiveGames = () => {
     },
   };
 
-  const handleCardClick = (path, e) => {
-    // Only navigate if the click wasn't on the button
-    if (!e.target.closest("button")) {
-      navigate(path);
-    }
-  };
-
   return (
     <section className="py-20 relative bg-black">
       <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/1 via-black to-black" />
@@ -86,24 +79,24 @@ const InteractiveGames = () => {
             <motion.div
               key={game.title}
               variants={cardVariants}
-              className="relative group/card cursor-pointer"
-              onClick={(e) => handleCardClick(game.path, e)}
+              className="relative group cursor-pointer"
+              onClick={() => navigate(game.path)}
             >
               <div
                 className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg blur opacity-30 
-                             group-hover/card:opacity-50 transition duration-300"
+                             group-hover:opacity-50 transition duration-300"
               />
 
               <div
                 className="relative p-6 bg-black rounded-lg border border-indigo-500/30 h-full 
-                            backdrop-blur-sm group-hover/card:border-indigo-400 transition-colors duration-300"
+                            backdrop-blur-sm group-hover:border-indigo-400 transition-colors duration-300"
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center">
                     <game.icon className="w-12 h-12 text-indigo-400 p-2" />
                     <h3
                       className="ml-4 text-xl font-bold text-indigo-400 
-                                 group-hover/card:text-indigo-300 transition-colors duration-300"
+                                 group-hover:text-indigo-300 transition-colors duration-300"
                     >
                       {game.title}
                     </h3>
@@ -150,10 +143,7 @@ const InteractiveGames = () => {
                   ))}
                 </div>
 
-                <motion.div
-                  className="mt-6 relative group/button"
-                  onClick={(e) => e.stopPropagation()}
-                >
+                <motion.div className="mt-6 relative group/button">
                   <motion.div
                     className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 
                              rounded-xl blur opacity-30 group-hover/button:opacity-50 transition duration-300"
@@ -161,13 +151,10 @@ const InteractiveGames = () => {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => navigate(game.path)}
                     className="relative w-full py-3 bg-black rounded-xl
                              border border-indigo-500/30 text-indigo-400
                              group-hover/button:border-indigo-400 
                              transition-all duration-300
-                             focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-black
-                             focus:outline-none
                              flex items-center justify-center gap-2"
                   >
                     <span className="font-medium">Play Now</span>
