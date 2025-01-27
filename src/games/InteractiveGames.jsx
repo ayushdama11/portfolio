@@ -145,7 +145,7 @@ const InteractiveGames = () => {
 
                 <motion.div className="mt-6 relative group/button">
                   <motion.div
-                    className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-500 
+                    className="absolute -inset-1 bg-gradient-to-r from-indigo-400 via-indigo-400 to-indigo-500 
                              rounded-xl blur opacity-30 group-hover/button:opacity-50 transition duration-300"
                   />
                   <motion.button
