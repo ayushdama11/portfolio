@@ -20,16 +20,21 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/blog" element={<BlogPage />} />
-        <Route path="/games" element={<InteractiveGames />} />
-        <Route path="/games/color-match" element={<ColorMatchGame />} />
-        <Route path="/games/typing-test" element={<TypingSpeedTest />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+
+    <h1>
+      Hi
+    </h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/games" element={<InteractiveGames />} />
+          <Route path="/games/color-match" element={<ColorMatchGame />} />
+          <Route path="/games/typing-test" element={<TypingSpeedTest />} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
