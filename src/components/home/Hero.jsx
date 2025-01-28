@@ -41,8 +41,8 @@ export const Hero = () => {
         </motion.h1>
 
         <div
-          className="text-2xl text-indigo-400 font-mono mb-8 h-10 
-                      flex justify-center items-center"
+          className="sm:text-2xl text-indigo-400 font-mono mb-8 h-10 
+                      flex justify-center items-center text-xl"
         >
           <motion.span
             initial={{ opacity: 0, x: -20 }}
