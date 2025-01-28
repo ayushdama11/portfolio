@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Code, Terminal, Brackets, Database, Layers } from "lucide-react";
 
@@ -21,6 +22,7 @@ const BackgroundIcon = ({ icon: Icon, color }) => (
       ease: "easeInOut",
     }}
     className="absolute pointer-events-none"
+    style={{ willChange: "transform, opacity" }}
   >
     <Icon color={color} size={60} />
   </motion.div>
@@ -37,7 +39,7 @@ const FirstLoading = () => {
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-black via-black to-gray-950 overflow-hidden">
-      {/* Fixed height container for the loading screen */}
+      {/* Use fixed positioning for the loader to avoid layout shift */}
       <div className="absolute inset-0 min-h-screen">
         {backgroundIcons.map((iconData, index) =>
           [...Array(5)].map((_, subIndex) => (
@@ -67,6 +69,7 @@ const FirstLoading = () => {
               delay: i * 0.3,
               ease: "easeInOut",
             }}
+            style={{ willChange: "transform, opacity" }}
           />
         ))}
         <motion.div
@@ -80,6 +83,7 @@ const FirstLoading = () => {
             repeat: Infinity,
             ease: "easeInOut",
           }}
+          style={{ willChange: "transform, opacity" }}
         />
       </div>
     </div>
