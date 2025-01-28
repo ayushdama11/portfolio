@@ -38,7 +38,7 @@ const NotFoundPage = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="px-6 py-3 bg-indigo-500/10 border border-indigo-500/30
-                   text-indigo-400 rounded-lg hover:bg-indigo-500/20
+                   text-indigo-400 rounded-full hover:bg-indigo-500/20
                    hover:border-indigo-400 transition-all duration-300
                    flex items-center gap-2"
         >
