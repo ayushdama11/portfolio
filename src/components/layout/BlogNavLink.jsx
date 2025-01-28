@@ -1,51 +1,19 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import { Home, Palette, Keyboard, Command } from 'lucide-react';
+import { motion } from "framer-motion";
+import { MessageCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const GameNavigation = () => {
+export const BlogNavLink = () => {
   const navigate = useNavigate();
-  
-  const navItems = [
-    {
-      title: "Home",
-      icon: Home,
-      path: "/",
-      position: "top-6",
-      delay: 1,
-    },
-    {
-      title: "Color Match",
-      icon: Palette,
-      path: "/color-match",
-      position: "top-20",
-      delay: 1.2,
-    },
-    {
-      title: "Typing Test",
-      icon: Keyboard,
-      path: "/typing-test",
-      position: "top-34",
-      delay: 1.4,
-    },
-    {
-      title: "Matrix Rain",
-      icon: Command,
-      path: "/matrix",
-      position: "top-48",
-      delay: 1.6,
-    },
-  ];
 
-  const NavButton = ({ item }) => (
+  return (
     <motion.div
-      className={`fixed ${item.position} right-6 z-50`}
+      className="fixed top-6 right-6 z-50"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: item.delay }}
+      transition={{ duration: 0.5, delay: 1 }}
     >
       <motion.button
-        onClick={() => navigate(item.path)}
+        onClick={() => navigate("/blog")}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className="relative group flex items-center gap-2 px-4 py-2 rounded-lg
@@ -54,10 +22,9 @@ const GameNavigation = () => {
                    transition-all duration-300 text-white"
       >
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 
-                     rounded-lg blur opacity-0 group-hover:opacity-20 transition-all duration-300"
+          className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-lg blur opacity-0
+                      transition-all duration-300"
         />
-        
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -70,13 +37,11 @@ const GameNavigation = () => {
           }}
           className="relative"
         >
-          <item.icon className="w-5 h-5" />
+          <MessageCircle className="w-5 h-5" />
         </motion.div>
-
         <span className="relative font-medium group-hover:text-white transition-colors">
-          {item.title}
+          Read Blog
         </span>
-
         <div className="flex gap-1">
           {[0, 1, 2].map((i) => (
             <motion.div
@@ -97,14 +62,4 @@ const GameNavigation = () => {
       </motion.button>
     </motion.div>
   );
-
-  return (
-    <>
-      {navItems.map((item) => (
-        <NavButton key={item.path} item={item} />
-      ))}
-    </>
-  );
 };
-
-export default GameNavigation;

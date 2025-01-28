@@ -1,77 +1,33 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import {
-  Hero,
-  Experience,
-  Projects,
-  Skills,
-  Contact,
-  BlogPage,
-  LoadingSpinner,
-  ScrollToTop,
-  FloatingCubes,
-} from "./components/components";
+import HomePage from "./pages/HomePage";
+import BlogPage from "./pages/BlogPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import InteractiveGames from "./games/InteractiveGames";
-import ColorMatchGame from "./games/ColorMatchGame";
-import TypingSpeedTest from "./games/TypingSpeedTest";
+import ColorMatchGame from "./games/components/ColorMatchGame/index";
+import TypingSpeedTest from "./games/components/TypingSpeedTest/index";
+import FirstLoading from "./components/common/EnhancedLoadingSpinner";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 1500);
+    setTimeout(() => setIsLoading(false), 2500);
   }, []);
+
+  if (isLoading) {
+    return <FirstLoading />;
+  }
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <AnimatePresence>
-                {isLoading ? (
-                  <motion.div
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black"
-                  >
-                    <LoadingSpinner />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="bg-black min-h-screen"
-                  >
-                    <Hero />
-                    <ScrollToTop />
-                    <InteractiveGames />
-                    <Experience />
-                    <Projects />
-                    <Skills />
-                    <Contact />
-                    <FloatingCubes />
-                    <footer className="py-8 text-center text-gray-500 border-t border-indigo-500/20">
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                      >
-                        © {new Date().getFullYear()} Ashparsh Pandey
-                      </motion.p>
-                    </footer>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </>
-          }
-        />
+        <Route path="/" element={<HomePage />} />
         <Route path="/blog" element={<BlogPage />} />
-        <Route path="/color-match" element={<ColorMatchGame />} />
-        <Route path="/typing-test" element={<TypingSpeedTest />} />
-
-        <Route path="*" element={<h1>404 Not Found</h1>} />
+        <Route path="/games" element={<InteractiveGames />} />
+        <Route path="/games/color-match" element={<ColorMatchGame />} />
+        <Route path="/games/typing-test" element={<TypingSpeedTest />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
