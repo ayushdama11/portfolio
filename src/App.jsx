@@ -1,9 +1,22 @@
-import React from 'react'
+import React from "react";
+import { useState, useEffect } from "react";
+import FirstLoading from "./components/common/EnhancedLoadingSpinner";
 
 const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+  const [isLoading, setIsLoading] = useState(true);
 
-export default App
+  useEffect(() => {
+    setTimeout(() => setIsLoading(false), 2000);
+  }, []);
+
+  if (isLoading) {
+    return <FirstLoading />;
+  }
+  return (
+    <>
+      <div>App</div>
+    </>
+  );
+};
+
+export default App;
