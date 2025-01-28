@@ -1,5 +1,11 @@
-import React from "react";
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import BlogPage from "./pages/BlogPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import InteractiveGames from "./games/InteractiveGames";
+import ColorMatchGame from "./games/components/ColorMatchGame/index";
+import TypingSpeedTest from "./games/components/TypingSpeedTest/index";
 import FirstLoading from "./components/common/EnhancedLoadingSpinner";
 
 const App = () => {
@@ -12,10 +18,18 @@ const App = () => {
   if (isLoading) {
     return <FirstLoading />;
   }
+
   return (
-    <>
-      <div>App</div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/games" element={<InteractiveGames />} />
+        <Route path="/games/color-match" element={<ColorMatchGame />} />
+        <Route path="/games/typing-test" element={<TypingSpeedTest />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
