@@ -83,3 +83,10 @@
 .animate-glow {
   animation: glow 2s ease-in-out infinite;
 }
+
+@layer utilities {
+  .prevent-layout-shift {
+    @apply min-h-screen overflow-x-hidden;
+    content-visibility: auto;
+  }
+}

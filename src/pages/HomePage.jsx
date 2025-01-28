@@ -10,7 +10,7 @@ import { GamesShowcase } from "@/components/home/GamesShowcase";
 
 const HomePage = () => {
   return (
-    <>
+    <div className="prevent-layout-shift">
       <ScrollToTop />
       <BlogNavLink />
       <Hero />
@@ -20,7 +20,7 @@ const HomePage = () => {
       <Skills />
       <Contact />
       <FloatingCubes />
-    </>
+    </div>
   );
 };
 
