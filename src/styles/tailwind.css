@@ -4,10 +4,6 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    @apply scroll-smooth;
-  }
-
   body {
     @apply bg-black text-white antialiased;
   }
