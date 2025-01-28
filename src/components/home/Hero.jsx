@@ -75,7 +75,7 @@ export const Hero = () => {
         >
           {/* First Name */}
           <motion.div
-            className="text-7xl sm:text-8xl font-black mb-2 relative"
+            className="text-5xl sm:text-7xl md:text-8xl font-black mb-2 relative"
             style={{
               clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
             }}
@@ -111,7 +111,7 @@ export const Hero = () => {
 
           {/* Last Name */}
           <motion.div
-            className="text-6xl sm:text-7xl font-black relative"
+            className="text-5xl sm:text-7xl md:text-8xl font-black relative"
             style={{
               fontFamily: "'Montserrat', sans-serif",
               letterSpacing: "0.1em",
