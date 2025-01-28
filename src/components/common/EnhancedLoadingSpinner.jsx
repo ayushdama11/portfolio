@@ -37,7 +37,8 @@ const FirstLoading = () => {
 
   return (
     <div className="relative flex items-center justify-center min-h-screen bg-gradient-to-br from-black via-black to-gray-950 overflow-hidden">
-      <div className="absolute inset-0">
+      {/* Fixed height container for the loading screen */}
+      <div className="absolute inset-0 min-h-screen">
         {backgroundIcons.map((iconData, index) =>
           [...Array(5)].map((_, subIndex) => (
             <BackgroundIcon
