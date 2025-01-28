@@ -8,7 +8,7 @@
   "redirects": [
     {
       "source": "/404",
-      "destination": "/error-page",
+      "destination": "*",
       "statusCode": 404
     }
   ]
