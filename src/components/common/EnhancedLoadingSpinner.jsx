@@ -85,4 +85,9 @@ const FirstLoading = () => {
   );
 };
 
+// Prevent scrolling by setting overflow to hidden on the body
+if (typeof window !== "undefined") {
+  document.body.style.overflow = "hidden";
+}
+
 export default FirstLoading;

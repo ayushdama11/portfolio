@@ -13,7 +13,7 @@ const HomePage = () => {
     <>
       <ScrollToTop />
       <BlogNavLink />
-      {/* <Hero /> */}
+      <Hero />
       <Experience />
       <GamesShowcase />
       <Projects />
