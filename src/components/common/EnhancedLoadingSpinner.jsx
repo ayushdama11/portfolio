@@ -49,35 +49,44 @@ const FirstLoading = () => {
         )}
       </div>
 
-      <motion.div
-        initial={{
-          opacity: 0,
-          scale: 0.5,
-          rotate: 0,
-        }}
-        animate={{
-          opacity: 1,
-          scale: [1, 1.2, 1.6, 1],
-          rotate: [0, 360, 720, 1080],
-          borderRadius: ["50%", "20%", "50%", "10%"],
-          borderColor: [
-            "rgba(29, 78, 216, 0.9)",
-            "rgba(30, 64, 175, 0.9)",
-            "rgba(59, 130, 246, 0.9)",
-            "rgba(29, 78, 216, 0.9)",
-          ],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "linear",
-          times: [0, 0.5, 0.8, 1],
-        }}
-        className="w-32 h-32 border-8 border-blue-900 rounded-full border-t-transparent
-          shadow-2xl shadow-blue-900/50
-          bg-gradient-to-r from-blue-900/40 to-blue-950/40 
-          relative z-10"
-      />
+      <div className="relative w-32 h-32">
+        <motion.div
+          className="absolute inset-0 border-8 border-blue-500/30 rounded-full"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.8, 0.3],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute inset-0 border-t-8 border-blue-500 rounded-full"
+          animate={{
+            rotate: 360,
+          }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+        />
+        <motion.div
+          className="absolute inset-0 border-8 border-blue-900/20 rounded-full"
+          animate={{
+            scale: [1.1, 1.3, 1.1],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5,
+          }}
+        />
+      </div>
     </div>
   );
 };
