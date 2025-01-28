@@ -36,8 +36,8 @@ const FirstLoading = () => {
   ];
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-black via-black to-gray-950 min-h-screen">
-      <div className="absolute inset-0 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+      <div className="absolute inset-0">
         {backgroundIcons.map((iconData, index) =>
           [...Array(5)].map((_, subIndex) => (
             <BackgroundIcon
