@@ -27,7 +27,6 @@ const App = () => {
         <Route path="/games" element={<InteractiveGames />} />
         <Route path="/games/color-match" element={<ColorMatchGame />} />
         <Route path="/games/typing-test" element={<TypingSpeedTest />} />
-        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
