@@ -50,40 +50,34 @@ const FirstLoading = () => {
       </div>
 
       <div className="relative w-32 h-32">
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute inset-0 border-4 border-blue-500 rounded-full"
+            initial={{ opacity: 0.2 }}
+            animate={{
+              opacity: [0.2, 1, 0.2],
+              scale: [1, 1.3, 1],
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.3,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
         <motion.div
-          className="absolute inset-0 border-8 border-blue-500/30 rounded-full"
+          className="absolute inset-0 border-4 border-blue-900/20 rounded-full"
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.8, 0.3],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute inset-0 border-t-8 border-blue-500 rounded-full"
-          animate={{
-            rotate: 360,
-          }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-        <motion.div
-          className="absolute inset-0 border-8 border-blue-900/20 rounded-full"
-          animate={{
-            scale: [1.1, 1.3, 1.1],
+            scale: [1.1, 1.4, 1.1],
             opacity: [0.2, 0.5, 0.2],
           }}
           transition={{
-            duration: 2,
+            duration: 2.5,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: 0.5,
           }}
         />
       </div>
