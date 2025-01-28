@@ -11,15 +11,17 @@ import { GamesShowcase } from "@/components/home/GamesShowcase";
 const HomePage = () => {
   return (
     <>
-      <ScrollToTop />
-      <BlogNavLink />
-      <Hero />
-      <Experience />
-      <GamesShowcase />
-      <Projects />
-      <Skills />
-      <Contact />
-      <FloatingCubes />
+      <div className="min-h-screen bg-black overflow-hidden">
+        <ScrollToTop />
+        <BlogNavLink />
+        <Hero />
+        <Experience />
+        <GamesShowcase />
+        <Projects />
+        <Skills />
+        <Contact />
+        <FloatingCubes />
+      </div>
     </>
   );
 };
