@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Terminal, GithubIcon, LinkedinIcon, Mail } from "lucide-react";
+import {
+  Terminal,
+  GithubIcon,
+  LinkedinIcon,
+  Mail,
+  Calendar,
+} from "lucide-react";
 
 export const Hero = () => {
   const [typedText, setTypedText] = useState("");
@@ -24,6 +30,10 @@ export const Hero = () => {
     }, 100);
     return () => clearInterval(interval);
   }, []);
+
+  const handleScheduleCall = () => {
+    window.open("https://calendly.com/ashparshpandey00", "_blank");
+  };
 
   const gridVariants = {
     hidden: { opacity: 0 },
@@ -113,6 +123,7 @@ export const Hero = () => {
             />
           </div>
         </motion.div>
+
         {/* Mobile Name Display */}
         <motion.div
           className="block sm:hidden relative mb-8"
@@ -278,41 +289,58 @@ export const Hero = () => {
           </span>
         </motion.div>
 
-        {/* Social Links */}
-        <div className="flex justify-center space-x-6">
-          {[
-            {
-              Icon: GithubIcon,
-              href: "https://github.com/Ashparshp",
-              color: "hover:text-white hover:bg-gray-800",
-            },
-            {
-              Icon: LinkedinIcon,
-              href: "https://www.linkedin.com/in/ashparsh",
-              color: "hover:text-white hover:bg-blue-600",
-            },
-            {
-              Icon: Mail,
-              href: "mailto:ashparsh.connects@gmail.com",
-              color: "hover:text-white hover:bg-red-500",
-            },
-          ].map(({ Icon, href, color }, i) => (
-            <motion.a
-              key={href}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.2 }}
-              whileHover={{ scale: 1.2 }}
-              className={`p-4 bg-indigo-900/30 rounded-xl text-indigo-400 
-                         border border-indigo-500/30 
-                         transition-all duration-300 ${color}`}
-            >
-              <Icon className="w-6 h-6" />
-            </motion.a>
-          ))}
+        {/* Social Links and Schedule Call */}
+        <div className="flex flex-col items-center space-y-6">
+          <div className="flex justify-center space-x-6">
+            {[
+              {
+                Icon: GithubIcon,
+                href: "https://github.com/Ashparshp",
+                color: "hover:text-white hover:bg-gray-800",
+              },
+              {
+                Icon: LinkedinIcon,
+                href: "https://www.linkedin.com/in/ashparsh",
+                color: "hover:text-white hover:bg-blue-600",
+              },
+              {
+                Icon: Mail,
+                href: "mailto:ashparsh.connects@gmail.com",
+                color: "hover:text-white hover:bg-red-500",
+              },
+            ].map(({ Icon, href, color }, i) => (
+              <motion.a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.2 }}
+                whileHover={{ scale: 1.2 }}
+                className={`p-4 bg-indigo-900/30 rounded-xl text-indigo-400 
+                           border border-indigo-500/30 
+                           transition-all duration-300 ${color}`}
+              >
+                <Icon className="w-6 h-6" />
+              </motion.a>
+            ))}
+          </div>
+
+          <motion.button
+            onClick={handleScheduleCall}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-6 py-3 bg-indigo-500/10 text-indigo-400 
+                     rounded-xl border border-indigo-500/30 transition-all duration-300
+                     hover:bg-indigo-500/20 hover:border-indigo-400"
+          >
+            <Calendar className="w-5 h-5" />
+            <span className="font-medium">Schedule a Call</span>
+          </motion.button>
         </div>
       </motion.div>
     </div>
