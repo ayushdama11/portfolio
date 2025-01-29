@@ -2,21 +2,30 @@ import { Command, Cloud, Database } from "lucide-react";
 
 export const skillCategories = [
   {
-    title: "Core Development",
+    title: "Backend & APIs",
     icon: Command,
-    skills: ["Python", "Node.js", "Go"],
-    description: "Building robust backend services and APIs",
+    skills: ["Node.js", "Express", "REST", "GraphQL", "Prisma", "Go"],
+    description: "Building scalable APIs and services",
   },
   {
     title: "Frontend & Cloud",
     icon: Cloud,
-    skills: ["React", "Docker", "AWS"],
+    skills: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "React",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Next.js",
+      "AWS",
+    ],
     description: "Creating responsive UIs and cloud solutions",
   },
   {
     title: "Database & DevOps",
     icon: Database,
-    skills: ["MongoDB", "PostgreSQL", "Kubernetes"],
+    skills: ["MongoDB", "MySQL", "PostgreSQL", "Docker", "Kubernetes"],
     description: "Managing data and infrastructure",
   },
 ];

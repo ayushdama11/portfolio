@@ -112,7 +112,7 @@ export const Contact = () => {
           </div>
         </motion.div>
 
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 mb-6 max-w-md mx-auto">
           {/* Send Email Button */}
           <motion.button
             onClick={handleEmailClick}
@@ -121,13 +121,12 @@ export const Contact = () => {
               scale: 1.05,
               boxShadow: "0 0 20px rgba(99, 102, 241, 0.3)",
             }}
-            className="px-6 py-3 bg-gradient-to-r from-indigo-50 to-indigo-100 
+            className="w-full px-6 py-3 bg-gradient-to-r from-indigo-50 to-indigo-100 
                    hover:from-indigo-100 hover:to-indigo-200 text-indigo-700 
                    rounded-lg font-semibold disabled:opacity-50 transition-all 
                    duration-300 disabled:cursor-not-allowed flex items-center 
                    gap-2 justify-center border border-indigo-100 hover:border-indigo-200 
-                   hover:scale-105 hover:text-indigo-800 shadow-md 
-                   hover:shadow-indigo-100/20"
+                   hover:text-indigo-800 shadow-md hover:shadow-indigo-100/20"
             aria-label="Send Email"
           >
             {isSubmitting ? (
@@ -138,25 +137,19 @@ export const Contact = () => {
             Send Email
           </motion.button>
 
-          <div className="relative">
-            <motion.button
-              onClick={handleScheduleCall}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-6 py-3 bg-transparent text-gray-300 rounded-lg
-                 border border-gray-700 flex items-center gap-3 justify-center
-                 hover:bg-gray-900 transition-colors duration-200"
-              aria-label="Schedule Call"
-            >
-              {/* Icon & Text */}
-              <Calendar className="w-5 h-5 relative z-10 transition-transform duration-300" />
-              <span className="relative z-10 group-hover:tracking-wider transition-all duration-300">
-                Schedule Call
-              </span>
-            </motion.button>
-          </div>
+          {/* Schedule Call Button */}
+          <motion.button
+            onClick={handleScheduleCall}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full px-6 py-3 bg-transparent text-gray-300 rounded-lg
+                     border border-gray-700 flex items-center gap-2 justify-center
+                     hover:bg-gray-900 transition-colors duration-200"
+            aria-label="Schedule Call"
+          >
+            <Calendar className="w-5 h-5" />
+            <span>Schedule Call</span>
+          </motion.button>
         </div>
 
         <div className="p-1.5 bg-black/80 border border-indigo-500/10 rounded-lg backdrop-blur-sm inline-block">
