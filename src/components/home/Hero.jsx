@@ -62,6 +62,57 @@ export const Hero = () => {
     },
   };
 
+  const scheduleButtonVariants = {
+    initial: { 
+      opacity: 0,
+      y: 20,
+      scale: 0.95
+    },
+    animate: { 
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    },
+    hover: {
+      scale: 1.05,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut"
+      }
+    },
+    tap: {
+      scale: 0.98,
+      transition: {
+        duration: 0.1,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const socialLinkVariants = {
+    initial: { opacity: 0, x: -20 },
+    animate: (i) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }),
+    hover: {
+      scale: 1.2,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut"
+      }
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden pt-20 pb-9">
       <motion.div
@@ -314,13 +365,14 @@ export const Hero = () => {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.2 }}
-                whileHover={{ scale: 1.2 }}
+                variants={socialLinkVariants}
+                custom={i}
+                initial="initial"
+                animate="animate"
+                whileHover="hover"
                 className={`p-4 bg-indigo-900/30 rounded-xl text-indigo-400 
                            border border-indigo-500/30 
-                           transition-all duration-300 ${color}`}
+                           transition-colors duration-300 ${color}`}
               >
                 <Icon className="w-6 h-6" />
               </motion.a>
@@ -329,13 +381,15 @@ export const Hero = () => {
 
           <motion.button
             onClick={handleScheduleCall}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center gap-2 px-6 py-3 bg-indigo-500/10 text-indigo-400 
-                     rounded-xl border border-indigo-500/30 transition-all duration-300
+            variants={scheduleButtonVariants}
+            initial="initial"
+            animate="animate"
+            whileHover="hover"
+            whileTap="tap"
+            className="flex items-center gap-2 px-6 py-3 
+                     bg-indigo-500/10 text-indigo-400 
+                     rounded-xl border border-indigo-500/30 
+                     transition-colors duration-300
                      hover:bg-indigo-500/20 hover:border-indigo-400"
           >
             <Calendar className="w-5 h-5" />
