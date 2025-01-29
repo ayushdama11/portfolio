@@ -9,7 +9,8 @@ export const Hero = () => {
     first: "ASHPARSH",
     last: "PANDEY",
   };
-  const gradientClass = "bg-gradient-to-r from-indigo-500 via-indigo-300 to-indigo-500";
+  const gradientClass =
+    "bg-gradient-to-r from-indigo-500 via-indigo-300 to-indigo-500";
 
   useEffect(() => {
     let currentIndex = 0;
@@ -42,11 +43,21 @@ export const Hero = () => {
     },
   };
 
+  // Simple fade-in animation for mobile
+  const mobileNameVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8 },
+    },
+  };
+
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden px-4 py-16">
-      {/* Animated grid background - Reduced columns for mobile */}
+    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden pt-20 pb-9">
+      {/* Animated grid background */}
       <motion.div
-        className="absolute inset-0 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 grid-rows-6 gap-2 sm:gap-4 p-4 sm:p-8"
+        className="absolute inset-0 grid grid-cols-8 grid-rows-6 gap-4 p-8"
         variants={gridVariants}
         initial="hidden"
         animate="visible"
@@ -61,20 +72,67 @@ export const Hero = () => {
       </motion.div>
 
       <motion.div
-        className="relative z-10 w-full max-w-4xl mx-auto text-center"
+        className="relative z-10 max-w-4xl mx-auto px-4 text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
+        {/* Mobile Name Display */}
         <motion.div
-          className="relative mb-8"
+          className="block sm:hidden relative mb-8"
+          variants={mobileNameVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <h1
+            className="text-5xl font-black mb-2"
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              color: "#e2e8f0",
+              textShadow: "2px 2px 0px rgba(99, 102, 241, 0.3)",
+            }}
+          >
+            {name.first}
+          </h1>
+          <h1
+            className="text-5xl font-black"
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              background: "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.3))",
+            }}
+          >
+            {name.last}
+          </h1>
+          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-3/5 flex gap-1">
+            {[...Array(8)].map((_, i) => (
+              <motion.div
+                key={i}
+                className={`${gradientClass} h-1 flex-1`}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{
+                  delay: i * 0.1,
+                  duration: 0.3,
+                  ease: "easeOut",
+                }}
+              />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Desktop Name Animation */}
+        <motion.div
+          className="hidden sm:block relative mb-8"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          {/* First Name - Adjusted text sizes */}
+          {/* First Name */}
           <motion.div
-            className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-black mb-2 relative"
+            className="text-7xl md:text-8xl font-black mb-2 relative"
             style={{
               clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
             }}
@@ -108,9 +166,9 @@ export const Hero = () => {
             ))}
           </motion.div>
 
-          {/* Last Name - Adjusted text sizes */}
+          {/* Last Name */}
           <motion.div
-            className="text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-black relative"
+            className="text-7xl md:text-8xl font-black relative"
             style={{
               fontFamily: "'Montserrat', sans-serif",
               letterSpacing: "0.1em",
@@ -133,7 +191,8 @@ export const Hero = () => {
                   transition: { duration: 0.2 },
                 }}
                 style={{
-                  background: "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)",
+                  background:
+                    "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   filter: "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.3))",
@@ -145,8 +204,7 @@ export const Hero = () => {
             ))}
           </motion.div>
 
-          {/* Gradient bars - Adjusted for mobile */}
-          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-4/5 sm:w-3/5 flex gap-1">
+          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-3/5 flex gap-1">
             {[...Array(8)].map((_, i) => (
               <motion.div
                 key={i}
@@ -163,9 +221,8 @@ export const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Developer text - Adjusted for mobile */}
         <motion.div
-          className="text-lg xs:text-xl sm:text-2xl text-indigo-400 font-mono mb-12 h-10 flex justify-center items-center"
+          className="sm:text-2xl text-indigo-400 font-mono mb-12 h-10 flex justify-center items-center text-xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.6 }}
@@ -185,8 +242,8 @@ export const Hero = () => {
           </span>
         </motion.div>
 
-        {/* Social Links - Adjusted spacing for mobile */}
-        <div className="flex justify-center space-x-4 sm:space-x-6">
+        {/* Social Links */}
+        <div className="flex justify-center space-x-6">
           {[
             {
               Icon: GithubIcon,
@@ -213,11 +270,11 @@ export const Hero = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.2 }}
               whileHover={{ scale: 1.2 }}
-              className={`p-3 sm:p-4 bg-indigo-900/30 rounded-xl text-indigo-400 
+              className={`p-4 bg-indigo-900/30 rounded-xl text-indigo-400 
                          border border-indigo-500/30 
                          transition-all duration-300 ${color}`}
             >
-              <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+              <Icon className="w-6 h-6" />
             </motion.a>
           ))}
         </div>
@@ -225,3 +282,5 @@ export const Hero = () => {
     </div>
   );
 };
+
+export default Hero;
