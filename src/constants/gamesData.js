@@ -1,5 +1,5 @@
-// src/constants/gamesData.js
-import { Palette, Keyboard } from "lucide-react";
+// src/constants/gamesData.js 
+import { Palette, Keyboard, Grid, Brain } from "lucide-react";
 
 export const games = [
   {
@@ -23,5 +23,27 @@ export const games = [
     icon: Keyboard,
     path: "/games/typing-test",
     tech: ["WPM", "Accuracy", "Statistics"],
+  },
+  {
+    title: "Sliding Puzzle",
+    description: [
+      "Classic sliding tile puzzle game",
+      "Race against time to solve the puzzle",
+      "Challenge yourself with move counting",
+    ],
+    icon: Grid,
+    path: "/games/sliding-puzzle",
+    tech: ["Logic", "Strategy", "Spatial Reasoning"],
+  },
+  {
+    title: "Memory Match",
+    description: [
+      "Test and improve your memory",
+      "Match pairs of cards quickly",
+      "Track your time and moves",
+    ],
+    icon: Brain,
+    path: "/games/memory-match",
+    tech: ["Memory", "Pattern Recognition", "Focus"],
   },
 ];

@@ -24,7 +24,7 @@ export const GamesShowcase = () => {
         </motion.h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {games.map((game) => (
+          {games.slice(0, 2).map((game) => (
             <motion.div
               key={game.title}
               initial={{ opacity: 0, y: 20 }}
