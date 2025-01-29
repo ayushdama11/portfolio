@@ -43,7 +43,6 @@ export const Hero = () => {
     },
   };
 
-  // Simple fade-in animation for mobile
   const mobileNameVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -55,7 +54,6 @@ export const Hero = () => {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden pt-20 pb-9">
-      {/* Animated grid background */}
       <motion.div
         className="absolute inset-0 grid grid-cols-8 grid-rows-6 gap-4 p-8"
         variants={gridVariants}
@@ -77,6 +75,44 @@ export const Hero = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
+        <motion.div
+          initial={{ scale: 0.5, rotate: -20 }}
+          animate={{
+            scale: 1,
+            rotate: 0,
+            transition: {
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+            },
+          }}
+          className="mb-12"
+        >
+          <div className="w-32 h-32 mx-auto mb-8 relative group">
+            <motion.div
+              className="absolute inset-0 border-4 border-indigo-500 rounded-2xl 
+                         group-hover:border-purple-500 transition-all duration-300"
+              animate={{
+                rotate: 360,
+                scale: [1, 1.1, 1],
+                borderColor: [
+                  "rgba(99, 102, 241, 1)",
+                  "rgba(124, 58, 237, 1)",
+                  "rgba(99, 102, 241, 1)",
+                ],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+            <Terminal
+              className="w-full h-full text-indigo-400 relative z-10 
+                         group-hover:text-purple-400 transition-colors"
+            />
+          </div>
+        </motion.div>
         {/* Mobile Name Display */}
         <motion.div
           className="block sm:hidden relative mb-8"
