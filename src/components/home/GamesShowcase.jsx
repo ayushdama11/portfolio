@@ -1,4 +1,3 @@
-// src/components/home/GamesShowcase.jsx
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Play, Info } from "lucide-react";
