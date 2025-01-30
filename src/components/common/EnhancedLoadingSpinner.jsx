@@ -75,7 +75,7 @@ const FirstLoading = () => {
             opacity: [0.2, 0.5, 0.2],
           }}
           transition={{
-            duration: 2.5,
+            duration: 2,
             repeat: Infinity,
             ease: "easeInOut",
           }}
