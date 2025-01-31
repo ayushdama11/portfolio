@@ -7,6 +7,7 @@ import {
   Mail,
   Calendar,
 } from "lucide-react";
+import ResumeDownloadButton from "../layout/ResumeDownloadButton";
 
 export const Hero = () => {
   const [typedText, setTypedText] = useState("");
@@ -63,34 +64,34 @@ export const Hero = () => {
   };
 
   const scheduleButtonVariants = {
-    initial: { 
+    initial: {
       opacity: 0,
       y: 20,
-      scale: 0.95
+      scale: 0.95,
     },
-    animate: { 
+    animate: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut"
-      }
+        ease: "easeOut",
+      },
     },
     hover: {
       scale: 1.05,
       transition: {
         duration: 0.2,
-        ease: "easeInOut"
-      }
+        ease: "easeInOut",
+      },
     },
     tap: {
       scale: 0.98,
       transition: {
         duration: 0.1,
-        ease: "easeInOut"
-      }
-    }
+        ease: "easeInOut",
+      },
+    },
   };
 
   const socialLinkVariants = {
@@ -101,20 +102,21 @@ export const Hero = () => {
       transition: {
         delay: i * 0.2,
         duration: 0.3,
-        ease: "easeOut"
-      }
+        ease: "easeOut",
+      },
     }),
     hover: {
       scale: 1.2,
       transition: {
         duration: 0.2,
-        ease: "easeInOut"
-      }
-    }
+        ease: "easeInOut",
+      },
+    },
   };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden pt-20 pb-9">
+      <ResumeDownloadButton />
       <motion.div
         className="absolute inset-0 grid grid-cols-8 grid-rows-6 gap-4 p-8"
         variants={gridVariants}
