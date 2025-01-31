@@ -1,15 +1,29 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { FileDown, CheckCircle, XCircle, Loader, Terminal, Download } from "lucide-react";
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 
 const ResumeDownloadButton = () => {
   const [downloadStatus, setDownloadStatus] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
+  const [isCompact, setIsCompact] = useState(false);
   const abortControllerRef = useRef(null);
 
+  // Add scroll event listener to detect when to switch to compact mode
+  useEffect(() => {
+    const handleScroll = () => {
+      // Assuming hero section is 100vh tall - adjust this value based on your hero height
+      const heroHeight = window.innerHeight;
+      setIsCompact(window.scrollY > heroHeight * 0.8); // Switch slightly before reaching the end
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleDownload = useCallback(async () => {
+    // Existing download logic remains the same
     abortControllerRef.current = new AbortController();
     const { signal } = abortControllerRef.current;
 
@@ -91,41 +105,53 @@ const ResumeDownloadButton = () => {
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
-          <div className="relative flex items-center gap-2 px-4 py-2.5 rounded-lg 
-                          bg-black/80 backdrop-blur-sm 
-                          border border-indigo-500/30 
-                          shadow-lg shadow-indigo-500/20 
-                          hover:border-indigo-400 
-                          transition-all duration-300">
-            <motion.div
-              animate={{
-                opacity: isHovered ? 1 : 0.7,
-                scale: isHovered ? 1.1 : 1,
-              }}
-              className="font-mono text-indigo-400 origin-center"
-            >
-              $
-            </motion.div>
-            <div className="flex items-center gap-2 font-mono">
-              <motion.span
-                className="text-indigo-400 transition-colors"
+          <motion.div
+            className={`relative flex items-center gap-2 rounded-lg 
+                       bg-black/80 backdrop-blur-sm 
+                       border border-indigo-500/10 
+                       shadow-lg shadow-indigo-500/20 
+                       hover:border-indigo-400 
+                       transition-all duration-300
+                       ${isCompact ? 'px-3 py-2' : 'px-4 py-2.5'}`}
+            animate={{
+              width: isCompact ? 'auto' : '100%',
+            }}
+          >
+            {!isCompact && (
+              <motion.div
                 animate={{
                   opacity: isHovered ? 1 : 0.7,
-                  color: isHovered ? '#6366f1' : '#6366f1',
+                  scale: isHovered ? 1.1 : 1,
                 }}
+                className="font-mono text-indigo-400 origin-center"
               >
-                download
-              </motion.span>
-              <motion.span
-                className="text-purple-400 transition-colors"
-                animate={{
-                  opacity: isHovered ? 1 : 0.7,
-                  color: isHovered ? '#a855f7' : '#a855f7',
-                }}
-              >
-                --resume
-              </motion.span>
-            </div>
+                $
+              </motion.div>
+            )}
+            
+            {!isCompact && (
+              <div className="flex items-center gap-2 font-mono">
+                <motion.span
+                  className="text-indigo-400 transition-colors"
+                  animate={{
+                    opacity: isHovered ? 1 : 0.7,
+                    color: isHovered ? '#6366f1' : '#6366f1',
+                  }}
+                >
+                  download
+                </motion.span>
+                <motion.span
+                  className="text-purple-400 transition-colors"
+                  animate={{
+                    opacity: isHovered ? 1 : 0.7,
+                    color: isHovered ? '#a855f7' : '#a855f7',
+                  }}
+                >
+                  --resume
+                </motion.span>
+              </div>
+            )}
+
             <motion.div
               className="flex items-center gap-2"
               animate={{
@@ -151,19 +177,23 @@ const ResumeDownloadButton = () => {
                 <FileDown className="w-4 h-4 text-indigo-400" />
               )}
             </motion.div>
-            <motion.div
-              className="w-2 h-4 bg-indigo-400 rounded-full"
-              animate={{
-                opacity: [1, 0],
-                scale: [1, 0.8, 1],
-              }}
-              transition={{
-                duration: 0.8,
-                repeat: Infinity,
-                repeatType: "reverse",
-              }}
-            />
-          </div>
+
+            {!isCompact && (
+              <motion.div
+                className="w-2 h-4 bg-indigo-400 rounded-full"
+                animate={{
+                  opacity: [1, 0],
+                  scale: [1, 0.8, 1],
+                }}
+                transition={{
+                  duration: 0.8,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              />
+            )}
+          </motion.div>
+
           <motion.div
             className="absolute inset-0 rounded-lg bg-indigo-500/20 blur-xl"
             animate={{
@@ -172,29 +202,7 @@ const ResumeDownloadButton = () => {
             }}
             transition={{ duration: 0.2 }}
           />
-          <motion.div
-            className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 flex gap-1"
-            animate={{
-              opacity: isLoading ? 1 : 0,
-            }}
-          >
-            {[...Array(3)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="w-1 h-1 rounded-full bg-indigo-400"
-                animate={{
-                  scale: [1, 1.5, 1],
-                  opacity: [0.5, 1, 0.5],
-                  y: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 1,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-              />
-            ))}
-          </motion.div>
+
           {isLoading && (
             <motion.button
               onClick={handleCancelDownload}
@@ -211,6 +219,7 @@ const ResumeDownloadButton = () => {
           )}
         </motion.button>
       </motion.div>
+
       <AnimatePresence>
         {downloadStatus && (
           <motion.div
