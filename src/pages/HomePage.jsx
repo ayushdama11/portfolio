@@ -15,8 +15,8 @@ const HomePage = () => {
       <BlogNavLink />
       <Hero />
       <Experience />
-      <GamesShowcase />
       <Projects />
+      <GamesShowcase />
       <Skills />
       <Contact />
       <FloatingCubes />

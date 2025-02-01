@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { experiences } from "../../constants/experienceData";
 import { containerVariants, cardVariants } from "../../animations/variants";
+import { Calendar, ArrowRight } from "lucide-react";
 
 export const Experience = () => {
   return (
@@ -32,22 +33,29 @@ export const Experience = () => {
               variants={cardVariants}
               className="relative group"
             >
-              <div
-                className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-lg blur opacity-30 
-                             group-hover:opacity-50 transition duration-300"
-              />
-              <div
-                className="relative p-6 bg-black rounded-lg border border-indigo-500/30 h-full 
-                            backdrop-blur-sm group-hover:border-indigo-400 transition-colors duration-300"
-              >
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300" />
+
+              <div className="relative p-6 bg-black rounded-lg border border-indigo-500/30 h-full backdrop-blur-sm group-hover:border-indigo-400 transition-colors duration-300">
                 <div className="relative mb-4 flex items-center">
-                  <exp.icon className="w-12 h-12 text-indigo-400 p-2" />
+                  <div className="p-3 bg-indigo-500/10 rounded-lg group-hover:bg-indigo-500/20 transition-colors duration-300">
+                    <exp.icon className="w-8 h-8 text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300" />
+                  </div>
                   <div className="ml-4">
                     <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors duration-300">
-                      {exp.company}
+                      {exp.company.split("@")[0]}
+                      {exp.company.includes("@") && (
+                        <span className="text-indigo-400 ml-1">
+                          @{exp.company.split("@")[1]}
+                        </span>
+                      )}
                     </h3>
+                    <div className="flex items-center mt-1 text-gray-400">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      <span className="text-sm">{exp.period}</span>
+                    </div>
                   </div>
                 </div>
+
                 <ul className="space-y-2">
                   {exp.description.map((item, i) => (
                     <motion.li
@@ -55,23 +63,42 @@ export const Experience = () => {
                       initial={{ opacity: 0, x: -10 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1 }}
-                      className="text-gray-300 flex items-start"
+                      className="text-gray-300 flex items-start group/item p-2 rounded-lg hover:bg-indigo-500/10 transition-colors duration-300"
                     >
-                      <motion.span
-                        animate={{
-                          scale: [1, 1.2, 1],
-                          opacity: [0.5, 1, 0.5],
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: i * 0.2,
-                        }}
-                        className="mr-2 text-indigo-400 text-lg"
-                      >
-                        •
-                      </motion.span>
-                      {item}
+                      <ArrowRight className="w-5 h-5 mr-2 text-indigo-400 flex-shrink-0 mt-0.5 group-hover/item:translate-x-1 transition-transform duration-300" />
+                      <span className="group-hover/item:text-gray-200 transition-colors duration-300">
+                        {item.split(" ").map((word, wordIndex) => {
+                          if (
+                            word.match(
+                              /(managed|developed|improved|conducted|organized|enhanced|contributed|maintained|successfully|implemented)/i
+                            )
+                          ) {
+                            return (
+                              <span
+                                key={wordIndex}
+                                className="text-indigo-400 font-semibold"
+                              >
+                                {word}{" "}
+                              </span>
+                            );
+                          } else if (
+                            word.match(
+                              /(technical|community|documentation|frontend|GitHub|codebase|PR|UI|communication)/i
+                            )
+                          ) {
+                            return (
+                              <span
+                                key={wordIndex}
+                                className="text-blue-400 font-medium"
+                              >
+                                {word}{" "}
+                              </span>
+                            );
+                          } else {
+                            return word + " ";
+                          }
+                        })}
+                      </span>
                     </motion.li>
                   ))}
                 </ul>
