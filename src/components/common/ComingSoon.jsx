@@ -39,157 +39,135 @@ const ComingSoon = () => {
             damping: 20,
           }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 200"
+            className="w-full h-full"
+          >
             <defs>
-              <linearGradient id="pageShade" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient
+                id="cardGradient"
+                x1="0%"
+                y1="0%"
+                x2="100%"
+                y2="0%"
+              >
                 <stop
                   offset="0%"
-                  style={{ stopColor: "#6366f1", stopOpacity: 0.2 }}
+                  style={{ stopColor: "#4f46e5", stopOpacity: 1 }}
                 />
                 <stop
                   offset="100%"
-                  style={{ stopColor: "#6366f1", stopOpacity: 0.1 }}
+                  style={{ stopColor: "#6366f1", stopOpacity: 0.8 }}
                 />
               </linearGradient>
-
-              <animate
-                xlinkHref="#page1"
-                attributeName="d"
-                dur="3s"
-                repeatCount="indefinite"
-                values="M 40,40 C 80,40 80,120 40,120 L 40,40;M 40,40 C 120,40 120,120 40,120 L 40,40;M 40,40 C 80,40 80,120 40,120 L 40,40"
-                keyTimes="0; 0.5; 1"
-              />
-
-              <animate
-                xlinkHref="#page2"
-                attributeName="d"
-                dur="3s"
-                begin="0.5s"
-                repeatCount="indefinite"
-                values="M 45,45 C 85,45 85,115 45,115 L 45,45;M 45,45 C 125,45 125,115 45,115 L 45,45;M 45,45 C 85,45 85,115 45,115 L 45,45"
-                keyTimes="0; 0.5; 1"
-              />
-
-              <animate
-                xlinkHref="#page3"
-                attributeName="d"
-                dur="3s"
-                begin="1s"
-                repeatCount="indefinite"
-                values="M 50,50 C 90,50 90,110 50,110 L 50,50;M 50,50 C 130,50 130,110 50,110 L 50,50;M 50,50 C 90,50 90,110 50,110 L 50,50"
-                keyTimes="0; 0.5; 1"
-              />
             </defs>
 
+            {/* Main Card */}
             <rect
-              x="35"
-              y="35"
-              width="130"
-              height="130"
-              rx="5"
-              fill="#4f46e5"
-            />
-            <rect x="35" y="35" width="10" height="130" rx="2" fill="#4338ca" />
-
-            <path id="page3" fill="#f8fafc" opacity="0.9">
-              <animate
-                attributeName="opacity"
-                dur="3s"
-                begin="1s"
-                repeatCount="indefinite"
-                values="0.9;0.3;0.9"
-                keyTimes="0;0.5;1"
-              />
-            </path>
-
-            <path id="page2" fill="#f1f5f9" opacity="0.9">
-              <animate
-                attributeName="opacity"
-                dur="3s"
-                begin="0.5s"
-                repeatCount="indefinite"
-                values="0.9;0.3;0.9"
-                keyTimes="0;0.5;1"
-              />
-            </path>
-
-            <path id="page1" fill="#e2e8f0" opacity="0.9">
-              <animate
-                attributeName="opacity"
-                dur="3s"
-                repeatCount="indefinite"
-                values="0.9;0.3;0.9"
-                keyTimes="0;0.5;1"
-              />
-            </path>
-
-            <g
-              id="bookLines"
-              fill="none"
-              stroke="#6366f1"
-              strokeWidth="1.5"
-              opacity="0.3"
+              x="40"
+              y="40"
+              width="120"
+              height="120"
+              rx="8"
+              fill="url(#cardGradient)"
+              filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
             >
-              <line x1="65" y1="60" x2="145" y2="60">
+              <animate
+                attributeName="y"
+                values="42;38;42"
+                dur="3s"
+                repeatCount="indefinite"
+              />
+            </rect>
+
+            {/* Content Lines */}
+            <g fill="#fff" opacity="0.9">
+              {/* Header */}
+              <rect x="55" y="60" width="60" height="8" rx="4">
                 <animate
-                  attributeName="x2"
+                  attributeName="width"
+                  values="60;65;60"
                   dur="3s"
                   repeatCount="indefinite"
-                  values="145;125;145"
-                  keyTimes="0;0.5;1"
                 />
-              </line>
-              <line x1="65" y1="80" x2="135" y2="80">
-                <animate
-                  attributeName="x2"
-                  dur="3s"
-                  repeatCount="indefinite"
-                  values="135;115;135"
-                  keyTimes="0;0.5;1"
-                />
-              </line>
-              <line x1="65" y1="100" x2="140" y2="100">
-                <animate
-                  attributeName="x2"
-                  dur="3s"
-                  repeatCount="indefinite"
-                  values="140;120;140"
-                  keyTimes="0;0.5;1"
-                />
-              </line>
+              </rect>
+
+              {/* Content Lines */}
+              {[0, 1, 2].map((i) => (
+                <rect
+                  key={i}
+                  x="55"
+                  y={80 + i * 16}
+                  width={90 - i * 10}
+                  height="6"
+                  rx="3"
+                  opacity="0.7"
+                >
+                  <animate
+                    attributeName="width"
+                    values={`${90 - i * 10};${95 - i * 10};${90 - i * 10}`}
+                    dur="3s"
+                    repeatCount="indefinite"
+                    begin={`${i * 0.2}s`}
+                  />
+                </rect>
+              ))}
             </g>
 
-            <g id="sparkles">
-              <circle cx="160" cy="45" r="2" fill="#a5b4fc">
+            {/* Decorative Elements */}
+            <g>
+              {/* Top Right Corner */}
+              <circle cx="145" cy="55" r="3" fill="#fff" opacity="0.5">
                 <animate
                   attributeName="opacity"
+                  values="0.5;0.8;0.5"
                   dur="2s"
                   repeatCount="indefinite"
-                  values="0;1;0"
-                  keyTimes="0;0.5;1"
                 />
               </circle>
-              <circle cx="150" cy="65" r="1.5" fill="#a5b4fc">
+
+              {/* Bottom Left Corner */}
+              <circle cx="55" cy="145" r="3" fill="#fff" opacity="0.5">
                 <animate
                   attributeName="opacity"
+                  values="0.5;0.8;0.5"
                   dur="2s"
-                  begin="0.5s"
                   repeatCount="indefinite"
-                  values="0;1;0"
-                  keyTimes="0;0.5;1"
-                />
-              </circle>
-              <circle cx="155" cy="85" r="2" fill="#a5b4fc">
-                <animate
-                  attributeName="opacity"
-                  dur="2s"
                   begin="1s"
-                  repeatCount="indefinite"
-                  values="0;1;0"
-                  keyTimes="0;0.5;1"
                 />
               </circle>
+            </g>
+
+            {/* Floating Elements */}
+            <g>
+              {[...Array(3)].map((_, i) => (
+                <rect
+                  key={i}
+                  x={160}
+                  y={70 + i * 25}
+                  width="4"
+                  height="4"
+                  rx="1"
+                  fill="#fff"
+                  opacity="0.6"
+                >
+                  <animate
+                    attributeName="x"
+                    values="160;165;160"
+                    dur="3s"
+                    begin={`${i * 0.3}s`}
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="0.6;0.9;0.6"
+                    dur="3s"
+                    begin={`${i * 0.3}s`}
+                    repeatCount="indefinite"
+                  />
+                </rect>
+              ))}
             </g>
           </svg>
         </motion.div>
