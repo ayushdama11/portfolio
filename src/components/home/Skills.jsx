@@ -110,7 +110,7 @@ export const Skills = () => {
   return (
     <section className="py-20 relative bg-black">
       <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/1 via-black to-black" />
-      <div className="relativ bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)]" />
 
       <motion.div
         variants={containerVariants}
