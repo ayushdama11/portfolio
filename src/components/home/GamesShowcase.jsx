@@ -1,10 +1,41 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Play, ArrowRight } from "lucide-react";
+import {
+  Play,
+  ArrowRight,
+  Gamepad2,
+  Sparkles,
+  Palette,
+  Keyboard,
+  Joystick,
+  Dot,
+  DotSquareIcon,
+  Dock,
+  BoxIcon,
+  AlignRight,
+} from "lucide-react";
 import { games } from "../../constants/gamesData";
+
+// Define consistent icon sizes
+const ICON_SIZES = {
+  large: "w-6 h-6",    // Main feature icons
+  medium: "w-15 h-15",   // Secondary icons
+  small: "w-4 h-4"     // Decorative icons
+};
 
 export const GamesShowcase = () => {
   const navigate = useNavigate();
+
+  const getGameIcon = (index) => {
+    switch (index) {
+      case 0:
+        return <Palette className={`${ICON_SIZES.medium} text-indigo-400`} />;
+      case 1:
+        return <Keyboard className={`${ICON_SIZES.medium} text-indigo-400`} />;
+      default:
+        return <Gamepad2 className={`${ICON_SIZES.medium} text-indigo-400`} />;
+    }
+  };
 
   return (
     <section className="py-20 relative bg-black">
@@ -43,23 +74,27 @@ export const GamesShowcase = () => {
                             hover:shadow-[0_0_30px_-5px] hover:shadow-indigo-500/20"
               >
                 <div className="flex items-center justify-between mb-6">
-                  <h3
-                    className="text-xl font-bold text-white group-hover:text-indigo-400 
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 bg-indigo-500/10 rounded-lg">
+                      {getGameIcon(index)}
+                    </div>
+                    <h3
+                      className="text-xl font-bold text-white group-hover:text-indigo-400 
                                transition-colors duration-300 flex items-center"
-                  >
-                    {game.title}
-                  </h3>
+                    >
+                      {game.title}
+                    </h3>
+                  </div>
 
-                  {/* Action Buttons */}
                   <motion.button
                     onClick={() => navigate(game.path)}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    className="p-2 bg-indigo-500/10 border border-indigo-500/30 rounded-lg
+                    className="p-2.5 bg-indigo-500/10 border border-indigo-500/30 rounded-lg
                                text-indigo-400 hover:bg-indigo-500/20 hover:border-indigo-400
                                transition-all duration-300 group/play"
                   >
-                    <Play className="w-5 h-5" />
+                    <Play className={ICON_SIZES.medium} />
                     <motion.div
                       className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap
                                  bg-black/80 text-xs px-2 py-1 rounded opacity-0 group-hover/play:opacity-100
@@ -72,45 +107,48 @@ export const GamesShowcase = () => {
 
                 <div className="space-y-4 mb-6">
                   {game.description.map((desc, i) => (
-                    <motion.p
+                    <motion.div
                       key={i}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 + i * 0.1 }}
-                      className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
+                      className="flex items-start gap-2.5"
                     >
-                      {desc.split(" ").map((word, wordIndex) => {
-                        if (
-                          word.match(
-                            /(built|created|designed|developed|implemented|featuring|using|powered)/i
-                          )
-                        ) {
-                          return (
-                            <span
-                              key={wordIndex}
-                              className="text-indigo-400 font-semibold"
-                            >
-                              {word}{" "}
-                            </span>
-                          );
-                        } else if (
-                          word.match(
-                            /(React|Node\.js|WebGL|Three\.js|Socket\.IO|JavaScript|TypeScript|multiplayer)/i
-                          )
-                        ) {
-                          return (
-                            <span
-                              key={wordIndex}
-                              className="text-blue-400 font-medium"
-                            >
-                              {word}{" "}
-                            </span>
-                          );
-                        } else {
-                          return word + " ";
-                        }
-                      })}
-                    </motion.p>
+                      <AlignRight className={`${ICON_SIZES.small} text-indigo-400 mt-1 flex-shrink-0`} />
+                      <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
+                        {desc.split(" ").map((word, wordIndex) => {
+                          if (
+                            word.match(
+                              /(built|created|designed|developed|implemented|featuring|using|powered)/i
+                            )
+                          ) {
+                            return (
+                              <span
+                                key={wordIndex}
+                                className="text-indigo-400 font-semibold"
+                              >
+                                {word}{" "}
+                              </span>
+                            );
+                          } else if (
+                            word.match(
+                              /(React|Node\.js|WebGL|Three\.js|Socket\.IO|JavaScript|TypeScript|multiplayer)/i
+                            )
+                          ) {
+                            return (
+                              <span
+                                key={wordIndex}
+                                className="text-blue-400 font-medium"
+                              >
+                                {word}{" "}
+                              </span>
+                            );
+                          } else {
+                            return word + " ";
+                          }
+                        })}
+                      </p>
+                    </motion.div>
                   ))}
                 </div>
 
@@ -127,8 +165,13 @@ export const GamesShowcase = () => {
                       className="px-3 py-1 text-sm text-indigo-400 border border-indigo-500/30 
                                rounded-full bg-indigo-500/10 hover:bg-indigo-500/20 
                                transition-all duration-300 cursor-default
-                               hover:border-indigo-400"
+                               hover:border-indigo-400 flex items-center gap-1.5"
                     >
+                      {index === 0 ? (
+                        <Palette className={`${ICON_SIZES.small} text-indigo-400`} />
+                      ) : (
+                        <Keyboard className={`${ICON_SIZES.small} text-indigo-400`} />
+                      )}
                       {tech}
                     </motion.span>
                   ))}
@@ -156,7 +199,6 @@ export const GamesShowcase = () => {
                      inline-flex items-center gap-3 group"
           >
             <span className="font-medium">Explore All Games</span>
-
             <div className="relative">
               <motion.div
                 className="absolute inset-0 bg-indigo-500/20 rounded-full blur-md"
@@ -170,7 +212,7 @@ export const GamesShowcase = () => {
                   ease: "easeInOut",
                 }}
               />
-              <ArrowRight className="w-5 h-5 relative group-hover:translate-x-1 transition-transform duration-300" />
+              <ArrowRight className={`${ICON_SIZES.medium} relative group-hover:translate-x-1 transition-transform duration-300`} />
             </div>
           </motion.button>
         </motion.div>
