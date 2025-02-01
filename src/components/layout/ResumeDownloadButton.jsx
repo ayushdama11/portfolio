@@ -79,13 +79,12 @@ const ResumeDownloadButton = () => {
     } catch (error) {
       if (error.name === "AbortError") {
         setDownloadStatus("cancelled");
-      } else if (!downloadStatus) { // Only set error status if not already set
+      } else if (!downloadStatus) {
         setDownloadStatus("error");
         console.error("Download error:", error);
       }
     } finally {
       setIsLoading(false);
-      // Only clear the status if it's success or cancelled
       if (downloadStatus !== "error") {
         setTimeout(() => setDownloadStatus(null), 3000);
       }
@@ -101,7 +100,7 @@ const ResumeDownloadButton = () => {
   return (
     <>
       <motion.div
-        className="fixed top-6 left-6 z-50"
+        className="fixed top-4 sm:top-6 left-4 sm:left-6 z-50"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5, delay: 0.8 }}
@@ -116,13 +115,13 @@ const ResumeDownloadButton = () => {
           whileTap={{ scale: 0.98 }}
         >
           <motion.div
-            className={`relative flex items-center gap-2 rounded-lg 
+            className={`relative flex items-center gap-1 sm:gap-2 rounded-lg 
                        bg-black/80 backdrop-blur-sm 
                        border border-indigo-500/10 
                        shadow-lg shadow-indigo-500/20 
                        hover:border-indigo-400 
                        transition-all duration-300
-                       ${isCompact ? "px-3 py-2" : "px-4 py-2.5"}`}
+                       ${isCompact ? "px-2 sm:px-3 py-1.5 sm:py-2" : "px-3 sm:px-4 py-2 sm:py-2.5"}`}
             animate={{
               width: isCompact ? "auto" : "100%",
             }}
@@ -133,14 +132,14 @@ const ResumeDownloadButton = () => {
                   opacity: isHovered ? 1 : 0.7,
                   scale: isHovered ? 1.1 : 1,
                 }}
-                className="font-mono text-indigo-400 origin-center"
+                className="font-mono text-sm sm:text-base text-indigo-400 origin-center"
               >
                 $
               </motion.div>
             )}
 
             {!isCompact && (
-              <div className="flex items-center gap-2 font-mono">
+              <div className="flex items-center gap-1 sm:gap-2 font-mono text-sm sm:text-base">
                 <motion.span
                   className="hidden sm:block text-indigo-400 transition-colors"
                   animate={{
@@ -164,34 +163,34 @@ const ResumeDownloadButton = () => {
             )}
 
             <motion.div
-              className="flex items-center gap-2"
+              className="flex items-center gap-1 sm:gap-2"
               animate={{
                 opacity: isHovered ? 1 : 0.7,
               }}
             >
               {isLoading ? (
                 <div className="relative">
-                  <Loader className="w-4 h-4 text-indigo-400 animate-spin" />
+                  <Loader className="w-3 sm:w-4 h-3 sm:h-4 text-indigo-400 animate-spin" />
                   {downloadProgress > 0 && (
                     <motion.div
                       className="absolute inset-0 text-xs text-center flex items-center justify-center"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                     >
-                      <span className="text-[10px] text-indigo-300">
+                      <span className="text-[8px] sm:text-[10px] text-indigo-300">
                         {downloadProgress}%
                       </span>
                     </motion.div>
                   )}
                 </div>
               ) : (
-                <FileDown className="w-4 h-4 text-indigo-400" />
+                <FileDown className="w-3 sm:w-4 h-3 sm:h-4 text-indigo-400" />
               )}
             </motion.div>
 
             {!isCompact && (
               <motion.div
-                className="w-2 h-4 bg-indigo-400 rounded-full"
+                className="w-1.5 sm:w-2 h-3 sm:h-4 bg-indigo-400 rounded-full"
                 animate={{
                   opacity: [1, 0],
                   scale: [1, 0.8, 1],
@@ -219,13 +218,13 @@ const ResumeDownloadButton = () => {
               onClick={handleCancelDownload}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="absolute -right-10 top-1/2 transform -translate-y-1/2 
+              className="absolute -right-8 sm:-right-10 top-1/2 transform -translate-y-1/2 
                          bg-red-500/20 hover:bg-red-500/30 
-                         p-1.5 rounded-full 
+                         p-1 sm:p-1.5 rounded-full 
                          text-red-400 hover:text-red-300
                          transition-all duration-300"
             >
-              <XCircle className="w-4 h-4" />
+              <XCircle className="w-3 sm:w-4 h-3 sm:h-4" />
             </motion.button>
           )}
         </motion.button>
@@ -237,8 +236,8 @@ const ResumeDownloadButton = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className={`fixed top-20 left-6 z-50 px-4 py-2 rounded-lg font-mono
-                       backdrop-blur-sm border flex items-center gap-2
+            className={`fixed top-16 sm:top-20 left-4 sm:left-6 z-50 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg font-mono text-sm sm:text-base
+                       backdrop-blur-sm border flex items-center gap-1 sm:gap-2
                        ${
                          downloadStatus === "success"
                            ? "border-green-500/30 text-green-400 bg-green-500/10"
@@ -250,18 +249,18 @@ const ResumeDownloadButton = () => {
             <span className="opacity-70">$</span>
             {downloadStatus === "success" ? (
               <>
-                <CheckCircle className="w-4 h-4" />
+                <CheckCircle className="w-3 sm:w-4 h-3 sm:h-4" />
                 <span>Download complete</span>
-                <Download className="w-3 h-3 ml-2 opacity-50" />
+                <Download className="w-2.5 sm:w-3 h-2.5 sm:h-3 ml-1.5 sm:ml-2 opacity-50" />
               </>
             ) : downloadStatus === "error" ? (
               <>
-                <XCircle className="w-4 h-4" />
+                <XCircle className="w-3 sm:w-4 h-3 sm:h-4" />
                 <span>Download failed</span>
               </>
             ) : downloadStatus === "cancelled" && (
               <>
-                <Terminal className="w-4 h-4" />
+                <Terminal className="w-3 sm:w-4 h-3 sm:h-4" />
                 <span>Download cancelled</span>
               </>
             )}
