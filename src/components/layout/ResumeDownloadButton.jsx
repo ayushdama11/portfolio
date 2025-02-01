@@ -1,13 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  FileDown,
-  CheckCircle,
-  XCircle,
-  Loader,
-  Terminal,
-  Download,
-} from "lucide-react";
-import { useState, useCallback, useRef, useEffect } from "react";
+import { FileDown, CheckCircle, Loader, Download } from "lucide-react";
+import { useState, useCallback, useEffect } from "react";
 
 const ResumeDownloadButton = () => {
   const [downloadStatus, setDownloadStatus] = useState(null);
@@ -15,7 +8,6 @@ const ResumeDownloadButton = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [isCompact, setIsCompact] = useState(false);
-  const abortControllerRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,20 +20,14 @@ const ResumeDownloadButton = () => {
   }, []);
 
   const handleDownload = useCallback(async () => {
-    abortControllerRef.current = new AbortController();
-    const { signal } = abortControllerRef.current;
-
     setIsLoading(true);
     setDownloadProgress(0);
 
     try {
       const resumeUrl = "Ashparsh.pdf";
-      const response = await fetch(resumeUrl, { signal });
+      const response = await fetch(resumeUrl);
 
-      if (!response.ok) {
-        setDownloadStatus("error");
-        throw new Error("Download failed");
-      }
+      if (!response.ok) throw new Error("Download failed");
 
       const contentLength = response.headers.get("Content-Length");
       const totalSize = contentLength ? parseInt(contentLength, 10) : 0;
@@ -51,7 +37,6 @@ const ResumeDownloadButton = () => {
 
       while (true) {
         const { done, value } = await reader.read();
-
         if (done) break;
 
         chunks.push(value);
@@ -76,24 +61,11 @@ const ResumeDownloadButton = () => {
       window.URL.revokeObjectURL(url);
 
       setDownloadStatus("success");
+      setTimeout(() => setDownloadStatus(null), 3000);
     } catch (error) {
-      if (error.name === "AbortError") {
-        setDownloadStatus("cancelled");
-      } else if (!downloadStatus) {
-        setDownloadStatus("error");
-        console.error("Download error:", error);
-      }
+      console.error("Download error:", error);
     } finally {
       setIsLoading(false);
-      if (downloadStatus !== "error") {
-        setTimeout(() => setDownloadStatus(null), 3000);
-      }
-    }
-  }, [downloadStatus]);
-
-  const handleCancelDownload = useCallback(() => {
-    if (abortControllerRef.current) {
-      abortControllerRef.current.abort();
     }
   }, []);
 
@@ -121,7 +93,11 @@ const ResumeDownloadButton = () => {
                        shadow-lg shadow-indigo-500/20 
                        hover:border-indigo-400 
                        transition-all duration-300
-                       ${isCompact ? "px-2 sm:px-3 py-1.5 sm:py-2" : "px-3 sm:px-4 py-2 sm:py-2.5"}`}
+                       ${
+                         isCompact
+                           ? "px-2 sm:px-3 py-1.5 sm:py-2"
+                           : "px-3 sm:px-4 py-2 sm:py-2.5"
+                       }`}
             animate={{
               width: isCompact ? "auto" : "100%",
             }}
@@ -212,58 +188,26 @@ const ResumeDownloadButton = () => {
             }}
             transition={{ duration: 0.2 }}
           />
-
-          {isLoading && (
-            <motion.button
-              onClick={handleCancelDownload}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="absolute -right-8 sm:-right-10 top-1/2 transform -translate-y-1/2 
-                         bg-red-500/20 hover:bg-red-500/30 
-                         p-1 sm:p-1.5 rounded-full 
-                         text-red-400 hover:text-red-300
-                         transition-all duration-300"
-            >
-              <XCircle className="w-3 sm:w-4 h-3 sm:h-4" />
-            </motion.button>
-          )}
         </motion.button>
       </motion.div>
 
       <AnimatePresence>
-        {downloadStatus && (
+        {downloadStatus === "success" && (
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className={`fixed top-16 sm:top-20 left-4 sm:left-6 z-50 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg font-mono text-sm sm:text-base
-                       backdrop-blur-sm border flex items-center gap-1 sm:gap-2
-                       ${
-                         downloadStatus === "success"
-                           ? "border-green-500/30 text-green-400 bg-green-500/10"
-                           : downloadStatus === "error"
-                           ? "border-red-500/30 text-red-400 bg-red-500/10"
-                           : "border-yellow-500/30 text-yellow-400 bg-yellow-500/10"
-                       }`}
+            className="fixed top-16 sm:top-20 left-4 sm:left-6 z-50 
+                      px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg 
+                      font-mono text-sm sm:text-base
+                      backdrop-blur-sm border
+                      border-green-500/30 text-green-400 bg-green-500/10
+                      flex items-center gap-1 sm:gap-2"
           >
             <span className="opacity-70">$</span>
-            {downloadStatus === "success" ? (
-              <>
-                <CheckCircle className="w-3 sm:w-4 h-3 sm:h-4" />
-                <span>Download complete</span>
-                <Download className="w-2.5 sm:w-3 h-2.5 sm:h-3 ml-1.5 sm:ml-2 opacity-50" />
-              </>
-            ) : downloadStatus === "error" ? (
-              <>
-                <XCircle className="w-3 sm:w-4 h-3 sm:h-4" />
-                <span>Download failed</span>
-              </>
-            ) : downloadStatus === "cancelled" && (
-              <>
-                <Terminal className="w-3 sm:w-4 h-3 sm:h-4" />
-                <span>Download cancelled</span>
-              </>
-            )}
+            <CheckCircle className="w-3 sm:w-4 h-3 sm:h-4" />
+            <span>Download complete</span>
+            <Download className="w-2.5 sm:w-3 h-2.5 sm:h-3 ml-1.5 sm:ml-2 opacity-50" />
           </motion.div>
         )}
       </AnimatePresence>
