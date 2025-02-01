@@ -21,8 +21,8 @@ export const GameCard = ({ game, onClick }) => (
         <div className="flex items-center">
           <game.icon className="w-12 h-12 text-indigo-400 p-2" />
           <h3
-            className="ml-4 text-xl font-bold text-indigo-400 
-                        group-hover:text-indigo-300 transition-colors duration-300"
+            className="ml-4 text-xl font-bold text-white
+ group-hover:text-indigo-300 transition-colors duration-300"
           >
             {game.title}
           </h3>
