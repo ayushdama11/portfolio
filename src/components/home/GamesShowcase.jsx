@@ -4,23 +4,17 @@ import {
   Play,
   ArrowRight,
   Gamepad2,
-  Sparkles,
   Palette,
   Keyboard,
-  Joystick,
-  Dot,
-  DotSquareIcon,
-  Dock,
-  BoxIcon,
   AlignRight,
 } from "lucide-react";
 import { games } from "../../constants/gamesData";
 
-// Define consistent icon sizes
 const ICON_SIZES = {
-  large: "w-6 h-6",    // Main feature icons
-  medium: "w-15 h-15",   // Secondary icons
-  small: "w-4 h-4"     // Decorative icons
+  large: "w-6 h-6",
+  medium: "w-7 h-7",
+  small: "w-5 h-5",
+  extrasmall: "w-4 h-4",
 };
 
 export const GamesShowcase = () => {
@@ -94,7 +88,7 @@ export const GamesShowcase = () => {
                                text-indigo-400 hover:bg-indigo-500/20 hover:border-indigo-400
                                transition-all duration-300 group/play"
                   >
-                    <Play className={ICON_SIZES.medium} />
+                    <Play className={ICON_SIZES.small} />
                     <motion.div
                       className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap
                                  bg-black/80 text-xs px-2 py-1 rounded opacity-0 group-hover/play:opacity-100
@@ -105,7 +99,7 @@ export const GamesShowcase = () => {
                   </motion.button>
                 </div>
 
-                <div className="space-y-4 mb-6">
+                <div className="space-y-4 mb-6 px-3">
                   {game.description.map((desc, i) => (
                     <motion.div
                       key={i}
@@ -114,7 +108,9 @@ export const GamesShowcase = () => {
                       transition={{ delay: index * 0.1 + i * 0.1 }}
                       className="flex items-start gap-2.5"
                     >
-                      <AlignRight className={`${ICON_SIZES.small} text-indigo-400 mt-1 flex-shrink-0`} />
+                      <AlignRight
+                        className={`${ICON_SIZES.extrasmall} text-indigo-400 mt-1 flex-shrink-0`}
+                      />
                       <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
                         {desc.split(" ").map((word, wordIndex) => {
                           if (
@@ -168,9 +164,13 @@ export const GamesShowcase = () => {
                                hover:border-indigo-400 flex items-center gap-1.5"
                     >
                       {index === 0 ? (
-                        <Palette className={`${ICON_SIZES.small} text-indigo-400`} />
+                        <Palette
+                          className={`${ICON_SIZES.small} text-indigo-400`}
+                        />
                       ) : (
-                        <Keyboard className={`${ICON_SIZES.small} text-indigo-400`} />
+                        <Keyboard
+                          className={`${ICON_SIZES.small} text-indigo-400`}
+                        />
                       )}
                       {tech}
                     </motion.span>
@@ -212,7 +212,9 @@ export const GamesShowcase = () => {
                   ease: "easeInOut",
                 }}
               />
-              <ArrowRight className={`${ICON_SIZES.medium} relative group-hover:translate-x-1 transition-transform duration-300`} />
+              <ArrowRight
+                className={`${ICON_SIZES.medium} relative group-hover:translate-x-1 transition-transform duration-300`}
+              />
             </div>
           </motion.button>
         </motion.div>
