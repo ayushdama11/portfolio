@@ -153,11 +153,10 @@ export const Hero = () => {
         >
           <div className="w-32 h-32 mx-auto mb-8 relative group">
             <motion.div
-              className="absolute inset-0 border-4 border-indigo-500 rounded-2xl 
-                         group-hover:border-purple-500 transition-all duration-300"
+              className="absolute inset-0 border-4 rounded-2xl transition-colors duration-700"
               animate={{
                 rotate: 360,
-                scale: [1, 1.1, 1],
+                scale: [1, 1.08, 1],
                 borderColor: [
                   "rgba(99, 102, 241, 1)",
                   "rgba(124, 58, 237, 1)",
@@ -165,14 +164,19 @@ export const Hero = () => {
                 ],
               }}
               transition={{
-                duration: 3,
+                duration: 5,
                 repeat: Infinity,
-                ease: "linear",
+                ease: "easeInOut",
+                scale: {
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                },
               }}
             />
             <Terminal
               className="w-full h-full text-indigo-400 relative z-10 
-                         group-hover:text-purple-400 transition-colors"
+                   group-hover:text-purple-400 transition-colors duration-700 p-4"
             />
           </div>
         </motion.div>
