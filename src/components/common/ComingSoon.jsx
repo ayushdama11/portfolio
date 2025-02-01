@@ -188,8 +188,8 @@ const ComingSoon = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            We're crafting something amazing. Stay tuned for thought-provoking
-            articles and insights.
+            Sharing my journey, experiences, and insights in software
+            development and design. Stay tuned!
           </motion.p>
         </div>
 
