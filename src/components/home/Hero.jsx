@@ -151,7 +151,7 @@ export const Hero = () => {
           }}
           className="mb-12"
         >
-          <div className="w-32 h-32 mx-auto mb-8 relative group">
+          <div className="w-28 h-28 sm:w-32 sm:h-32   mx-auto mb-8 relative group">
             <motion.div
               className="absolute inset-0 border-4 rounded-2xl transition-colors duration-700"
               animate={{
@@ -199,7 +199,7 @@ export const Hero = () => {
             {name.first}
           </h1>
           <h1
-            className="text-5xl font-black"
+            className="text-6xl font-black"
             style={{
               fontFamily: "'Montserrat', sans-serif",
               background: "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)",
@@ -236,7 +236,7 @@ export const Hero = () => {
         >
           {/* First Name */}
           <motion.div
-            className="text-7xl md:text-8xl font-black mb-2 relative"
+            className="text-7xl md:text-7xl font-black mb-2 relative"
             style={{
               clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
             }}
@@ -272,7 +272,7 @@ export const Hero = () => {
 
           {/* Last Name */}
           <motion.div
-            className="text-7xl md:text-8xl font-black relative"
+            className="text-7xl md:text-7xl font-black relative"
             style={{
               fontFamily: "'Montserrat', sans-serif",
               letterSpacing: "0.1em",
