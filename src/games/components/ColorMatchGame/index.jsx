@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trophy, RefreshCcw, ArrowLeft, Palette, Loader } from "lucide-react";
+import { Trophy, RefreshCcw, ArrowLeft, Palette } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../../components/common/BackButton";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 const ColorBox = ({ color, label }) => (
   <div className="flex flex-col items-center gap-2">
@@ -76,7 +77,7 @@ export const ColorMatchGame = () => {
   if (isLoading) {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center">
-        <Loader className="w-12 h-12 text-indigo-400 animate-spin" />
+        <LoadingSpinner text="Loading..." />
       </div>
     );
   }

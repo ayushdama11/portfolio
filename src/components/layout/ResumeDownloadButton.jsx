@@ -1,6 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { FileDown, CheckCircle, XCircle, Loader, Terminal, Download } from "lucide-react";
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import {
+  FileDown,
+  CheckCircle,
+  XCircle,
+  Loader,
+  Terminal,
+  Download,
+} from "lucide-react";
+import { useState, useCallback, useRef, useEffect } from "react";
 
 const ResumeDownloadButton = () => {
   const [downloadStatus, setDownloadStatus] = useState(null);
@@ -18,8 +25,8 @@ const ResumeDownloadButton = () => {
       setIsCompact(window.scrollY > heroHeight * 0.8); // Switch slightly before reaching the end
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleDownload = useCallback(async () => {
@@ -33,10 +40,10 @@ const ResumeDownloadButton = () => {
     try {
       const resumeUrl = "Ashparsh.pdf";
       const response = await fetch(resumeUrl, { signal });
-      
-      if (!response.ok) throw new Error('Download failed');
-      
-      const contentLength = response.headers.get('Content-Length');
+
+      if (!response.ok) throw new Error("Download failed");
+
+      const contentLength = response.headers.get("Content-Length");
       const totalSize = contentLength ? parseInt(contentLength, 10) : 0;
       const reader = response.body.getReader();
       const chunks = [];
@@ -44,12 +51,12 @@ const ResumeDownloadButton = () => {
 
       while (true) {
         const { done, value } = await reader.read();
-        
+
         if (done) break;
-        
+
         chunks.push(value);
         receivedLength += value.length;
-        
+
         if (totalSize > 0) {
           const progress = Math.round((receivedLength / totalSize) * 100);
           setDownloadProgress(progress);
@@ -61,20 +68,20 @@ const ResumeDownloadButton = () => {
       const link = document.createElement("a");
       link.href = url;
       link.download = "Ashparsh_Pandey_Resume.pdf";
-      
+
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       window.URL.revokeObjectURL(url);
-      
-      setDownloadStatus('success');
+
+      setDownloadStatus("success");
     } catch (error) {
-      if (error.name === 'AbortError') {
-        setDownloadStatus('cancelled');
+      if (error.name === "AbortError") {
+        setDownloadStatus("cancelled");
       } else {
-        setDownloadStatus('error');
-        console.error('Download error:', error);
+        setDownloadStatus("error");
+        console.error("Download error:", error);
       }
     } finally {
       setIsLoading(false);
@@ -112,9 +119,9 @@ const ResumeDownloadButton = () => {
                        shadow-lg shadow-indigo-500/20 
                        hover:border-indigo-400 
                        transition-all duration-300
-                       ${isCompact ? 'px-3 py-2' : 'px-4 py-2.5'}`}
+                       ${isCompact ? "px-3 py-2" : "px-4 py-2.5"}`}
             animate={{
-              width: isCompact ? 'auto' : '100%',
+              width: isCompact ? "auto" : "100%",
             }}
           >
             {!isCompact && (
@@ -128,14 +135,14 @@ const ResumeDownloadButton = () => {
                 $
               </motion.div>
             )}
-            
+
             {!isCompact && (
               <div className="flex items-center gap-2 font-mono">
                 <motion.span
-                  className="text-indigo-400 transition-colors"
+                  className="hidden sm:block text-indigo-400 transition-colors"
                   animate={{
                     opacity: isHovered ? 1 : 0.7,
-                    color: isHovered ? '#6366f1' : '#6366f1',
+                    color: isHovered ? "#6366f1" : "#6366f1",
                   }}
                 >
                   download
@@ -144,10 +151,11 @@ const ResumeDownloadButton = () => {
                   className="text-purple-400 transition-colors"
                   animate={{
                     opacity: isHovered ? 1 : 0.7,
-                    color: isHovered ? '#a855f7' : '#a855f7',
+                    color: isHovered ? "#a855f7" : "#a855f7",
                   }}
                 >
-                  --resume
+                  <span className="sm:hidden">resume</span>
+                  <span className="hidden sm:inline">--resume</span>
                 </motion.span>
               </div>
             )}
@@ -162,7 +170,7 @@ const ResumeDownloadButton = () => {
                 <div className="relative">
                   <Loader className="w-4 h-4 text-indigo-400 animate-spin" />
                   {downloadProgress > 0 && (
-                    <motion.div 
+                    <motion.div
                       className="absolute inset-0 text-xs text-center flex items-center justify-center"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -228,20 +236,22 @@ const ResumeDownloadButton = () => {
             exit={{ opacity: 0, x: -20 }}
             className={`fixed top-20 left-6 z-50 px-4 py-2 rounded-lg font-mono
                        backdrop-blur-sm border flex items-center gap-2
-                       ${downloadStatus === 'success' 
-                         ? 'border-green-500/30 text-green-400 bg-green-500/10' 
-                         : downloadStatus === 'error'
-                         ? 'border-red-500/30 text-red-400 bg-red-500/10'
-                         : 'border-yellow-500/30 text-yellow-400 bg-yellow-500/10'}`}
+                       ${
+                         downloadStatus === "success"
+                           ? "border-green-500/30 text-green-400 bg-green-500/10"
+                           : downloadStatus === "error"
+                           ? "border-red-500/30 text-red-400 bg-red-500/10"
+                           : "border-yellow-500/30 text-yellow-400 bg-yellow-500/10"
+                       }`}
           >
             <span className="opacity-70">$</span>
-            {downloadStatus === 'success' ? (
+            {downloadStatus === "success" ? (
               <>
                 <CheckCircle className="w-4 h-4" />
                 <span>Download complete</span>
                 <Download className="w-3 h-3 ml-2 opacity-50" />
               </>
-            ) : downloadStatus === 'error' ? (
+            ) : downloadStatus === "error" ? (
               <>
                 <XCircle className="w-4 h-4" />
                 <span>Download failed</span>

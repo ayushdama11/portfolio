@@ -1,21 +1,25 @@
 // src/games/SlidingPuzzle/SlidingPuzzle.jsx
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Grid, RefreshCcw, Timer, Trophy, Loader } from 'lucide-react';
-import { BackButton } from '../../../components/common/BackButton';
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Grid, RefreshCcw, Timer, Trophy } from "lucide-react";
+import { BackButton } from "../../../components/common/BackButton";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 const GRID_SIZE = 4;
 
 const createInitialBoard = () => {
-  const numbers = Array.from({ length: GRID_SIZE * GRID_SIZE - 1 }, (_, i) => i + 1);
+  const numbers = Array.from(
+    { length: GRID_SIZE * GRID_SIZE - 1 },
+    (_, i) => i + 1
+  );
   numbers.push(null); // Empty tile
-  
+
   // Shuffle the board (ensuring it's solvable)
   for (let i = numbers.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
   }
-  
+
   return numbers;
 };
 
@@ -74,7 +78,10 @@ export const SlidingPuzzle = () => {
       (Math.abs(col - emptyCol) === 1 && row === emptyRow)
     ) {
       const newBoard = [...board];
-      [newBoard[index], newBoard[emptyIndex]] = [newBoard[emptyIndex], newBoard[index]];
+      [newBoard[index], newBoard[emptyIndex]] = [
+        newBoard[emptyIndex],
+        newBoard[index],
+      ];
       setBoard(newBoard);
       setMoves((moves) => moves + 1);
 
@@ -88,7 +95,7 @@ export const SlidingPuzzle = () => {
   if (isLoading) {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center">
-        <Loader className="w-12 h-12 text-indigo-400 animate-spin" />
+        <LoadingSpinner text="Loading..." />
       </div>
     );
   }
@@ -107,7 +114,7 @@ export const SlidingPuzzle = () => {
           <div className="flex items-center gap-2">
             <Timer className="text-indigo-400" />
             <span className="text-white font-mono text-xl">
-              {Math.floor(timer / 60)}:{String(timer % 60).padStart(2, '0')}
+              {Math.floor(timer / 60)}:{String(timer % 60).padStart(2, "0")}
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -119,12 +126,13 @@ export const SlidingPuzzle = () => {
         <div className="grid grid-cols-4 gap-2 max-w-md mx-auto mb-8">
           {board.map((number, index) => (
             <motion.button
-              key={number || 'empty'}
+              key={number || "empty"}
               onClick={() => handleTileClick(index)}
               className={`w-full aspect-square rounded-lg text-2xl font-bold
-                        ${number 
-                          ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
-                          : 'bg-gray-900'
+                        ${
+                          number
+                            ? "bg-indigo-600 hover:bg-indigo-700 text-white"
+                            : "bg-gray-900"
                         } transition-colors`}
               whileHover={{ scale: number ? 1.05 : 1 }}
               whileTap={{ scale: number ? 0.95 : 1 }}
@@ -160,11 +168,10 @@ export const SlidingPuzzle = () => {
                   Puzzle Solved!
                 </h2>
                 <p className="text-xl text-indigo-400 mb-2">
-                  Time: {Math.floor(timer / 60)}:{String(timer % 60).padStart(2, '0')}
+                  Time: {Math.floor(timer / 60)}:
+                  {String(timer % 60).padStart(2, "0")}
                 </p>
-                <p className="text-xl text-indigo-400 mb-6">
-                  Moves: {moves}
-                </p>
+                <p className="text-xl text-indigo-400 mb-6">Moves: {moves}</p>
                 <button
                   onClick={startNewGame}
                   className="px-6 py-3 bg-indigo-600 text-white rounded-lg

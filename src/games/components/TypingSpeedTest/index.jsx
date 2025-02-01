@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Timer,
-  Award,
-  RefreshCcw,
-  ArrowLeft,
-  Keyboard,
-  Loader,
-} from "lucide-react";
+import { Timer, Award, RefreshCcw, ArrowLeft, Keyboard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../../components/common/BackButton";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 const sampleTexts = [
   "The quick brown fox jumps over the lazy dog.",
@@ -87,7 +81,7 @@ export const TypingSpeedTest = () => {
   if (isLoading) {
     return (
       <div className="fixed inset-0 bg-black flex items-center justify-center">
-        <Loader className="w-12 h-12 text-indigo-400 animate-spin" />
+        <LoadingSpinner text="Loading..." />
       </div>
     );
   }
