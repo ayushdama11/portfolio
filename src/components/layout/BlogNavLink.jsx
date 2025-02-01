@@ -138,7 +138,7 @@ export const BlogNavLink = () => {
               {[0, 1, 2].map((i) => (
                 <motion.div
                   key={i}
-                  className="relative w-1.5 h-1.5"
+                  className="relative w-1.5 h-1.5 hidden sm:inline"
                   animate={{
                     scale: [1, 1.2, 1],
                     opacity: [0.7, 1, 0.7],
