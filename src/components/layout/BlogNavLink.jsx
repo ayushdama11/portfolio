@@ -18,7 +18,7 @@ export const BlogNavLink = () => {
 
   return (
     <motion.div
-      className="fixed top-6 right-6 z-50"
+      className="fixed top-4 sm:top-6 right-4 sm:right-6 z-50"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 1 }}
@@ -27,20 +27,21 @@ export const BlogNavLink = () => {
         onClick={() => navigate("/blog")}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`relative group flex items-center gap-3
+        className={`relative group flex items-center gap-2 sm:gap-3
           bg-black/95 border border-indigo-950 backdrop-blur-md
           shadow-lg shadow-indigo-950/20
           hover:shadow-indigo-900/30 hover:border-indigo-900/60
           transition-all duration-300 overflow-hidden
           ${
-            isCompact ? "p-2.5 rounded-[1.2rem]" : "px-5 py-3 rounded-[1.2rem]"
+            isCompact 
+              ? "p-2 sm:p-2.5 rounded-lg sm:rounded-[1.2rem]" 
+              : "px-4 sm:px-5 py-2 sm:py-3 rounded-lg sm:rounded-[1.2rem]"
           }`}
       >
         {/* Decorative shapes background */}
-        <div className="absolute inset-0 overflow-hidden opacity-30">
-          {/* Hexagon grid pattern */}
+        <div className="absolute inset-0 overflow-hidden opacity-20 sm:opacity-30">
           <motion.div
-            className="absolute inset-0 grid grid-cols-3 gap-2"
+            className="absolute inset-0 grid grid-cols-2 sm:grid-cols-3 gap-1 sm:gap-2"
             animate={{
               rotate: [0, 360],
             }}
@@ -53,7 +54,7 @@ export const BlogNavLink = () => {
             {[...Array(9)].map((_, i) => (
               <motion.div
                 key={i}
-                className="w-2 h-2 bg-indigo-600/30 rounded-full"
+                className="w-1 sm:w-2 h-1 sm:h-2 bg-indigo-600/30 rounded-full"
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.3, 0.6, 0.3],
@@ -71,7 +72,7 @@ export const BlogNavLink = () => {
         {/* Diamond shapes on hover */}
         <motion.div
           className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300
-            ${isCompact ? "rounded-[1.2rem]" : "rounded-[1.2rem]"}`}
+            ${isCompact ? "rounded-lg sm:rounded-[1.2rem]" : "rounded-lg sm:rounded-[1.2rem]"}`}
         >
           <motion.div
             className="absolute inset-0"
@@ -87,10 +88,10 @@ export const BlogNavLink = () => {
             {[...Array(4)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-4 h-4 border border-indigo-500/40"
+                className="absolute w-3 sm:w-4 h-3 sm:h-4 border border-indigo-500/40"
                 style={{
-                  top: `${25 * Math.sin((i * Math.PI) / 2)}%`,
-                  left: `${25 * Math.cos((i * Math.PI) / 2)}%`,
+                  top: `${(i < 3 ? 20 : 25) * Math.sin((i * Math.PI) / 2)}%`,
+                  left: `${(i < 3 ? 20 : 25) * Math.cos((i * Math.PI) / 2)}%`,
                   transform: "rotate(45deg)",
                 }}
                 animate={{
@@ -110,7 +111,7 @@ export const BlogNavLink = () => {
         {/* Icon with pulse effect */}
         <motion.div
           animate={{
-            scale: [1, 1.2, 1],
+            scale: [1, 1.1, 1],
             opacity: [0.7, 1, 0.7],
           }}
           transition={{
@@ -120,25 +121,25 @@ export const BlogNavLink = () => {
           }}
           className="relative"
         >
-          <MessageCircle className="w-5 h-5 text-indigo-400 group-hover:text-indigo-300 transition-colors" />
+          <MessageCircle className="w-4 sm:w-5 h-4 sm:h-5 text-indigo-400 group-hover:text-indigo-300 transition-colors" />
         </motion.div>
 
         {!isCompact && (
           <>
             {/* Text */}
             <span
-              className="relative font-medium text-indigo-300 group-hover:text-indigo-200
+              className="relative text-sm sm:text-base font-medium text-indigo-300 group-hover:text-indigo-200
                 transition-colors duration-300"
             >
               Read Blog
             </span>
 
             {/* Animated dots */}
-            <div className="flex gap-2">
+            <div className="flex gap-1 sm:gap-2">
               {[0, 1, 2].map((i) => (
                 <motion.div
                   key={i}
-                  className="relative w-1.5 h-1.5 hidden sm:inline"
+                  className="relative w-1 sm:w-1.5 h-1 sm:h-1.5"
                   animate={{
                     scale: [1, 1.2, 1],
                     opacity: [0.7, 1, 0.7],
@@ -152,7 +153,7 @@ export const BlogNavLink = () => {
                 >
                   <div
                     className="absolute inset-0 bg-indigo-700 group-hover:bg-indigo-500
-                    transition-colors duration-300 shadow-lg shadow-indigo-900/50 rounded-full"
+                    transition-colors duration-300 shadow-sm sm:shadow-lg shadow-indigo-900/50 rounded-full"
                   />
                 </motion.div>
               ))}

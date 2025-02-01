@@ -17,12 +17,10 @@ const ResumeDownloadButton = () => {
   const [isCompact, setIsCompact] = useState(false);
   const abortControllerRef = useRef(null);
 
-  // Add scroll event listener to detect when to switch to compact mode
   useEffect(() => {
     const handleScroll = () => {
-      // Assuming hero section is 100vh tall - adjust this value based on your hero height
       const heroHeight = window.innerHeight;
-      setIsCompact(window.scrollY > heroHeight * 0.8); // Switch slightly before reaching the end
+      setIsCompact(window.scrollY > heroHeight * 0.8);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -30,7 +28,6 @@ const ResumeDownloadButton = () => {
   }, []);
 
   const handleDownload = useCallback(async () => {
-    // Existing download logic remains the same
     abortControllerRef.current = new AbortController();
     const { signal } = abortControllerRef.current;
 
@@ -41,7 +38,10 @@ const ResumeDownloadButton = () => {
       const resumeUrl = "Ashparsh.pdf";
       const response = await fetch(resumeUrl, { signal });
 
-      if (!response.ok) throw new Error("Download failed");
+      if (!response.ok) {
+        setDownloadStatus("error");
+        throw new Error("Download failed");
+      }
 
       const contentLength = response.headers.get("Content-Length");
       const totalSize = contentLength ? parseInt(contentLength, 10) : 0;
@@ -79,15 +79,18 @@ const ResumeDownloadButton = () => {
     } catch (error) {
       if (error.name === "AbortError") {
         setDownloadStatus("cancelled");
-      } else {
+      } else if (!downloadStatus) { // Only set error status if not already set
         setDownloadStatus("error");
         console.error("Download error:", error);
       }
     } finally {
       setIsLoading(false);
-      setTimeout(() => setDownloadStatus(null), 3000);
+      // Only clear the status if it's success or cancelled
+      if (downloadStatus !== "error") {
+        setTimeout(() => setDownloadStatus(null), 3000);
+      }
     }
-  }, []);
+  }, [downloadStatus]);
 
   const handleCancelDownload = useCallback(() => {
     if (abortControllerRef.current) {
@@ -256,7 +259,7 @@ const ResumeDownloadButton = () => {
                 <XCircle className="w-4 h-4" />
                 <span>Download failed</span>
               </>
-            ) : (
+            ) : downloadStatus === "cancelled" && (
               <>
                 <Terminal className="w-4 h-4" />
                 <span>Download cancelled</span>
