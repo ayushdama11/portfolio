@@ -7,9 +7,9 @@ export const experiences = [
     period: "July 2024 - September 2024",
     icon: Globe,
     description: [
-      "Engaged the community through events, discussions, and collaborative initiatives",
-      "Managed communication channels and onboarded new contributors, ensuring smooth integration",
-      "Organized meetings and workshops, and prepared accurate meeting documentation",
+      "Engaged the community through discussions, and collaborative initiatives",
+      "Managed communication channels and helping new contributors, ensuring smooth integration",
+      "Organized and co-hosted meetings, and prepared accurate meeting documentation",
       "Conducted PR reviews, managed coding workflows, and supported contributors with technical challenges",
       "Maintained documentation to streamline contributions and support the community",
     ],
