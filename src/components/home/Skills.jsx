@@ -48,17 +48,19 @@ export const Skills = () => {
       role="listitem"
     >
       <div
-        className="relative p-3 bg-black/80 rounded-xl border border-indigo-500/20 
-                    text-center font-mono text-indigo-400 backdrop-blur-sm"
+        className="relative p-3 bg-black/80 rounded-xl border border-indigo-500/30 
+                    text-center font-mono backdrop-blur-sm"
       >
         <div
-          className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500/10 to-blue-500/10 
-                      rounded-xl blur-sm opacity-0 group-hover:opacity-30 transition-all duration-300"
+          className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600/20 to-blue-600/10 
+                      rounded-xl blur-sm opacity-0 group-hover:opacity-40 transition-all duration-300"
         />
         <div className="relative z-10 flex items-center justify-center space-x-2">
-          <span className="text-sm lg:text-base">{name}</span>
+          <span className="text-sm lg:text-base text-indigo-200 group-hover:text-white transition-colors duration-300">
+            {name}
+          </span>
           <motion.div
-            className="w-1 h-1 bg-indigo-400 rounded-full"
+            className="w-1.5 h-1.5 bg-indigo-300 rounded-full"
             animate={{
               scale: [1, 1.5, 1],
               opacity: [1, 0.5, 1],
@@ -73,7 +75,6 @@ export const Skills = () => {
       </div>
     </motion.div>
   );
-
   const SkillsList = ({ skills, categoryTitle }) => {
     const isExpanded = expandedSkills.has(categoryTitle);
     const displaySkills = isExpanded ? skills : skills.slice(0, 4);
@@ -90,8 +91,8 @@ export const Skills = () => {
         {hasMoreSkills && (
           <motion.button
             onClick={() => toggleExpandSkills(categoryTitle)}
-            className="w-full flex items-center justify-center p-2 text-indigo-400 hover:text-indigo-300 
-                     border border-indigo-500/20 rounded-xl transition-colors group"
+            className="w-full flex items-center justify-center p-2 text-indigo-300 hover:text-white 
+                     border border-indigo-500/30 rounded-xl transition-all duration-300 hover:border-indigo-400"
           >
             <span className="mr-2">
               {isExpanded ? "Show Less" : `Show ${skills.length - 4} More`}
@@ -106,7 +107,6 @@ export const Skills = () => {
       </div>
     );
   };
-
   return (
     <section className="py-20 relative bg-black">
       <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/1 via-black to-black" />
@@ -136,7 +136,7 @@ export const Skills = () => {
               variants={containerVariants}
             >
               <div
-                className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-2xl blur opacity-30 
+                className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-2xl blur opacity-30 
                            group-hover:opacity-50 transition duration-300"
               />
 
@@ -146,14 +146,14 @@ export const Skills = () => {
               >
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center">
-                    <category.icon className="w-6 h-6 text-indigo-400 mr-2" />
+                    <category.icon className="w-6 h-6 text-indigo-300 group-hover:text-indigo-200 transition-colors duration-300 mr-2" />
                     <h3 className="text-xl font-semibold text-white">
                       {category.title}
                     </h3>
                   </div>
                   <button
                     onClick={() => toggleCategory(category.title)}
-                    className="text-indigo-400 hover:text-indigo-300 transition-colors"
+                    className="text-indigo-300 hover:text-white transition-colors duration-300"
                     aria-label={
                       minimizedCategories.has(category.title)
                         ? "Expand"
@@ -176,7 +176,7 @@ export const Skills = () => {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <p className="text-gray-400 text-center text-sm mb-6">
+                      <p className="text-gray-300 text-center text-sm mb-6">
                         {category.description}
                       </p>
 
