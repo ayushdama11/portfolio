@@ -50,14 +50,8 @@ export const Skills = () => {
       className="relative group w-full"
       role="listitem"
     >
-      <div
-        className="relative p-2 bg-black/80 rounded-lg border border-indigo-500/30 
-                    text-center font-mono backdrop-blur-sm"
-      >
-        <div
-          className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600/20 to-blue-600/10 
-                      rounded-lg blur-sm opacity-0 group-hover:opacity-40 transition-all duration-300"
-        />
+      <div className="relative p-2 bg-black/80 rounded-lg border border-indigo-500/30 text-center font-mono backdrop-blur-sm">
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600/20 to-blue-600/10 rounded-lg blur-sm opacity-0 group-hover:opacity-40 transition-all duration-300" />
         <div className="relative z-10 flex items-center justify-between px-2">
           <span className="text-sm text-indigo-200 group-hover:text-white transition-colors duration-300">
             {name}
@@ -113,7 +107,7 @@ export const Skills = () => {
   };
 
   return (
-    <section className="py-12 relative bg-black">
+    <section className="py-20 relative bg-black">
       <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/1 via-black to-black" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)]" />
 
@@ -121,38 +115,34 @@ export const Skills = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-6xl mx-auto px-3 relative z-10"
+        className="max-w-7xl mx-auto px-4 relative z-10"
       >
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-2xl font-bold text-center text-white mb-8"
+          className="text-3xl font-bold text-center text-white mb-16"
         >
           Skills & Technologies
-          <div className="w-16 h-0.5 bg-gradient-to-r from-white to-gray-500 mx-auto mt-2 rounded-full" />
+          <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-500 mx-auto mt-4 rounded-full" />
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {skillCategories.map((category) => (
             <motion.div
               key={category.title}
-              className="relative group h-fit"
+              className="relative group"
               variants={containerVariants}
             >
-              <div
-                className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600 to-blue-600 rounded-xl blur opacity-30 
-                           group-hover:opacity-50 transition duration-300"
-              />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300" />
 
-              <div
-                className="relative bg-black border border-indigo-500/30 rounded-xl p-4
-                           group-hover:border-indigo-400 transition-all duration-300"
-              >
-                <div className="flex items-center justify-between mb-3">
+              <div className="relative p-6 bg-black rounded-lg border border-indigo-500/30 h-full backdrop-blur-sm group-hover:border-indigo-400 transition-colors duration-300">
+                <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center">
-                    <category.icon className="w-5 h-5 text-indigo-300 group-hover:text-indigo-200 transition-colors duration-300 mr-2" />
-                    <h3 className="text-lg font-semibold text-white">
+                    <div className="p-3 bg-indigo-500/10 rounded-lg group-hover:bg-indigo-500/20 transition-colors duration-300">
+                      <category.icon className="w-6 h-6 text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors duration-300 ml-4">
                       {category.title}
                     </h3>
                   </div>
@@ -182,7 +172,7 @@ export const Skills = () => {
                       transition={{ duration: 0.2 }}
                     >
                       {category.description && (
-                        <p className="text-gray-300 text-center text-xs mb-4">
+                        <p className="text-gray-300 text-sm mb-4">
                           {category.description}
                         </p>
                       )}
