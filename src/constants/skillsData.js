@@ -9,6 +9,7 @@ export const skillCategories = [
       "REST & GraphQL",
       "Prisma & TypeORM",
       "Go & Fiber",
+      "Java & Spring Boot",
     ],
     description: "Developing scalable APIs and backend services",
   },
@@ -18,7 +19,6 @@ export const skillCategories = [
     skills: [
       "HTML & CSS",
       "JavaScript & TypeScript",
-      "Tailwind CSS",
       "Framer Motion",
       "React & Next.js",
       "AWS",

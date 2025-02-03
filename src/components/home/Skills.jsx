@@ -1,6 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
-import { ChevronDown, ChevronUp, Plus, Minus } from "lucide-react";
+import { motion } from "framer-motion";
 import { skillCategories } from "../../constants/skillsData";
 
 const containerVariants = {
@@ -14,33 +12,6 @@ const containerVariants = {
 };
 
 export const Skills = () => {
-  const [minimizedCategories, setMinimizedCategories] = useState(new Set());
-  const [expandedSkills, setExpandedSkills] = useState(new Set());
-
-  const toggleCategory = (categoryTitle) => {
-    setMinimizedCategories((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(categoryTitle)) {
-        newSet.delete(categoryTitle);
-      } else {
-        newSet.add(categoryTitle);
-      }
-      return newSet;
-    });
-  };
-
-  const toggleExpandSkills = (categoryTitle) => {
-    setExpandedSkills((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(categoryTitle)) {
-        newSet.delete(categoryTitle);
-      } else {
-        newSet.add(categoryTitle);
-      }
-      return newSet;
-    });
-  };
-
   const Skill = ({ name }) => (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -73,38 +44,15 @@ export const Skills = () => {
     </motion.div>
   );
 
-  const SkillsList = ({ skills, categoryTitle }) => {
-    const isExpanded = expandedSkills.has(categoryTitle);
-    const displaySkills = isExpanded ? skills : skills.slice(0, 4);
-    const hasMoreSkills = skills.length > 4;
-
-    return (
-      <div className="space-y-2">
-        <div className="flex flex-col gap-2">
-          {displaySkills.map((skill) => (
-            <Skill key={skill} name={skill} />
-          ))}
-        </div>
-
-        {hasMoreSkills && (
-          <motion.button
-            onClick={() => toggleExpandSkills(categoryTitle)}
-            className="w-full flex items-center justify-center p-1.5 text-sm text-indigo-300 hover:text-white 
-                     border border-indigo-500/30 rounded-lg transition-all duration-300 hover:border-indigo-400"
-          >
-            <span className="mr-2">
-              {isExpanded ? "Show Less" : `Show ${skills.length - 4} More`}
-            </span>
-            {isExpanded ? (
-              <Minus className="w-3 h-3 group-hover:scale-110 transition-transform" />
-            ) : (
-              <Plus className="w-3 h-3 group-hover:scale-110 transition-transform" />
-            )}
-          </motion.button>
-        )}
+  const SkillsList = ({ skills }) => (
+    <div className="space-y-2">
+      <div className="flex flex-col gap-2">
+        {skills.map((skill) => (
+          <Skill key={skill} name={skill} />
+        ))}
       </div>
-    );
-  };
+    </div>
+  );
 
   return (
     <section className="py-20 relative bg-black">
@@ -137,53 +85,22 @@ export const Skills = () => {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300" />
 
               <div className="relative p-6 bg-black rounded-lg border border-indigo-500/30 h-full backdrop-blur-sm group-hover:border-indigo-400 transition-colors duration-300">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center">
-                    <div className="p-3 bg-indigo-500/10 rounded-lg group-hover:bg-indigo-500/20 transition-colors duration-300">
-                      <category.icon className="w-6 h-6 text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300" />
-                    </div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors duration-300 ml-4">
-                      {category.title}
-                    </h3>
+                <div className="flex items-center mb-6">
+                  <div className="p-3 bg-indigo-500/10 rounded-lg group-hover:bg-indigo-500/20 transition-colors duration-300">
+                    <category.icon className="w-6 h-6 text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300" />
                   </div>
-                  <button
-                    onClick={() => toggleCategory(category.title)}
-                    className="text-indigo-300 hover:text-white transition-colors duration-300"
-                    aria-label={
-                      minimizedCategories.has(category.title)
-                        ? "Expand"
-                        : "Minimize"
-                    }
-                  >
-                    {minimizedCategories.has(category.title) ? (
-                      <ChevronDown className="w-4 h-4" />
-                    ) : (
-                      <ChevronUp className="w-4 h-4" />
-                    )}
-                  </button>
+                  <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors duration-300 ml-4">
+                    {category.title}
+                  </h3>
                 </div>
 
-                <AnimatePresence initial={false}>
-                  {!minimizedCategories.has(category.title) && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {category.description && (
-                        <p className="text-gray-300 text-sm mb-4">
-                          {category.description}
-                        </p>
-                      )}
+                {category.description && (
+                  <p className="text-gray-300 text-sm mb-4">
+                    {category.description}
+                  </p>
+                )}
 
-                      <SkillsList
-                        skills={category.skills}
-                        categoryTitle={category.title}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <SkillsList skills={category.skills} />
               </div>
             </motion.div>
           ))}
