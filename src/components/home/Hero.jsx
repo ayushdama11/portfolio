@@ -8,16 +8,19 @@ import {
   Calendar,
 } from "lucide-react";
 import ResumeDownloadButton from "../layout/ResumeDownloadButton";
+import { useTheme } from "../ThemeToggle";
 
 export const Hero = () => {
+  const { isDark } = useTheme();
   const [typedText, setTypedText] = useState("");
   const fullText = "< Full Stack Developer />";
   const name = {
     first: "ASHPARSH",
     last: "PANDEY",
   };
-  const gradientClass =
-    "bg-gradient-to-r from-indigo-500 via-indigo-300 to-indigo-500";
+  const gradientClass = isDark
+    ? "bg-gradient-to-r from-indigo-500 via-indigo-300 to-indigo-500"
+    : "bg-gradient-to-r from-indigo-400 via-indigo-200 to-indigo-400";
 
   useEffect(() => {
     let currentIndex = 0;
@@ -115,7 +118,11 @@ export const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden pt-20 pb-9">
+    <div
+      className={`relative min-h-screen flex items-center justify-center ${
+        isDark ? "bg-black" : "bg-white"
+      } overflow-hidden pt-20 pb-9`}
+    >
       <ResumeDownloadButton />
       <motion.div
         className="absolute inset-0 grid grid-cols-8 grid-rows-6 gap-4 p-8"
@@ -127,7 +134,11 @@ export const Hero = () => {
           <motion.div
             key={i}
             variants={cellVariants}
-            className="w-full h-full rounded-lg bg-indigo-500/5 border border-indigo-500/10"
+            className={`w-full h-full rounded-lg ${
+              isDark
+                ? "bg-indigo-500/5 border-indigo-500/10"
+                : "bg-indigo-200/5 border-indigo-300/10"
+            } border`}
           />
         ))}
       </motion.div>
@@ -151,17 +162,23 @@ export const Hero = () => {
           }}
           className="mb-12"
         >
-          <div className="w-28 h-28 sm:w-32 sm:h-32   mx-auto mb-8 relative group">
+          <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-8 relative group">
             <motion.div
               className="absolute inset-0 border-4 rounded-2xl transition-colors duration-700"
               animate={{
                 rotate: 360,
                 scale: [1, 1.08, 1],
-                borderColor: [
-                  "rgba(99, 102, 241, 1)",
-                  "rgba(124, 58, 237, 1)",
-                  "rgba(99, 102, 241, 1)",
-                ],
+                borderColor: isDark
+                  ? [
+                      "rgba(99, 102, 241, 1)",
+                      "rgba(124, 58, 237, 1)",
+                      "rgba(99, 102, 241, 1)",
+                    ]
+                  : [
+                      "rgba(129, 140, 248, 1)",
+                      "rgba(165, 180, 252, 1)",
+                      "rgba(129, 140, 248, 1)",
+                    ],
               }}
               transition={{
                 duration: 5,
@@ -175,8 +192,12 @@ export const Hero = () => {
               }}
             />
             <Terminal
-              className="w-full h-full text-indigo-400 relative z-10 
-                   group-hover:text-purple-400 transition-colors duration-700 p-4"
+              className={`w-full h-full relative z-10 p-4 transition-colors duration-700
+                ${
+                  isDark
+                    ? "text-indigo-400 group-hover:text-purple-400"
+                    : "text-indigo-600 group-hover:text-purple-600"
+                }`}
             />
           </div>
         </motion.div>
@@ -192,8 +213,10 @@ export const Hero = () => {
             className="text-5xl font-black mb-2"
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              color: "#e2e8f0",
-              textShadow: "2px 2px 0px rgba(99, 102, 241, 0.3)",
+              color: isDark ? "#e2e8f0" : "#1e293b",
+              textShadow: isDark
+                ? "2px 2px 0px rgba(99, 102, 241, 0.3)"
+                : "2px 2px 0px rgba(99, 102, 241, 0.2)",
             }}
           >
             {name.first}
@@ -202,10 +225,14 @@ export const Hero = () => {
             className="text-6xl font-black"
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              background: "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)",
+              background: isDark
+                ? "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)"
+                : "linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              filter: "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.3))",
+              filter: isDark
+                ? "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.3))"
+                : "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.2))",
             }}
           >
             {name.last}
@@ -254,13 +281,15 @@ export const Hero = () => {
                   damping: 15,
                 }}
                 whileHover={{
-                  color: "#818cf8",
+                  color: isDark ? "#818cf8" : "#6366f1",
                   scale: 1.1,
                   transition: { duration: 0.2 },
                 }}
                 style={{
-                  color: "#e2e8f0",
-                  textShadow: "2px 2px 0px rgba(99, 102, 241, 0.3)",
+                  color: isDark ? "#e2e8f0" : "#1e293b",
+                  textShadow: isDark
+                    ? "2px 2px 0px rgba(99, 102, 241, 0.3)"
+                    : "2px 2px 0px rgba(99, 102, 241, 0.2)",
                   fontFamily: "'Montserrat', sans-serif",
                   letterSpacing: "0.05em",
                 }}
@@ -270,12 +299,17 @@ export const Hero = () => {
             ))}
           </motion.div>
 
-          {/* Last Name */}
           <motion.div
             className="text-7xl font-black relative"
             style={{
               fontFamily: "'Montserrat', sans-serif",
               letterSpacing: "0.1em",
+              "--gradient-bg": isDark
+                ? "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)"
+                : "linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)",
+              "--drop-shadow": isDark
+                ? "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.3))"
+                : "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.2))",
             }}
           >
             {name.last.split("").map((letter, i) => (
@@ -295,12 +329,10 @@ export const Hero = () => {
                   transition: { duration: 0.2 },
                 }}
                 style={{
-                  background:
-                    "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)",
+                  background: "var(--gradient-bg)", // Uses CSS variable
+                  filter: "var(--drop-shadow)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
-                  filter: "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.3))",
-                  textShadow: "none",
                 }}
               >
                 {letter}
@@ -326,7 +358,8 @@ export const Hero = () => {
         </motion.div>
 
         <motion.div
-          className="sm:text-2xl text-indigo-400 font-mono mb-12 h-10 flex justify-center items-center text-xl"
+          className={`sm:text-2xl font-mono mb-12 h-10 flex justify-center items-center text-xl
+            ${isDark ? "text-indigo-400" : "text-indigo-600"}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.6 }}
@@ -376,9 +409,13 @@ export const Hero = () => {
                 initial="initial"
                 animate="animate"
                 whileHover="hover"
-                className={`p-4 bg-indigo-900/30 rounded-xl text-indigo-400 
-                           border border-indigo-500/30 
-                           transition-colors duration-300 ${color}`}
+                className={`p-4 rounded-xl transition-colors duration-300 
+                  ${
+                    isDark
+                      ? "bg-indigo-900/30 text-indigo-400 border-indigo-500/30"
+                      : "bg-indigo-100/30 text-indigo-600 border-indigo-300/30"
+                  } 
+                  border ${color}`}
               >
                 <Icon className="w-6 h-6" />
               </motion.a>
@@ -392,11 +429,13 @@ export const Hero = () => {
             animate="animate"
             whileHover="hover"
             whileTap="tap"
-            className="flex items-center gap-2 px-6 py-3 
-                     bg-indigo-500/10 text-indigo-400 
-                     rounded-xl border border-indigo-500/30 
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl 
                      transition-colors duration-300
-                     hover:bg-indigo-500/20 hover:border-indigo-400"
+                     ${
+                       isDark
+                         ? "bg-indigo-500/10 text-indigo-400 border-indigo-500/30 hover:bg-indigo-500/20 hover:border-indigo-400"
+                         : "bg-indigo-100/30 text-indigo-600 border-indigo-300/30 hover:bg-indigo-200/30 hover:border-indigo-500"
+                     } border`}
           >
             <Calendar className="w-5 h-5" />
             <span className="font-medium">Schedule a Call</span>

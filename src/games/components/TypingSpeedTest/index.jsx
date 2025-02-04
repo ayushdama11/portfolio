@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Timer, Award, RefreshCcw, ArrowLeft, Keyboard } from "lucide-react";
+import { Timer, Award, RefreshCcw, Keyboard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../../components/common/BackButton";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import { useTheme } from "../../../components/ThemeToggle";
 
 const sampleTexts = [
   "The quick brown fox jumps over the lazy dog.",
@@ -14,6 +15,7 @@ const sampleTexts = [
 
 export const TypingSpeedTest = () => {
   const navigate = useNavigate();
+  const { isDark } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [text, setText] = useState("");
   const [input, setInput] = useState("");
@@ -80,45 +82,80 @@ export const TypingSpeedTest = () => {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center">
+      <div
+        className={`fixed inset-0 ${
+          isDark ? "bg-black" : "bg-white"
+        } flex items-center justify-center`}
+      >
         <LoadingSpinner text="Loading..." />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black p-8">
+    <div className={`min-h-screen p-8 ${isDark ? "bg-black" : "bg-white"}`}>
       <BackButton text="Back to games" path="/games" />
 
       <div className="max-w-4xl mx-auto pt-20">
-        <h1 className="text-4xl font-bold text-center text-white mb-12 flex items-center justify-center gap-3">
+        <h1
+          className={`text-4xl font-bold text-center mb-12 flex items-center justify-center gap-3
+          ${isDark ? "text-white" : "text-gray-900"}`}
+        >
           <Keyboard className="w-8 h-8" />
           Typing Speed Test
         </h1>
 
         <div className="flex justify-center gap-8 mb-8">
           <div className="flex items-center gap-2">
-            <Timer className="text-indigo-400" />
-            <span className="text-white font-mono text-xl">{timer}s</span>
+            <Timer className={isDark ? "text-indigo-400" : "text-indigo-600"} />
+            <span
+              className={`font-mono text-xl ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}
+            >
+              {timer}s
+            </span>
           </div>
           <div className="flex items-center gap-2">
-            <Award className="text-yellow-500" />
-            <span className="text-white font-mono text-xl">{wpm} WPM</span>
+            <Award className={isDark ? "text-yellow-500" : "text-yellow-600"} />
+            <span
+              className={`font-mono text-xl ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}
+            >
+              {wpm} WPM
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <span
-              className={`text-${
-                accuracy >= 90 ? "green" : "red"
-              }-500 font-mono text-xl`}
+              className={`font-mono text-xl ${
+                accuracy >= 90
+                  ? isDark
+                    ? "text-green-500"
+                    : "text-green-600"
+                  : isDark
+                  ? "text-red-500"
+                  : "text-red-600"
+              }`}
             >
               {accuracy}%
             </span>
-            <span className="text-white">Accuracy</span>
+            <span className={isDark ? "text-white" : "text-gray-900"}>
+              Accuracy
+            </span>
           </div>
         </div>
 
-        <div className="bg-gray-900/50 p-6 rounded-lg mb-8">
-          <p className="text-gray-300 font-mono text-lg leading-relaxed">
+        <div
+          className={`p-6 rounded-lg mb-8 ${
+            isDark ? "bg-gray-900/50" : "bg-gray-100"
+          }`}
+        >
+          <p
+            className={`font-mono text-lg leading-relaxed ${
+              isDark ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
             {text.split("").map((char, index) => (
               <span
                 key={index}
@@ -126,8 +163,12 @@ export const TypingSpeedTest = () => {
                   input[index] === undefined
                     ? ""
                     : input[index] === char
-                    ? "text-green-500"
-                    : "text-red-500"
+                    ? isDark
+                      ? "text-green-500"
+                      : "text-green-600"
+                    : isDark
+                    ? "text-red-500"
+                    : "text-red-600"
                 }
               >
                 {char}
@@ -141,19 +182,27 @@ export const TypingSpeedTest = () => {
             value={input}
             onChange={handleInputChange}
             disabled={timer === 0}
-            className="w-full h-32 bg-gray-900 text-white p-4 rounded-lg
-                     border border-indigo-500/30 focus:border-indigo-500
-                     focus:ring-1 focus:ring-indigo-500 outline-none
-                     font-mono resize-none"
+            className={`w-full h-32 p-4 rounded-lg
+                     border focus:ring-1 outline-none
+                     font-mono resize-none transition-colors
+                     ${
+                       isDark
+                         ? "bg-gray-900 text-white border-indigo-500/30 focus:border-indigo-500 focus:ring-indigo-500"
+                         : "bg-white text-gray-900 border-indigo-300/50 focus:border-indigo-600 focus:ring-indigo-600"
+                     }`}
             placeholder="Start typing here..."
           />
 
           <div className="flex justify-center">
             <button
               onClick={startNewGame}
-              className="px-6 py-3 bg-indigo-600 text-white rounded-lg
-                       hover:bg-indigo-700 transition-colors
-                       flex items-center gap-2"
+              className={`px-6 py-3 text-white rounded-lg
+                       transition-colors flex items-center gap-2
+                       ${
+                         isDark
+                           ? "bg-indigo-600 hover:bg-indigo-700"
+                           : "bg-indigo-500 hover:bg-indigo-600"
+                       }`}
             >
               <RefreshCcw size={18} />
               New Game
@@ -167,21 +216,45 @@ export const TypingSpeedTest = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm
-                       flex items-center justify-center"
+              className={`fixed inset-0 backdrop-blur-sm
+                       flex items-center justify-center
+                       ${isDark ? "bg-black/80" : "bg-gray-500/20"}`}
             >
-              <div className="bg-gray-900 p-8 rounded-lg text-center">
-                <h2 className="text-2xl font-bold text-white mb-4">Results</h2>
-                <p className="text-xl text-indigo-400 mb-2">
+              <div
+                className={`p-8 rounded-lg text-center ${
+                  isDark ? "bg-gray-900" : "bg-white"
+                }`}
+              >
+                <h2
+                  className={`text-2xl font-bold mb-4 ${
+                    isDark ? "text-white" : "text-gray-900"
+                  }`}
+                >
+                  Results
+                </h2>
+                <p
+                  className={`text-xl mb-2 ${
+                    isDark ? "text-indigo-400" : "text-indigo-600"
+                  }`}
+                >
                   Words per minute: {wpm}
                 </p>
-                <p className="text-xl text-indigo-400 mb-6">
+                <p
+                  className={`text-xl mb-6 ${
+                    isDark ? "text-indigo-400" : "text-indigo-600"
+                  }`}
+                >
                   Accuracy: {accuracy}%
                 </p>
                 <button
                   onClick={startNewGame}
-                  className="px-6 py-3 bg-indigo-600 text-white rounded-lg
-                           hover:bg-indigo-700 transition-colors"
+                  className={`px-6 py-3 text-white rounded-lg
+                           transition-colors
+                           ${
+                             isDark
+                               ? "bg-indigo-600 hover:bg-indigo-700"
+                               : "bg-indigo-500 hover:bg-indigo-600"
+                           }`}
                 >
                   Try Again
                 </button>

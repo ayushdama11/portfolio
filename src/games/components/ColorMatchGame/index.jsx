@@ -4,38 +4,59 @@ import { Trophy, RefreshCcw, ArrowLeft, Palette } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../../components/common/BackButton";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import { useTheme } from "../../../components/ThemeToggle";
 
-const ColorBox = ({ color, label }) => (
+const ColorBox = ({ color, label, isDark }) => (
   <div className="flex flex-col items-center gap-2">
     <motion.div
-      className="w-32 h-32 rounded-lg shadow-lg border-2 border-indigo-500/30"
+      className={`w-32 h-32 rounded-lg shadow-lg border-2 ${
+        isDark ? "border-indigo-500/30" : "border-indigo-400/30"
+      }`}
       style={{
         backgroundColor: `rgb(${color.r}, ${color.g}, ${color.b})`,
       }}
       whileHover={{ scale: 1.05 }}
       transition={{ duration: 0.2 }}
     />
-    <span className="text-gray-300 text-sm font-mono">{label}</span>
+    <span
+      className={`text-sm font-mono ${isDark ? "text-gray-300" : "text-gray-600"}`}
+    >
+      {label}
+    </span>
   </div>
 );
 
-const Slider = ({ color, value, onChange }) => (
+const Slider = ({ color, value, onChange, isDark }) => (
   <div className="flex items-center gap-4">
-    <span className="text-gray-300 uppercase w-8 font-mono">{color}</span>
+    <span
+      className={`uppercase w-8 font-mono ${
+        isDark ? "text-gray-300" : "text-gray-600"
+      }`}
+    >
+      {color}
+    </span>
     <input
       type="range"
       min="0"
       max="255"
       value={value}
       onChange={(e) => onChange(color, e.target.value)}
-      className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer"
+      className={`w-full h-2 rounded-lg appearance-none cursor-pointer ${
+        isDark ? "bg-gray-800" : "bg-gray-200"
+      }`}
     />
-    <span className="text-gray-300 w-12 font-mono text-right">{value}</span>
+    <span
+      className={`w-12 font-mono text-right ${
+        isDark ? "text-gray-300" : "text-gray-600"
+      }`}
+    >
+      {value}
+    </span>
   </div>
 );
 
 export const ColorMatchGame = () => {
-  const navigate = useNavigate();
+  const { isDark } = useTheme();
   const [isLoading, setIsLoading] = useState(true);
   const [targetColor, setTargetColor] = useState({ r: 0, g: 0, b: 0 });
   const [playerColor, setPlayerColor] = useState({ r: 128, g: 128, b: 128 });
@@ -76,33 +97,48 @@ export const ColorMatchGame = () => {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center">
+      <div
+        className={`fixed inset-0 ${
+          isDark ? "bg-black" : "bg-white"
+        } flex items-center justify-center`}
+      >
         <LoadingSpinner text="Loading..." />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black p-8">
+    <div className={`min-h-screen p-8 ${isDark ? "bg-black" : "bg-white"}`}>
       <BackButton text="Back to games" path="/games" />
 
       <div className="max-w-4xl mx-auto pt-20">
-        <h1 className="text-4xl font-bold text-center text-white mb-12">
+        <h1
+          className={`text-4xl font-bold text-center mb-12 ${
+            isDark ? "text-white" : "text-gray-900"
+          }`}
+        >
           Color Match Challenge
         </h1>
 
         <div className="grid grid-cols-2 gap-8 mb-8">
-          <ColorBox color={targetColor} label="Target Color" />
-          <ColorBox color={playerColor} label="Your Color" />
+          <ColorBox color={targetColor} label="Target Color" isDark={isDark} />
+          <ColorBox color={playerColor} label="Your Color" isDark={isDark} />
         </div>
 
-        <div className="space-y-6 bg-black/50 p-8 rounded-lg border border-indigo-500/30">
+        <div
+          className={`space-y-6 p-8 rounded-lg border transition-colors ${
+            isDark
+              ? "bg-black/50 border-indigo-500/30"
+              : "bg-gray-50/50 border-indigo-300/30"
+          }`}
+        >
           <Slider
             color="r"
             value={playerColor.r}
             onChange={(_, value) =>
               setPlayerColor((prev) => ({ ...prev, r: parseInt(value) }))
             }
+            isDark={isDark}
           />
           <Slider
             color="g"
@@ -110,6 +146,7 @@ export const ColorMatchGame = () => {
             onChange={(_, value) =>
               setPlayerColor((prev) => ({ ...prev, g: parseInt(value) }))
             }
+            isDark={isDark}
           />
           <Slider
             color="b"
@@ -117,20 +154,29 @@ export const ColorMatchGame = () => {
             onChange={(_, value) =>
               setPlayerColor((prev) => ({ ...prev, b: parseInt(value) }))
             }
+            isDark={isDark}
           />
 
           <div className="flex justify-center gap-4 pt-4">
             <button
               onClick={handleSubmit}
-              className="px-6 py-3 bg-indigo-600 text-white rounded-lg
-                       hover:bg-indigo-700 transition-colors"
+              className={`px-6 py-3 text-white rounded-lg transition-colors
+                ${
+                  isDark
+                    ? "bg-indigo-600 hover:bg-indigo-700"
+                    : "bg-indigo-500 hover:bg-indigo-600"
+                }`}
             >
               Submit
             </button>
             <button
               onClick={startNewGame}
-              className="px-6 py-3 bg-gray-700 text-white rounded-lg
-                       hover:bg-gray-600 transition-colors flex items-center gap-2"
+              className={`px-6 py-3 rounded-lg transition-colors flex items-center gap-2
+                ${
+                  isDark
+                    ? "bg-gray-700 text-white hover:bg-gray-600"
+                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                }`}
             >
               <RefreshCcw size={18} />
               New Color
@@ -139,8 +185,12 @@ export const ColorMatchGame = () => {
         </div>
 
         <div className="fixed top-6 right-6 flex items-center gap-2">
-          <Trophy className="text-yellow-500" />
-          <span className="text-white font-mono text-xl">{score}</span>
+          <Trophy className={isDark ? "text-yellow-500" : "text-yellow-600"} />
+          <span
+            className={`font-mono text-xl ${isDark ? "text-white" : "text-gray-900"}`}
+          >
+            {score}
+          </span>
         </div>
 
         <AnimatePresence>
@@ -149,9 +199,12 @@ export const ColorMatchGame = () => {
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -50 }}
-              className="fixed top-6 left-1/2 -translate-x-1/2 
-                       bg-indigo-500/20 border border-indigo-500/30
-                       px-6 py-3 rounded-lg text-white"
+              className={`fixed top-6 left-1/2 -translate-x-1/2 
+                px-6 py-3 rounded-lg border ${
+                  isDark
+                    ? "bg-indigo-500/20 border-indigo-500/30 text-white"
+                    : "bg-indigo-100/50 border-indigo-300/30 text-indigo-900"
+                }`}
             >
               {toastMessage}
             </motion.div>

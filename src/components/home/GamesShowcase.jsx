@@ -9,6 +9,7 @@ import {
   AlignRight,
 } from "lucide-react";
 import { games } from "../../constants/gamesData";
+import { useTheme } from "../ThemeToggle";
 
 const ICON_SIZES = {
   large: "w-6 h-6",
@@ -19,32 +20,54 @@ const ICON_SIZES = {
 
 export const GamesShowcase = () => {
   const navigate = useNavigate();
+  const { isDark } = useTheme();
 
   const getGameIcon = (index) => {
+    const iconClass = isDark ? "text-indigo-400" : "text-indigo-600";
     switch (index) {
       case 0:
-        return <Palette className={`${ICON_SIZES.medium} text-indigo-400`} />;
+        return <Palette className={`${ICON_SIZES.medium} ${iconClass}`} />;
       case 1:
-        return <Keyboard className={`${ICON_SIZES.medium} text-indigo-400`} />;
+        return <Keyboard className={`${ICON_SIZES.medium} ${iconClass}`} />;
       default:
-        return <Gamepad2 className={`${ICON_SIZES.medium} text-indigo-400`} />;
+        return <Gamepad2 className={`${ICON_SIZES.medium} ${iconClass}`} />;
     }
   };
 
   return (
-    <section className="py-20 relative bg-black">
-      <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/1 via-black to-black" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)]" />
+    <section className={`py-20 relative ${isDark ? "bg-black" : "bg-white"}`}>
+      <div
+        className={`absolute inset-0 bg-gradient-to-b ${
+          isDark
+            ? "from-indigo-900/1 via-black to-black"
+            : "from-indigo-100/50 via-white to-white"
+        }`}
+      />
+      <div
+        className={`absolute inset-0 ${
+          isDark
+            ? "bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)]"
+            : "bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.15),transparent_50%)]"
+        }`}
+      />
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl font-bold text-center text-white mb-16"
+          className={`text-3xl font-bold text-center ${
+            isDark ? "text-white" : "text-gray-900"
+          } mb-16`}
         >
           Interactive Games
-          <div className="w-24 h-1 bg-gradient-to-r from-white to-gray-500 mx-auto mt-4 rounded-full" />
+          <div
+            className={`w-24 h-1 bg-gradient-to-r ${
+              isDark
+                ? "from-white to-gray-500"
+                : "from-indigo-600 to-indigo-300"
+            } mx-auto mt-4 rounded-full`}
+          />
         </motion.h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
@@ -59,22 +82,33 @@ export const GamesShowcase = () => {
             >
               <div
                 className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-lg blur opacity-30 
-                             group-hover:opacity-50 transition duration-300"
+                           group-hover:opacity-50 transition duration-300"
               />
 
               <div
-                className="relative p-6 bg-black rounded-lg border border-indigo-500/30 h-full 
-                            backdrop-blur-sm group-hover:border-indigo-400 transition-all duration-300
-                            hover:shadow-[0_0_30px_-5px] hover:shadow-indigo-500/20"
+                className={`relative p-6 rounded-lg border h-full 
+                           backdrop-blur-sm transition-all duration-300
+                           hover:shadow-[0_0_30px_-5px] ${
+                             isDark
+                               ? "bg-black border-indigo-500/30 group-hover:border-indigo-400 hover:shadow-indigo-500/20"
+                               : "bg-white border-indigo-300/50 group-hover:border-indigo-500 hover:shadow-indigo-400/20"
+                           }`}
               >
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 bg-indigo-500/10 rounded-lg">
+                    <div
+                      className={`p-2.5 rounded-lg ${
+                        isDark ? "bg-indigo-500/10" : "bg-indigo-100/50"
+                      }`}
+                    >
                       {getGameIcon(index)}
                     </div>
                     <h3
-                      className="text-xl font-bold text-white group-hover:text-indigo-400 
-                               transition-colors duration-300 flex items-center"
+                      className={`text-xl font-bold transition-colors duration-300 flex items-center ${
+                        isDark
+                          ? "text-white group-hover:text-indigo-400"
+                          : "text-gray-900 group-hover:text-indigo-600"
+                      }`}
                     >
                       {game.title}
                     </h3>
@@ -84,15 +118,21 @@ export const GamesShowcase = () => {
                     onClick={() => navigate(game.path)}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    className="p-2.5 bg-indigo-500/10 border border-indigo-500/30 rounded-lg
-                               text-indigo-400 hover:bg-indigo-500/20 hover:border-indigo-400
-                               transition-all duration-300 group/play"
+                    className={`p-2.5 border rounded-lg transition-all duration-300 group/play ${
+                      isDark
+                        ? "bg-indigo-500/10 border-indigo-500/30 text-indigo-400 hover:bg-indigo-500/20 hover:border-indigo-400"
+                        : "bg-indigo-100/50 border-indigo-300/50 text-indigo-600 hover:bg-indigo-200/70 hover:border-indigo-500"
+                    }`}
                   >
                     <Play className={ICON_SIZES.small} />
                     <motion.div
-                      className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap
-                                 bg-black/80 text-xs px-2 py-1 rounded opacity-0 group-hover/play:opacity-100
-                                 border border-indigo-500/30 transition-opacity duration-300"
+                      className={`absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap
+                                 text-xs px-2 py-1 rounded opacity-0 group-hover/play:opacity-100
+                                 border transition-opacity duration-300 ${
+                                   isDark
+                                     ? "bg-black/80 border-indigo-500/30 text-indigo-400"
+                                     : "bg-white/80 border-indigo-300/50 text-indigo-600"
+                                 }`}
                     >
                       Play Now
                     </motion.div>
@@ -109,9 +149,19 @@ export const GamesShowcase = () => {
                       className="flex items-start gap-2.5"
                     >
                       <AlignRight
-                        className={`${ICON_SIZES.extrasmall} text-indigo-400 mt-1 flex-shrink-0`}
+                        className={`${
+                          ICON_SIZES.extrasmall
+                        } mt-1 flex-shrink-0 ${
+                          isDark ? "text-indigo-400" : "text-indigo-600"
+                        }`}
                       />
-                      <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
+                      <p
+                        className={`transition-colors duration-300 ${
+                          isDark
+                            ? "text-gray-300 group-hover:text-gray-200"
+                            : "text-gray-600 group-hover:text-gray-900"
+                        }`}
+                      >
                         {desc.split(" ").map((word, wordIndex) => {
                           if (
                             word.match(
@@ -121,7 +171,9 @@ export const GamesShowcase = () => {
                             return (
                               <span
                                 key={wordIndex}
-                                className="text-indigo-400 font-semibold"
+                                className={`font-semibold ${
+                                  isDark ? "text-indigo-400" : "text-indigo-600"
+                                }`}
                               >
                                 {word}{" "}
                               </span>
@@ -134,7 +186,9 @@ export const GamesShowcase = () => {
                             return (
                               <span
                                 key={wordIndex}
-                                className="text-blue-400 font-medium"
+                                className={`font-medium ${
+                                  isDark ? "text-blue-400" : "text-blue-600"
+                                }`}
                               >
                                 {word}{" "}
                               </span>
@@ -158,18 +212,25 @@ export const GamesShowcase = () => {
                     <motion.span
                       key={tech}
                       whileHover={{ scale: 1.05 }}
-                      className="px-3 py-1 text-sm text-indigo-400 border border-indigo-500/30 
-                               rounded-full bg-indigo-500/10 hover:bg-indigo-500/20 
+                      className={`px-3 py-1 text-sm border rounded-full 
                                transition-all duration-300 cursor-default
-                               hover:border-indigo-400 flex items-center gap-1.5"
+                               flex items-center gap-1.5 ${
+                                 isDark
+                                   ? "text-indigo-400 border-indigo-500/30 bg-indigo-500/10 hover:bg-indigo-500/20 hover:border-indigo-400"
+                                   : "text-indigo-600 border-indigo-300/50 bg-indigo-100/50 hover:bg-indigo-200/70 hover:border-indigo-500"
+                               }`}
                     >
                       {index === 0 ? (
                         <Palette
-                          className={`${ICON_SIZES.small} text-indigo-400`}
+                          className={`${ICON_SIZES.small} ${
+                            isDark ? "text-indigo-400" : "text-indigo-600"
+                          }`}
                         />
                       ) : (
                         <Keyboard
-                          className={`${ICON_SIZES.small} text-indigo-400`}
+                          className={`${ICON_SIZES.small} ${
+                            isDark ? "text-indigo-400" : "text-indigo-600"
+                          }`}
                         />
                       )}
                       {tech}
@@ -191,17 +252,21 @@ export const GamesShowcase = () => {
             onClick={() => navigate("/games")}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="relative px-8 py-3 bg-black/40 backdrop-blur-sm 
-                     border border-indigo-500/30 rounded-full
-                     text-indigo-400 hover:text-white 
-                     hover:border-indigo-400 hover:bg-black/60
+            className={`relative px-8 py-3 backdrop-blur-sm 
+                     border rounded-full
                      transition-all duration-300
-                     inline-flex items-center gap-3 group"
+                     inline-flex items-center gap-3 group ${
+                       isDark
+                         ? "bg-black/40 border-indigo-500/30 text-indigo-400 hover:text-white hover:border-indigo-400 hover:bg-black/60"
+                         : "bg-white/40 border-indigo-300/50 text-indigo-600 hover:text-indigo-900 hover:border-indigo-500 hover:bg-white/60"
+                     }`}
           >
             <span className="font-medium">Explore All Games</span>
             <div className="relative">
               <motion.div
-                className="absolute inset-0 bg-indigo-500/20 rounded-full blur-md"
+                className={`absolute inset-0 rounded-full blur-md ${
+                  isDark ? "bg-indigo-500/20" : "bg-indigo-400/20"
+                }`}
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.2, 0.4, 0.2],

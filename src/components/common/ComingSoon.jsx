@@ -3,11 +3,13 @@ import { motion } from "framer-motion";
 import { Timer, Bell, Check } from "lucide-react";
 import { BackButton } from "./BackButton";
 import { FloatingCubes } from "./FloatingCubes";
+import { useTheme } from "../ThemeToggle";
 
 const ComingSoon = () => {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const { isDark } = useTheme();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,7 +21,10 @@ const ComingSoon = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black overflow-hidden flex flex-col items-center justify-center relative px-4">
+    <div
+      className={`min-h-screen overflow-hidden flex flex-col items-center justify-center relative px-4 
+      ${isDark ? "bg-black" : "bg-white"}`}
+    >
       <BackButton />
       <FloatingCubes />
 
@@ -54,11 +59,17 @@ const ComingSoon = () => {
               >
                 <stop
                   offset="0%"
-                  style={{ stopColor: "#4f46e5", stopOpacity: 1 }}
+                  style={{
+                    stopColor: isDark ? "#4f46e5" : "#6366f1",
+                    stopOpacity: 1,
+                  }}
                 />
                 <stop
                   offset="100%"
-                  style={{ stopColor: "#6366f1", stopOpacity: 0.8 }}
+                  style={{
+                    stopColor: isDark ? "#6366f1" : "#818cf8",
+                    stopOpacity: 0.8,
+                  }}
                 />
               </linearGradient>
             </defs>
@@ -71,7 +82,11 @@ const ComingSoon = () => {
               height="120"
               rx="8"
               fill="url(#cardGradient)"
-              filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
+              filter={
+                isDark
+                  ? "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
+                  : "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.1))"
+              }
             >
               <animate
                 attributeName="y"
@@ -82,7 +97,7 @@ const ComingSoon = () => {
             </rect>
 
             {/* Content Lines */}
-            <g fill="#fff" opacity="0.9">
+            <g fill={isDark ? "#fff" : "#6366f1"} opacity="0.9">
               {/* Header */}
               <rect x="55" y="60" width="60" height="8" rx="4">
                 <animate
@@ -118,7 +133,13 @@ const ComingSoon = () => {
             {/* Decorative Elements */}
             <g>
               {/* Top Right Corner */}
-              <circle cx="145" cy="55" r="3" fill="#fff" opacity="0.5">
+              <circle
+                cx="145"
+                cy="55"
+                r="3"
+                fill={isDark ? "#fff" : "#6366f1"}
+                opacity="0.5"
+              >
                 <animate
                   attributeName="opacity"
                   values="0.5;0.8;0.5"
@@ -128,7 +149,13 @@ const ComingSoon = () => {
               </circle>
 
               {/* Bottom Left Corner */}
-              <circle cx="55" cy="145" r="3" fill="#fff" opacity="0.5">
+              <circle
+                cx="55"
+                cy="145"
+                r="3"
+                fill={isDark ? "#fff" : "#6366f1"}
+                opacity="0.5"
+              >
                 <animate
                   attributeName="opacity"
                   values="0.5;0.8;0.5"
@@ -149,7 +176,7 @@ const ComingSoon = () => {
                   width="4"
                   height="4"
                   rx="1"
-                  fill="#fff"
+                  fill={isDark ? "#fff" : "#6366f1"}
                   opacity="0.6"
                 >
                   <animate
@@ -174,7 +201,11 @@ const ComingSoon = () => {
 
         <div className="space-y-6">
           <motion.h1
-            className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-400 via-indigo-300 to-indigo-400 text-transparent bg-clip-text"
+            className={`text-4xl md:text-5xl font-bold bg-gradient-to-r text-transparent bg-clip-text ${
+              isDark
+                ? "from-indigo-400 via-indigo-300 to-indigo-400"
+                : "from-indigo-600 via-indigo-500 to-indigo-600"
+            }`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
@@ -183,7 +214,9 @@ const ComingSoon = () => {
           </motion.h1>
 
           <motion.p
-            className="text-lg text-indigo-300/80 max-w-md mx-auto"
+            className={`text-lg max-w-md mx-auto ${
+              isDark ? "text-indigo-300/80" : "text-indigo-600/80"
+            }`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
@@ -194,13 +227,19 @@ const ComingSoon = () => {
         </div>
 
         <motion.div
-          className="mt-12 w-64 h-1 mx-auto bg-indigo-950 rounded-full overflow-hidden"
+          className={`mt-12 w-64 h-1 mx-auto rounded-full overflow-hidden ${
+            isDark ? "bg-indigo-950" : "bg-indigo-100"
+          }`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.6 }}
         >
           <motion.div
-            className="h-full bg-gradient-to-r from-indigo-500 to-indigo-400"
+            className={`h-full bg-gradient-to-r ${
+              isDark
+                ? "from-indigo-500 to-indigo-400"
+                : "from-indigo-600 to-indigo-500"
+            }`}
             animate={{
               x: ["-100%", "100%"],
             }}
@@ -213,7 +252,7 @@ const ComingSoon = () => {
         </motion.div>
 
         <motion.div
-          className="mt-8 text-indigo-400/60"
+          className={isDark ? "text-indigo-400/60" : "text-indigo-600/60"}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.6 }}
@@ -225,7 +264,9 @@ const ComingSoon = () => {
           {[...Array(3)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-32 h-32 rounded-full bg-indigo-500/5"
+              className={`absolute w-32 h-32 rounded-full ${
+                isDark ? "bg-indigo-500/5" : "bg-indigo-400/5"
+              }`}
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,

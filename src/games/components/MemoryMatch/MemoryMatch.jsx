@@ -1,9 +1,9 @@
-// src/games/MemoryMatch/MemoryMatch.jsx
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Brain, RefreshCcw, Timer, Trophy } from "lucide-react";
 import { BackButton } from "../../../components/common/BackButton";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
+import { useTheme } from "../../../components/ThemeToggle";
 
 const GRID_SIZE = 16;
 const SYMBOLS = ["🎮", "🎲", "🎯", "🎪", "🎨", "🎭", "🎪", "🎸"];
@@ -21,6 +21,7 @@ const createInitialCards = () => {
 };
 
 export const MemoryMatch = () => {
+  const { isDark } = useTheme();
   const [cards, setCards] = useState([]);
   const [flippedCards, setFlippedCards] = useState([]);
   const [moves, setMoves] = useState(0);
@@ -111,32 +112,51 @@ export const MemoryMatch = () => {
 
   if (isLoading) {
     return (
-      <div className="fixed inset-0 bg-black flex items-center justify-center">
+      <div
+        className={`fixed inset-0 ${
+          isDark ? "bg-black" : "bg-white"
+        } flex items-center justify-center`}
+      >
         <LoadingSpinner text="Loading..." />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black p-8">
+    <div className={`min-h-screen p-8 ${isDark ? "bg-black" : "bg-white"}`}>
       <BackButton text="Back to games" path="/games" />
 
       <div className="max-w-4xl mx-auto pt-20">
-        <h1 className="text-4xl font-bold text-center text-white mb-12 flex items-center justify-center gap-3">
+        <h1
+          className={`text-4xl font-bold text-center mb-12 flex items-center justify-center gap-3 
+          ${isDark ? "text-white" : "text-gray-900"}`}
+        >
           <Brain className="w-8 h-8" />
           Memory Match
         </h1>
 
         <div className="flex justify-center gap-8 mb-8">
           <div className="flex items-center gap-2">
-            <Timer className="text-indigo-400" />
-            <span className="text-white font-mono text-xl">
+            <Timer className={isDark ? "text-indigo-400" : "text-indigo-600"} />
+            <span
+              className={`font-mono text-xl ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}
+            >
               {Math.floor(timer / 60)}:{String(timer % 60).padStart(2, "0")}
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <Trophy className="text-yellow-500" />
-            <span className="text-white font-mono text-xl">{moves} moves</span>
+            <Trophy
+              className={isDark ? "text-yellow-500" : "text-yellow-600"}
+            />
+            <span
+              className={`font-mono text-xl ${
+                isDark ? "text-white" : "text-gray-900"
+              }`}
+            >
+              {moves} moves
+            </span>
           </div>
         </div>
 
@@ -145,12 +165,16 @@ export const MemoryMatch = () => {
             <motion.button
               key={card.id}
               onClick={() => handleCardClick(index)}
-              className={`w-full aspect-square rounded-lg text-3xl
-                        ${
-                          card.isFlipped || card.isMatched
-                            ? "bg-indigo-600"
-                            : "bg-gray-900"
-                        } transition-colors`}
+              className={`w-full aspect-square rounded-lg text-3xl transition-colors
+                ${
+                  card.isFlipped || card.isMatched
+                    ? isDark
+                      ? "bg-indigo-600"
+                      : "bg-indigo-500"
+                    : isDark
+                    ? "bg-gray-900"
+                    : "bg-gray-200"
+                }`}
               whileHover={{
                 scale: !card.isMatched && !card.isFlipped ? 1.05 : 1,
               }}
@@ -166,9 +190,13 @@ export const MemoryMatch = () => {
         <div className="flex justify-center">
           <button
             onClick={startNewGame}
-            className="px-6 py-3 bg-indigo-600 text-white rounded-lg
-                     hover:bg-indigo-700 transition-colors
-                     flex items-center gap-2"
+            className={`px-6 py-3 text-white rounded-lg
+              transition-colors flex items-center gap-2
+              ${
+                isDark
+                  ? "bg-indigo-600 hover:bg-indigo-700"
+                  : "bg-indigo-500 hover:bg-indigo-600"
+              }`}
           >
             <RefreshCcw size={18} />
             New Game
@@ -181,22 +209,45 @@ export const MemoryMatch = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm
-                       flex items-center justify-center"
+              className={`fixed inset-0 backdrop-blur-sm
+                flex items-center justify-center
+                ${isDark ? "bg-black/80" : "bg-gray-500/20"}`}
             >
-              <div className="bg-gray-900 p-8 rounded-lg text-center">
-                <h2 className="text-2xl font-bold text-white mb-4">
+              <div
+                className={`p-8 rounded-lg text-center ${
+                  isDark ? "bg-gray-900" : "bg-white"
+                }`}
+              >
+                <h2
+                  className={`text-2xl font-bold mb-4 ${
+                    isDark ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   All Matches Found!
                 </h2>
-                <p className="text-xl text-indigo-400 mb-2">
+                <p
+                  className={`text-xl mb-2 ${
+                    isDark ? "text-indigo-400" : "text-indigo-600"
+                  }`}
+                >
                   Time: {Math.floor(timer / 60)}:
                   {String(timer % 60).padStart(2, "0")}
                 </p>
-                <p className="text-xl text-indigo-400 mb-6">Moves: {moves}</p>
+                <p
+                  className={`text-xl mb-6 ${
+                    isDark ? "text-indigo-400" : "text-indigo-600"
+                  }`}
+                >
+                  Moves: {moves}
+                </p>
                 <button
                   onClick={startNewGame}
-                  className="px-6 py-3 bg-indigo-600 text-white rounded-lg
-                           hover:bg-indigo-700 transition-colors"
+                  className={`px-6 py-3 text-white rounded-lg
+                    transition-colors ${
+                      isDark
+                        ? "bg-indigo-600 hover:bg-indigo-700"
+                        : "bg-indigo-500 hover:bg-indigo-600"
+                    }`}
                 >
                   Play Again
                 </button>

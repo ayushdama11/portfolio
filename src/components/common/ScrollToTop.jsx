@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronUp } from "lucide-react";
+import { useTheme } from "../ThemeToggle";
 
 export const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -51,9 +53,13 @@ export const ScrollToTop = () => {
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-indigo-500/20 
-                   border border-indigo-500/30 text-indigo-400 backdrop-blur-sm 
-                   focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+          className={`fixed bottom-8 right-8 z-50 p-3 rounded-full 
+            backdrop-blur-sm focus:outline-none focus:ring-2
+            ${
+              isDark
+                ? "bg-indigo-500/20 border-indigo-500/30 text-indigo-400 focus:ring-indigo-500/20"
+                : "bg-indigo-400/20 border-indigo-400/30 text-indigo-600 focus:ring-indigo-400/20"
+            } border`}
           onClick={scrollToTop}
           variants={buttonVariants}
           initial="hidden"
@@ -65,7 +71,8 @@ export const ScrollToTop = () => {
         >
           <div className="relative">
             <motion.div
-              className="absolute inset-0 bg-indigo-500 rounded-full blur-md opacity-30"
+              className={`absolute inset-0 rounded-full blur-md opacity-30 
+                ${isDark ? "bg-indigo-500" : "bg-indigo-400"}`}
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.3, 0.5, 0.3],
@@ -78,7 +85,8 @@ export const ScrollToTop = () => {
             />
             <ChevronUp className="w-6 h-6 relative z-10" />
             <motion.div
-              className="absolute inset-0 border-2 border-indigo-500/50 rounded-full"
+              className={`absolute inset-0 border-2 rounded-full 
+                ${isDark ? "border-indigo-500/50" : "border-indigo-400/50"}`}
               animate={{
                 scale: [1, 1.1, 1],
                 opacity: [0.5, 0.8, 0.5],
@@ -95,3 +103,5 @@ export const ScrollToTop = () => {
     </AnimatePresence>
   );
 };
+
+export default ScrollToTop;

@@ -1,23 +1,31 @@
-import React from 'react';
+import React from "react";
 import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
+import { useTheme } from "../ThemeToggle";
 
-export const LoadingSpinner = ({ 
-  text = "Loading...",
-  showOverlay = true 
-}) => {
+export const LoadingSpinner = ({ text = "Loading...", showOverlay = true }) => {
+  const { isDark } = useTheme();
+  const bgColor = isDark ? "bg-slate-950/80" : "bg-white/80";
+  const textColor = isDark ? "text-indigo-300" : "text-indigo-700";
+  const borderColor = isDark ? "border-indigo-500/30" : "border-indigo-700/30";
+  const spinnerColor = isDark ? "text-indigo-400" : "text-indigo-600";
+  const glowColor = isDark ? "bg-indigo-500/20" : "bg-indigo-300/20";
+  const textBgColor = isDark ? "bg-indigo-500/10" : "bg-indigo-300/10";
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={`${showOverlay ? 'fixed inset-0 bg-slate-950/80 backdrop-blur-sm' : 'relative'} 
+      className={`${
+        showOverlay ? `fixed inset-0 ${bgColor} backdrop-blur-sm` : "relative"
+      } 
         flex items-center justify-center`}
     >
       <div className="relative w-48 h-48">
         {/* Ambient glow */}
         <motion.div
-          className="absolute inset-0 bg-indigo-500/20 rounded-full blur-xl"
+          className={`absolute inset-0 ${glowColor} rounded-full blur-xl`}
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.5, 0.3],
@@ -31,7 +39,7 @@ export const LoadingSpinner = ({
 
         {/* Spinning ring */}
         <motion.div
-          className="absolute inset-4 rounded-full border border-indigo-500/30"
+          className={`absolute inset-4 rounded-full border ${borderColor}`}
           animate={{ rotate: 360 }}
           transition={{
             duration: 3,
@@ -50,7 +58,7 @@ export const LoadingSpinner = ({
               ease: "linear",
             }}
           >
-            <Loader2 className="w-8 h-8 text-indigo-400" />
+            <Loader2 className={`w-8 h-8 ${spinnerColor}`} />
           </motion.div>
         </div>
 
@@ -58,7 +66,7 @@ export const LoadingSpinner = ({
         {text && (
           <div className="absolute -bottom-12 left-1/2 -translate-x-1/2">
             <motion.div
-              className="px-4 py-2 bg-indigo-500/10 rounded-full"
+              className={`px-4 py-2 ${textBgColor} rounded-full`}
               animate={{ opacity: [0.7, 1, 0.7] }}
               transition={{
                 duration: 2,
@@ -66,9 +74,7 @@ export const LoadingSpinner = ({
                 ease: "easeInOut",
               }}
             >
-              <span className="text-indigo-300 text-sm font-medium">
-                {text}
-              </span>
+              <span className={`${textColor} text-sm font-medium`}>{text}</span>
             </motion.div>
           </div>
         )}

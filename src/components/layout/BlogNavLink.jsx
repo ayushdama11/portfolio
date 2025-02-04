@@ -2,10 +2,12 @@ import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useTheme } from "../ThemeToggle";
 
 export const BlogNavLink = () => {
   const navigate = useNavigate();
   const [isCompact, setIsCompact] = useState(false);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,13 +30,15 @@ export const BlogNavLink = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={`relative group flex items-center gap-2 sm:gap-3
-          bg-black/95 border border-indigo-950 backdrop-blur-md
-          shadow-lg shadow-indigo-950/20
-          hover:shadow-indigo-900/30 hover:border-indigo-900/60
+          ${
+            isDark
+              ? "bg-black/95 border-indigo-950 shadow-indigo-950/20 hover:shadow-indigo-900/30 hover:border-indigo-900/60"
+              : "bg-white/95 border-indigo-200 shadow-indigo-200/20 hover:shadow-indigo-300/30 hover:border-indigo-300"
+          } border backdrop-blur-md shadow-lg
           transition-all duration-300 overflow-hidden
           ${
-            isCompact 
-              ? "p-2 sm:p-2.5 rounded-lg sm:rounded-[1.2rem]" 
+            isCompact
+              ? "p-2 sm:p-2.5 rounded-lg sm:rounded-[1.2rem]"
               : "px-4 sm:px-5 py-2 sm:py-3 rounded-lg sm:rounded-[1.2rem]"
           }`}
       >
@@ -54,7 +58,9 @@ export const BlogNavLink = () => {
             {[...Array(9)].map((_, i) => (
               <motion.div
                 key={i}
-                className="w-1 sm:w-2 h-1 sm:h-2 bg-indigo-600/30 rounded-full"
+                className={`w-1 sm:w-2 h-1 sm:h-2 rounded-full ${
+                  isDark ? "bg-indigo-600/30" : "bg-indigo-400/30"
+                }`}
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.3, 0.6, 0.3],
@@ -72,7 +78,11 @@ export const BlogNavLink = () => {
         {/* Diamond shapes on hover */}
         <motion.div
           className={`absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-300
-            ${isCompact ? "rounded-lg sm:rounded-[1.2rem]" : "rounded-lg sm:rounded-[1.2rem]"}`}
+            ${
+              isCompact
+                ? "rounded-lg sm:rounded-[1.2rem]"
+                : "rounded-lg sm:rounded-[1.2rem]"
+            }`}
         >
           <motion.div
             className="absolute inset-0"
@@ -88,7 +98,9 @@ export const BlogNavLink = () => {
             {[...Array(4)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-3 sm:w-4 h-3 sm:h-4 border border-indigo-500/40"
+                className={`absolute w-3 sm:w-4 h-3 sm:h-4 border ${
+                  isDark ? "border-indigo-500/40" : "border-indigo-400/40"
+                }`}
                 style={{
                   top: `${(i < 3 ? 20 : 25) * Math.sin((i * Math.PI) / 2)}%`,
                   left: `${(i < 3 ? 20 : 25) * Math.cos((i * Math.PI) / 2)}%`,
@@ -121,15 +133,25 @@ export const BlogNavLink = () => {
           }}
           className="relative"
         >
-          <MessageCircle className="w-4 sm:w-5 h-4 sm:h-5 text-indigo-400 group-hover:text-indigo-300 transition-colors" />
+          <MessageCircle
+            className={`w-4 sm:w-5 h-4 sm:h-5 transition-colors ${
+              isDark
+                ? "text-indigo-400 group-hover:text-indigo-300"
+                : "text-indigo-600 group-hover:text-indigo-500"
+            }`}
+          />
         </motion.div>
 
         {!isCompact && (
           <>
             {/* Text */}
             <span
-              className="relative text-sm sm:text-base font-medium text-indigo-300 group-hover:text-indigo-200
-                transition-colors duration-300"
+              className={`relative text-sm sm:text-base font-medium
+              transition-colors duration-300 ${
+                isDark
+                  ? "text-indigo-300 group-hover:text-indigo-200"
+                  : "text-indigo-600 group-hover:text-indigo-700"
+              }`}
             >
               Read Blog
             </span>
@@ -152,8 +174,12 @@ export const BlogNavLink = () => {
                   }}
                 >
                   <div
-                    className="absolute inset-0 bg-indigo-700 group-hover:bg-indigo-500
-                    transition-colors duration-300 shadow-sm sm:shadow-lg shadow-indigo-900/50 rounded-full"
+                    className={`absolute inset-0 shadow-sm sm:shadow-lg rounded-full 
+                    transition-colors duration-300 ${
+                      isDark
+                        ? "bg-indigo-700 group-hover:bg-indigo-500 shadow-indigo-900/50"
+                        : "bg-indigo-500 group-hover:bg-indigo-600 shadow-indigo-300/50"
+                    }`}
                   />
                 </motion.div>
               ))}

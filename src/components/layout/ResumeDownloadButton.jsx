@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { FileDown, CheckCircle, Loader, Download } from "lucide-react";
 import { useState, useCallback, useEffect } from "react";
+import { useTheme } from "../../components/ThemeToggle";
 
 const ResumeDownloadButton = () => {
   const [downloadStatus, setDownloadStatus] = useState(null);
@@ -8,6 +9,7 @@ const ResumeDownloadButton = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [isCompact, setIsCompact] = useState(false);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -88,11 +90,13 @@ const ResumeDownloadButton = () => {
         >
           <motion.div
             className={`relative flex items-center gap-1 sm:gap-2 rounded-lg 
-                       bg-black/80 backdrop-blur-sm 
-                       border border-indigo-500/10 
-                       shadow-lg shadow-indigo-500/20 
-                       hover:border-indigo-400 
+                       backdrop-blur-sm shadow-lg
                        transition-all duration-300
+                       ${
+                         isDark
+                           ? "bg-black/80 border-indigo-500/10 shadow-indigo-500/20 hover:border-indigo-400"
+                           : "bg-white/80 border-indigo-300/20 shadow-indigo-400/10 hover:border-indigo-500"
+                       } border
                        ${
                          isCompact
                            ? "px-2 sm:px-3 py-1.5 sm:py-2"
@@ -108,7 +112,9 @@ const ResumeDownloadButton = () => {
                   opacity: isHovered ? 1 : 0.7,
                   scale: isHovered ? 1.1 : 1,
                 }}
-                className="font-mono text-sm sm:text-base text-indigo-400 origin-center"
+                className={`font-mono text-sm sm:text-base origin-center ${
+                  isDark ? "text-indigo-400" : "text-indigo-600"
+                }`}
               >
                 $
               </motion.div>
@@ -117,19 +123,21 @@ const ResumeDownloadButton = () => {
             {!isCompact && (
               <div className="flex items-center gap-1 sm:gap-2 font-mono text-sm sm:text-base">
                 <motion.span
-                  className="hidden sm:block text-indigo-400 transition-colors"
+                  className={`hidden sm:block transition-colors ${
+                    isDark ? "text-indigo-400" : "text-indigo-600"
+                  }`}
                   animate={{
                     opacity: isHovered ? 1 : 0.7,
-                    color: isHovered ? "#6366f1" : "#6366f1",
                   }}
                 >
                   download
                 </motion.span>
                 <motion.span
-                  className="text-purple-400 transition-colors"
+                  className={`transition-colors ${
+                    isDark ? "text-purple-400" : "text-purple-600"
+                  }`}
                   animate={{
                     opacity: isHovered ? 1 : 0.7,
-                    color: isHovered ? "#a855f7" : "#a855f7",
                   }}
                 >
                   <span className="sm:hidden">resume</span>
@@ -146,27 +154,41 @@ const ResumeDownloadButton = () => {
             >
               {isLoading ? (
                 <div className="relative">
-                  <Loader className="w-3 sm:w-4 h-3 sm:h-4 text-indigo-400 animate-spin" />
+                  <Loader
+                    className={`w-3 sm:w-4 h-3 sm:h-4 animate-spin ${
+                      isDark ? "text-indigo-400" : "text-indigo-600"
+                    }`}
+                  />
                   {downloadProgress > 0 && (
                     <motion.div
                       className="absolute inset-0 text-xs text-center flex items-center justify-center"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                     >
-                      <span className="text-[8px] sm:text-[10px] text-indigo-300">
+                      <span
+                        className={`text-[8px] sm:text-[10px] ${
+                          isDark ? "text-indigo-300" : "text-indigo-500"
+                        }`}
+                      >
                         {downloadProgress}%
                       </span>
                     </motion.div>
                   )}
                 </div>
               ) : (
-                <FileDown className="w-3 sm:w-4 h-3 sm:h-4 text-indigo-400" />
+                <FileDown
+                  className={`w-3 sm:w-4 h-3 sm:h-4 ${
+                    isDark ? "text-indigo-400" : "text-indigo-600"
+                  }`}
+                />
               )}
             </motion.div>
 
             {!isCompact && (
               <motion.div
-                className="w-1.5 sm:w-2 h-3 sm:h-4 bg-indigo-400 rounded-full"
+                className={`w-1.5 sm:w-2 h-3 sm:h-4 rounded-full ${
+                  isDark ? "bg-indigo-400" : "bg-indigo-600"
+                }`}
                 animate={{
                   opacity: [1, 0],
                   scale: [1, 0.8, 1],
@@ -181,7 +203,9 @@ const ResumeDownloadButton = () => {
           </motion.div>
 
           <motion.div
-            className="absolute inset-0 rounded-lg bg-indigo-500/20 blur-xl"
+            className={`absolute inset-0 rounded-lg blur-xl ${
+              isDark ? "bg-indigo-500/20" : "bg-indigo-400/20"
+            }`}
             animate={{
               opacity: isHovered ? 0.3 : 0,
               scale: isHovered ? 1.2 : 1,
@@ -197,12 +221,16 @@ const ResumeDownloadButton = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="fixed top-16 sm:top-20 left-4 sm:left-6 z-50 
+            className={`fixed top-16 sm:top-20 left-4 sm:left-6 z-50 
                       px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg 
                       font-mono text-sm sm:text-base
                       backdrop-blur-sm border
-                      border-green-500/30 text-green-400 bg-green-500/10
-                      flex items-center gap-1 sm:gap-2"
+                      ${
+                        isDark
+                          ? "border-green-500/30 text-green-400 bg-green-500/10"
+                          : "border-green-400/30 text-green-600 bg-green-400/10"
+                      }
+                      flex items-center gap-1 sm:gap-2`}
           >
             <span className="opacity-70">$</span>
             <CheckCircle className="w-3 sm:w-4 h-3 sm:h-4" />
