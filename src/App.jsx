@@ -15,15 +15,12 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 2000);
+    setTimeout(() => setIsLoading(false), 1500);
   }, []);
-
-  if (isLoading) {
-    return <FirstLoading />;
-  }
 
   return (
     <ThemeProvider>
+      {isLoading && <FirstLoading />}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
