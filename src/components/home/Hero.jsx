@@ -222,17 +222,11 @@ export const Hero = () => {
             {name.first}
           </h1>
           <h1
-            className="text-6xl font-black"
+            className={`text-6xl font-black text-indigo-${
+              isDark ? "400" : "600"
+            } drop-shadow-lg`}
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              background: isDark
-                ? "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)"
-                : "linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              filter: isDark
-                ? "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.3))"
-                : "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.2))",
             }}
           >
             {name.last}
