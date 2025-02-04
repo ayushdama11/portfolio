@@ -12,10 +12,7 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("theme", JSON.stringify(isDark));
-    document.body.classList.toggle("bg-white", !isDark);
-    document.body.classList.toggle("bg-black", isDark);
-    document.body.classList.toggle("text-black", !isDark);
-    document.body.classList.toggle("text-white", isDark);
+    document.documentElement.classList.toggle("dark", isDark);
   }, [isDark]);
 
   return (
@@ -40,21 +37,23 @@ const ThemeToggle = () => {
   const toggleVariants = {
     initial: {
       opacity: 0,
-      scale: 0.8,
+      scale: 0.9,
     },
     animate: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 0.3,
-        ease: "easeOut",
+        type: "spring",
+        stiffness: 250,
+        damping: 12,
       },
     },
     hover: {
-      scale: 1.1,
+      scale: 1.05,
       transition: {
-        duration: 0.2,
-        ease: "easeInOut",
+        type: "spring",
+        stiffness: 300,
+        damping: 10,
       },
     },
     tap: {
@@ -63,19 +62,25 @@ const ThemeToggle = () => {
   };
 
   const iconVariants = {
-    initial: { scale: 0, rotate: -180 },
+    initial: { 
+      opacity: 0,
+      scale: 0.5,
+      rotate: isDark ? -180 : 180
+    },
     animate: {
+      opacity: 1,
       scale: 1,
       rotate: 0,
       transition: {
         type: "spring",
-        stiffness: 200,
-        damping: 10,
+        stiffness: 300,
+        damping: 15,
       },
     },
     exit: {
-      scale: 0,
-      rotate: 180,
+      opacity: 0,
+      scale: 0.5,
+      rotate: isDark ? 180 : -180,
       transition: {
         duration: 0.2,
       },
@@ -90,14 +95,21 @@ const ThemeToggle = () => {
       animate="animate"
       whileHover="hover"
       whileTap="tap"
-      className={`fixed bottom-6 left-6 p-4 rounded-xl z-50
-        backdrop-blur-sm border transition-all duration-300
+      className={`fixed bottom-6 left-6 p-3 rounded-full z-50 group
+        transition-all duration-300 
         ${
           isDark
-            ? "bg-black/80 border-indigo-500/30 hover:border-indigo-400"
-            : "bg-white/80 border-indigo-300/50 hover:border-indigo-500"
+            ? "bg-neutral-900/80 hover:bg-neutral-900/90"
+            : "bg-white/90 hover:bg-white"
         }
-        shadow-lg hover:shadow-[0_0_30px_-5px] 
+        shadow-2xl hover:shadow-[0_0_30px_-5px] 
+        border border-opacity-20
+        backdrop-blur-xl
+        ${
+          isDark
+            ? "border-white/10 hover:border-white/20"
+            : "border-neutral-200/30 hover:border-neutral-300/50"
+        }
         ${
           isDark
             ? "shadow-indigo-500/20 hover:shadow-indigo-500/30"
@@ -105,14 +117,22 @@ const ThemeToggle = () => {
         }`}
       aria-label="Toggle theme"
     >
+      {/* Glossy overlay */}
+      <div 
+        className={`absolute inset-0 rounded-full opacity-30 group-hover:opacity-50 transition-opacity 
+          ${isDark 
+            ? "bg-gradient-to-br from-white/20 to-white/5" 
+            : "bg-gradient-to-br from-white/50 to-white/10"
+          }`}
+      />
+
       {/* Animated background glow */}
       <motion.div
-        className={`absolute inset-0 rounded-xl blur-md ${
-          isDark ? "bg-indigo-500/20" : "bg-indigo-400/20"
-        }`}
+        className={`absolute inset-0 rounded-full blur-md opacity-30 group-hover:opacity-50 transition-opacity 
+          ${isDark ? "bg-indigo-500/20" : "bg-indigo-400/20"}`}
         animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.2, 0.3, 0.2],
+          scale: [1, 1.1, 1],
+          opacity: [0.3, 0.4, 0.3],
         }}
         transition={{
           duration: 3,
@@ -128,20 +148,21 @@ const ThemeToggle = () => {
         initial="initial"
         animate="animate"
         exit="exit"
-        className="relative"
+        className="relative flex items-center justify-center w-8 h-8"
       >
         <AnimatePresence mode="wait">
           {isDark ? (
             <motion.div
               key="sun"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              exit={{ scale: 0, rotate: 180 }}
-              transition={{ duration: 0.2 }}
+              className="absolute flex items-center justify-center"
+              initial={{ scale: 0.5, opacity: 0, rotate: -180 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              exit={{ scale: 0.5, opacity: 0, rotate: 180 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
-              <Sun className="w-6 h-6 text-yellow-400" />
+              <Sun className="w-6 h-6 text-yellow-400 drop-shadow-[0_0_6px_rgba(250,204,21,0.5)]" />
               <motion.div
-                className="absolute inset-0 bg-yellow-400/20 rounded-full blur-md"
+                className="absolute inset-0 bg-yellow-400/40 rounded-full blur-md"
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.3, 0.5, 0.3],
@@ -156,14 +177,15 @@ const ThemeToggle = () => {
           ) : (
             <motion.div
               key="moon"
-              initial={{ scale: 0, rotate: 180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              exit={{ scale: 0, rotate: -180 }}
-              transition={{ duration: 0.2 }}
+              className="absolute flex items-center justify-center"
+              initial={{ scale: 0.5, opacity: 0, rotate: 180 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              exit={{ scale: 0.5, opacity: 0, rotate: -180 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
             >
-              <Moon className="w-6 h-6 text-indigo-600" />
+              <Moon className="w-6 h-6 text-indigo-600 drop-shadow-[0_0_6px_rgba(79,70,229,0.5)]" />
               <motion.div
-                className="absolute inset-0 bg-indigo-400/20 rounded-full blur-md"
+                className="absolute inset-0 bg-indigo-400/40 rounded-full blur-md"
                 animate={{
                   scale: [1, 1.2, 1],
                   opacity: [0.3, 0.5, 0.3],
