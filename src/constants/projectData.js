@@ -19,7 +19,7 @@ export const projects = [
       "TailwindCSS",
       "Google OAuth",
     ],
-    github: "https://github.com/yourusername/chronospace",
+    github: "https://github.com/ashparshp/chronospace",
     demo: "https://chronospace.netlify.app",
     icon: Globe,
   },
