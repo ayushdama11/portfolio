@@ -261,7 +261,7 @@ export const GamesShowcase = () => {
                          : "bg-white/40 border-indigo-300/50 text-indigo-600 hover:text-indigo-900 hover:border-indigo-500 hover:bg-white/60"
                      }`}
           >
-            <span className="font-medium">Explore All Games</span>
+            <span className="font-medium">More</span>
             <div className="relative">
               <motion.div
                 className={`absolute inset-0 rounded-full blur-md ${
