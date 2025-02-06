@@ -161,7 +161,7 @@ const QRGenerator = () => {
               }`}
             >
               {/* Tab Navigation */}
-              <div className="flex space-x-2 mb-6">
+              <div className="flex space-x-2 mb-6 justify-center flex-wrap">
                 {tabs.map(({ id, label, icon: Icon }) => (
                   <button
                     key={id}
@@ -176,7 +176,7 @@ const QRGenerator = () => {
                         : "text-gray-600 hover:text-gray-900"
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-4 h-4 " />
                     {label}
                   </button>
                 ))}

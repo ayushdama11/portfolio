@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import  { createContext, useState, useContext, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
