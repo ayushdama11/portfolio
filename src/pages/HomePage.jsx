@@ -7,6 +7,7 @@ import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { BlogNavLink } from "@/components/layout/BlogNavLink";
 import { FloatingCubes } from "@/components/common/FloatingCubes";
 import { GamesShowcase } from "@/components/home/GamesShowcase";
+import ToolsShowcase from "../components/home/ToolsShowcase";
 
 const HomePage = () => {
   return (
@@ -18,6 +19,7 @@ const HomePage = () => {
       <Projects />
       <GamesShowcase />
       <Skills />
+      <ToolsShowcase />
       <Contact />
       <FloatingCubes />
     </>

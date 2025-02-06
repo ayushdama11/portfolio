@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, RefreshCcw, ArrowLeft, Palette } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { BackButton } from "../../../components/common/BackButton";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 import { useTheme } from "../../../components/ThemeToggle";
@@ -19,7 +18,9 @@ const ColorBox = ({ color, label, isDark }) => (
       transition={{ duration: 0.2 }}
     />
     <span
-      className={`text-sm font-mono ${isDark ? "text-gray-300" : "text-gray-600"}`}
+      className={`text-sm font-mono ${
+        isDark ? "text-gray-300" : "text-gray-600"
+      }`}
     >
       {label}
     </span>
@@ -187,7 +188,9 @@ export const ColorMatchGame = () => {
         <div className="fixed top-6 right-6 flex items-center gap-2">
           <Trophy className={isDark ? "text-yellow-500" : "text-yellow-600"} />
           <span
-            className={`font-mono text-xl ${isDark ? "text-white" : "text-gray-900"}`}
+            className={`font-mono text-xl ${
+              isDark ? "text-white" : "text-gray-900"
+            }`}
           >
             {score}
           </span>

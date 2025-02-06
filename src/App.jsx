@@ -10,6 +10,8 @@ import SlidingPuzzle from "@/games/components/SlidingPuzzle/SlidingPuzzle";
 import MemoryMatch from "@/games/components/MemoryMatch/MemoryMatch";
 import ComingSoon from "@/components/common/ComingSoon";
 import ThemeProvider from "./components/ThemeToggle";
+import ImageCompressor from "./tools/Image";
+import QRGenerator from "./tools/QRGenerator";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +32,8 @@ const App = () => {
           <Route path="/games/typing-test" element={<TypingSpeedTest />} />
           <Route path="/games/sliding-puzzle" element={<SlidingPuzzle />} />
           <Route path="/games/memory-match" element={<MemoryMatch />} />
+          <Route path="tools/image-compressor" element={<ImageCompressor />} />
+          <Route path="tools/qr-generator" element={<QRGenerator />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
