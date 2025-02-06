@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { FloatingCubes } from "../components/common/FloatingCubes";
@@ -63,20 +63,26 @@ const InteractiveGames = () => {
             initial="hidden"
             animate="visible"
             variants={{
+              hidden: { opacity: 0, y: -20 }, // Start off above the screen (optional)
               visible: {
+                opacity: 1,
+                y: 0,
                 transition: {
-                  staggerChildren: 0.1,
+                  staggerChildren: 0.1, // This staggers the animation of each child
                 },
               },
             }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-8"
           >
             {gameData.map((game) => (
-              <GameCard
+              <motion.div
                 key={game.title}
-                game={game}
-                onClick={() => navigate(game.path)}
-              />
+                initial={{ opacity: 0, y: -20 }} // Start from above
+                animate={{ opacity: 1, y: 0 }} // Move to normal position
+                transition={{ duration: 0.5 }} // Smooth transition
+              >
+                <GameCard game={game} onClick={() => navigate(game.path)} />
+              </motion.div>
             ))}
           </motion.div>
         )}
