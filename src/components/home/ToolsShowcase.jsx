@@ -140,7 +140,7 @@ const ToolCard = ({ icon: Icon, title, description, path }) => {
         className="relative group cursor-pointer"
       >
         {/* Gradient background */}
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-xl blur opacity-30 group-hover:opacity-50 transition duration-300" />
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-xl blur opacity-30 transition duration-300" />
 
         {/* Card content */}
         <div
@@ -201,25 +201,24 @@ const ToolCard = ({ icon: Icon, title, description, path }) => {
                 className={`
     flex items-center text-sm font-medium group 
     transition-all duration-300 ease-in-out
-    py-1.5 px-3 -mx-3 
-    rounded-md 
+    py-2 px-4 -mx-3 
+    rounded-lg shadow-sm
     ${
       isDark
-        ? "text-indigo-400 hover:bg-indigo-400/10 active:bg-indigo-400/20"
-        : "text-indigo-600 hover:bg-indigo-600/10 active:bg-indigo-600/20"
+        ? "text-indigo-400 bg-gray-800 hover:bg-indigo-500/20 active:bg-indigo-500/30"
+        : "text-indigo-600 bg-gray-100 hover:bg-indigo-600/10 active:bg-indigo-600/20"
     }
-    focus:outline-none 
-    focus:ring-2 
+    focus:outline-none focus:ring-2 
     ${isDark ? "focus:ring-indigo-500/50" : "focus:ring-indigo-500/30"}
   `}
               >
-                <span className="transition-transform group-hover:translate-x-0.5">
+                <span className="transition-transform group-hover:translate-x-1">
                   Launch tool
                 </span>
                 <ArrowRight
-                  className="w-4 h-4 ml-2 transition-all duration-300 
-    group-hover:translate-x-1 group-hover:-translate-y-0.5 
-    group-active:translate-x-1.5"
+                  className="w-4 h-4 ml-2 transition-transform duration-300 
+    group-hover:translate-x-1.5 group-hover:-translate-y-0.5 
+    group-active:translate-x-2"
                 />
               </button>
             </div>
