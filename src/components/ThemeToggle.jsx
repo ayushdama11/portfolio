@@ -1,6 +1,6 @@
-import  { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { Sun, Moon } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const ThemeContext = createContext(null);
 
@@ -34,173 +34,63 @@ export const useTheme = () => {
 const ThemeToggle = () => {
   const { isDark, setIsDark } = useTheme();
 
-  const toggleVariants = {
-    initial: {
-      opacity: 0,
-      scale: 0.9,
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 250,
-        damping: 12,
-      },
-    },
-    hover: {
-      scale: 1.05,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 10,
-      },
-    },
-    tap: {
-      scale: 0.95,
-    },
-  };
-
-  const iconVariants = {
-    initial: { 
-      opacity: 0,
-      scale: 0.5,
-      rotate: isDark ? -180 : 180
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      rotate: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 15,
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.5,
-      rotate: isDark ? 180 : -180,
-      transition: {
-        duration: 0.2,
-      },
-    },
-  };
-
   return (
-    <motion.button
-      onClick={() => setIsDark(!isDark)}
-      variants={toggleVariants}
-      initial="initial"
-      animate="animate"
-      whileHover="hover"
-      whileTap="tap"
-      className={`fixed bottom-6 left-6 p-3 rounded-full z-50 group
-        transition-all duration-300 
-        ${
-          isDark
-            ? "bg-neutral-900/80 hover:bg-neutral-900/90"
-            : "bg-white/90 hover:bg-white"
-        }
-        shadow-2xl hover:shadow-[0_0_30px_-5px] 
-        border border-opacity-20
-        backdrop-blur-xl
-        ${
-          isDark
-            ? "border-white/10 hover:border-white/20"
-            : "border-neutral-200/30 hover:border-neutral-300/50"
-        }
-        ${
-          isDark
-            ? "shadow-indigo-500/20 hover:shadow-indigo-500/30"
-            : "shadow-indigo-400/10 hover:shadow-indigo-400/20"
-        }`}
-      aria-label="Toggle theme"
-    >
-      {/* Glossy overlay */}
-      <div 
-        className={`absolute inset-0 rounded-full opacity-30 group-hover:opacity-50 transition-opacity 
-          ${isDark 
-            ? "bg-gradient-to-br from-white/20 to-white/5" 
-            : "bg-gradient-to-br from-white/50 to-white/10"
+    <>
+      <motion.button
+        onClick={() => setIsDark(!isDark)}
+        className={`fixed bottom-6 left-6 p-3 rounded-full z-50
+          backdrop-blur-sm focus:outline-none focus:ring-2 transition-all duration-300 
+          hover:-translate-y-1 hover:scale-110 active:scale-95 border
+          ${
+            isDark
+              ? "bg-gradient-to-r from-indigo-500/20 to-indigo-500/20 border-indigo-500/30 text-indigo-400 focus:ring-indigo-500/20"
+              : "bg-gradient-to-r from-amber-400/20 to-orange-400/20 border-orange-400/30 text-orange-100 focus:ring-orange-400/20"
           }`}
-      />
-
-      {/* Animated background glow */}
-      <motion.div
-        className={`absolute inset-0 rounded-full blur-md opacity-30 group-hover:opacity-50 transition-opacity 
-          ${isDark ? "bg-indigo-500/20" : "bg-indigo-400/20"}`}
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.4, 0.3],
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-
-      {/* Icon container */}
-      <motion.div
-        key={isDark ? "dark" : "light"}
-        variants={iconVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        className="relative flex items-center justify-center w-8 h-8"
+        aria-label="Toggle theme"
       >
-        <AnimatePresence mode="wait">
-          {isDark ? (
-            <motion.div
-              key="sun"
-              className="absolute flex items-center justify-center"
-              initial={{ scale: 0.5, opacity: 0, rotate: -180 }}
-              animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              exit={{ scale: 0.5, opacity: 0, rotate: 180 }}
-              transition={{ type: "spring", stiffness: 300, damping: 15 }}
-            >
-              <Sun className="w-6 h-6 text-yellow-400 drop-shadow-[0_0_6px_rgba(250,204,21,0.5)]" />
-              <motion.div
-                className="absolute inset-0 bg-yellow-400/40 rounded-full blur-md"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.5, 0.3],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="moon"
-              className="absolute flex items-center justify-center"
-              initial={{ scale: 0.5, opacity: 0, rotate: 180 }}
-              animate={{ scale: 1, opacity: 1, rotate: 0 }}
-              exit={{ scale: 0.5, opacity: 0, rotate: -180 }}
-              transition={{ type: "spring", stiffness: 300, damping: 15 }}
-            >
-              <Moon className="w-6 h-6 text-indigo-600 drop-shadow-[0_0_6px_rgba(79,70,229,0.5)]" />
-              <motion.div
-                className="absolute inset-0 bg-indigo-400/40 rounded-full blur-md"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.5, 0.3],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </motion.button>
+        <div className="relative">
+          {/* Primary glow effect */}
+          <div
+            className={`absolute inset-0 rounded-full blur-md opacity-30 animate-pulse
+              ${
+                isDark
+                  ? "bg-blue-500"
+                  : "bg-gradient-to-r from-amber-200 to-orange-100"
+              }`}
+          />
+          {/* Secondary glow effect */}
+          <div
+            className={`absolute inset-0 rounded-full blur-lg opacity-20 
+              ${isDark ? "bg-indigo-500" : "bg-yellow-400"}`}
+          />
+          {/* Icon */}
+          <div className="relative z-10">
+            {isDark ? (
+              <Moon className="w-6 h-6 text-indigo-400" />
+            ) : (
+              <Sun className="w-6 h-6 text-orange-400" />
+            )}
+          </div>
+          {/* Heartbeat animated border */}
+          <div
+            className={`absolute inset-0 border-2 rounded-full animate-[heartbeat_4s_ease-in-out_infinite] 
+              ${isDark ? "border-indigo-500/20" : "border-amber-400/50"}`}
+          />
+        </div>
+      </motion.button>
+
+      {/* Keyframes for heartbeat effect */}
+      <style>
+        {`
+          @keyframes heartbeat {
+            0% { transform: scale(1); opacity: 1; }
+            30% { transform: scale(1.5); opacity: 0.8; }
+            60% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+          }
+        `}
+      </style>
+    </>
   );
 };
 
