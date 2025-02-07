@@ -210,10 +210,11 @@ export const Hero = () => {
           animate="visible"
         >
           <h1
-            className="text-5xl font-black mb-2"
+            className={`text-5xl font-black mb-2 text-indigo-${
+              isDark ? "400" : "600"
+            }`}
             style={{
               fontFamily: "'Montserrat', sans-serif",
-              color: isDark ? "#e2e8f0" : "#1e293b",
               textShadow: isDark
                 ? "2px 2px 0px rgba(99, 102, 241, 0.3)"
                 : "2px 2px 0px rgba(99, 102, 241, 0.2)",
@@ -265,7 +266,9 @@ export const Hero = () => {
             {name.first.split("").map((letter, i) => (
               <motion.span
                 key={i}
-                className="inline-block font-bold"
+                className={`inline-block font-bold text-indigo-${
+                  isDark ? "400" : "600"
+                }`}
                 initial={{ y: 100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{
@@ -275,12 +278,10 @@ export const Hero = () => {
                   damping: 15,
                 }}
                 whileHover={{
-                  color: isDark ? "#818cf8" : "#6366f1",
                   scale: 1.1,
                   transition: { duration: 0.2 },
                 }}
                 style={{
-                  color: isDark ? "#e2e8f0" : "#1e293b",
                   textShadow: isDark
                     ? "2px 2px 0px rgba(99, 102, 241, 0.3)"
                     : "2px 2px 0px rgba(99, 102, 241, 0.2)",
