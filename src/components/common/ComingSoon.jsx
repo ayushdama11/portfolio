@@ -257,7 +257,7 @@ const ComingSoon = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.6 }}
         >
-          <Timer className="w-6 h-6 mx-auto" />
+          <Timer className="w-6 h-6 mx-auto m-4" />
         </motion.div>
 
         <div className="absolute inset-0 pointer-events-none">
