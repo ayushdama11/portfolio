@@ -12,6 +12,7 @@ import {
 import LoadingSpinner from "../components/common/LoadingSpinner";
 import { useTheme } from "../components/ThemeToggle";
 import { BackButton } from "../components/common/BackButton";
+import { FloatingCubes } from "../components/common//FloatingCubes";
 
 const ImagePreviewModal = ({ isOpen, onClose, images, initialIndex = 0 }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
@@ -272,7 +273,8 @@ const ImageCompressor = () => {
         isDark ? "bg-black" : "bg-white"
       }`}
     >
-      <BackButton />
+      <FloatingCubes />
+      <BackButton path="/" text="Home" />
       <div
         className={`absolute inset-0 bg-gradient-to-b ${
           isDark
@@ -280,6 +282,8 @@ const ImageCompressor = () => {
             : "from-indigo-100/50 via-white to-white"
         }`}
       />
+
+      <FloatingCubes />
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <div className="text-center mb-16">

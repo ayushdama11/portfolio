@@ -13,6 +13,7 @@ import {
 import { useTheme } from "../components/ThemeToggle";
 import { BackButton } from "../components/common/BackButton";
 import LoadingSpinner from "../components/common/LoadingSpinner";
+import { FloatingCubes } from "../components/common/FloatingCubes";
 
 const QRGenerator = () => {
   const { isDark } = useTheme();
@@ -116,7 +117,7 @@ const QRGenerator = () => {
             : "from-indigo-100/50 via-white to-white"
         }`}
       />
-
+      <FloatingCubes />
       <div
         className={`absolute inset-0 ${
           isDark
@@ -124,7 +125,6 @@ const QRGenerator = () => {
             : "bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.15),transparent_50%)]"
         }`}
       />
-
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
