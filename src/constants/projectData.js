@@ -1,14 +1,39 @@
-import { Globe, Box, BookOpen } from "lucide-react";
+import { Globe, Box, BookOpen, Clock } from "lucide-react";
 
 export const projects = [
   {
+    title: "HustleX",
+    description: [
+      "Designed and built a comprehensive productivity platform for developers with secure JWT authentication",
+      "Developed multiple specialized modules for tracking skills, working hours, LeetCode progress, and coding contests",
+      "Created interactive dashboards with real-time data visualization using Recharts",
+      "Implemented responsive UI with Framer Motion animations and TailwindCSS",
+      "Built category management system with custom hooks for efficient data organization",
+    ],
+    tech: [
+      "React",
+      "Express.js",
+      "MongoDB",
+      "Node.js",
+      "TailwindCSS",
+      "Framer Motion",
+      "JWT",
+      "Recharts",
+      "Nodemailer",
+    ],
+    github: "https://github.com/ashparshp/hustlex",
+    demo: "https://www.hustlex.in",
+    icon: Clock,
+  },
+  {
     title: "ChronoSpace",
     description: [
-      "Developed a blogging platform with JWT and Google OAuth authentication",
-      "Integrated AWS S3 for scalable image storage and RESTful APIs",
+      "Developed a full-featured blogging platform with rich text editor and content management",
+      "Implemented role-based access with admin and user modes for content governance",
+      "Built advanced search functionality for efficient content discovery",
       "Created nested comments/replies with real-time notifications",
-      "Enhanced API performance with pagination and MongoDB aggregation",
-      "Built responsive UI with TailwindCSS and React",
+      "Secured platform with JWT and Google OAuth authentication",
+      "Integrated AWS S3 for scalable image storage with optimized performance",
     ],
     tech: [
       "React",
