@@ -1,7 +1,7 @@
 import { Hero } from "@/components/home/Hero";
 import { Experience } from "@/components/home/Experience";
 import { Projects } from "@/components/home/Projects";
-import { Skills } from "@/components/home/Skills";
+import { TechStackShowcase } from "@/components/home/TechStackShowcase";
 import { Contact } from "@/components/home/Contact";
 import { ScrollToTop } from "@/components/common/ScrollToTop";
 import { BlogNavLink } from "@/components/layout/BlogNavLink";
@@ -17,8 +17,8 @@ const HomePage = () => {
       <Hero />
       <Experience />
       <Projects />
+      <TechStackShowcase />
       <GamesShowcase />
-      <Skills />
       <ToolsShowcase />
       <Contact />
       <FloatingCubes />

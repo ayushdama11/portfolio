@@ -75,12 +75,12 @@ const CategoryDropdown = ({ activeCategory, setActiveCategory, isDark }) => {
   };
 
   return (
-    <div className="relative z-20 mb-6">
+    <div className="relative z-20 mb-6 flex justify-center align-center">
       <motion.button
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsExpanded(!isExpanded)}
-        className={`flex items-center justify-between gap-2 px-4 py-2 w-full rounded-lg text-sm font-medium border
+        className={`flex items-center justify-between gap-2 px-4 py-3 rounded-lg text-sm font-medium border
           backdrop-blur-sm transition-all duration-300 shadow-sm ${getButtonStyles()}`}
       >
         <div className="flex items-center gap-2">
@@ -133,7 +133,7 @@ const CategoryDropdown = ({ activeCategory, setActiveCategory, isDark }) => {
   );
 };
 
-const TechStackShowcase = () => {
+export const TechStackShowcase = () => {
   const { isDark } = useTheme();
   const [activeCategory, setActiveCategory] = useState("Backend & APIs");
 
