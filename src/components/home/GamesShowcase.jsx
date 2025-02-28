@@ -253,23 +253,25 @@ export const GamesShowcase = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className={`relative px-8 py-3 backdrop-blur-sm 
-                     border rounded-full
+                     border rounded-full shadow-lg
                      transition-all duration-300
                      inline-flex items-center gap-3 group ${
                        isDark
-                         ? "bg-black/40 border-indigo-500/30 text-indigo-400 hover:text-white hover:border-indigo-400 hover:bg-black/60"
-                         : "bg-white/40 border-indigo-300/50 text-indigo-600 hover:text-indigo-900 hover:border-indigo-500 hover:bg-white/60"
+                         ? "bg-gradient-to-r from-indigo-600/20 to-indigo-400/10 border-indigo-500/40 text-indigo-300 hover:text-white hover:border-indigo-400/80 hover:from-indigo-600/30 hover:to-indigo-400/20"
+                         : "bg-gradient-to-r from-indigo-100 to-indigo-50 border-indigo-300/60 text-indigo-600 hover:text-indigo-900 hover:border-indigo-500 hover:from-indigo-200 hover:to-indigo-100"
                      }`}
           >
-            <span className="font-medium">More</span>
+            <span className="font-semibold tracking-wide">
+              Explore All Games
+            </span>
             <div className="relative">
               <motion.div
                 className={`absolute inset-0 rounded-full blur-md ${
-                  isDark ? "bg-indigo-500/20" : "bg-indigo-400/20"
+                  isDark ? "bg-indigo-500/30" : "bg-indigo-400/30"
                 }`}
                 animate={{
                   scale: [1, 1.2, 1],
-                  opacity: [0.2, 0.4, 0.2],
+                  opacity: [0.2, 0.5, 0.2],
                 }}
                 transition={{
                   duration: 2,
@@ -278,9 +280,18 @@ export const GamesShowcase = () => {
                 }}
               />
               <ArrowRight
-                className={`${ICON_SIZES.medium} relative group-hover:translate-x-1 transition-transform duration-300`}
+                className={`${ICON_SIZES.medium} relative z-10 group-hover:translate-x-2 transition-transform duration-300`}
               />
             </div>
+
+            {/* Add a subtle background effect */}
+            <motion.div
+              className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+                isDark
+                  ? "bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.15),transparent_70%)]"
+                  : "bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.1),transparent_70%)]"
+              }`}
+            />
           </motion.button>
         </motion.div>
       </div>
