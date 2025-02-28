@@ -1,11 +1,75 @@
+import { useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { experiences } from "../../constants/experienceData";
-import { containerVariants, cardVariants } from "../../animations/variants";
+import {
+  containerVariants,
+  cardVariants,
+  fadeInUpVariants,
+} from "../../animations/variants";
 import { Calendar, ArrowRight } from "lucide-react";
 import { useTheme } from "../ThemeToggle";
+import { twMerge } from "tailwind-merge";
+
+// Item variant for list items inside experience cards
+const itemVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: (i) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  }),
+};
 
 export const Experience = () => {
   const { isDark } = useTheme();
+
+  // Extract description highlighting logic
+  const highlightText = useCallback(
+    (text) => {
+      return text.split(" ").map((word, i) => {
+        const key = `${text}-${i}-${word}`;
+
+        if (
+          word.match(
+            /(managed|developed|improved|conducted|organized|enhanced|contributed|maintained|successfully|implemented)/i
+          )
+        ) {
+          return (
+            <span
+              key={key}
+              className={`font-semibold ${
+                isDark ? "text-indigo-400" : "text-indigo-600"
+              }`}
+            >
+              {word}{" "}
+            </span>
+          );
+        } else if (
+          word.match(
+            /(technical|community|documentation|frontend|GitHub|codebase|PR|UI|communication)/i
+          )
+        ) {
+          return (
+            <span
+              key={key}
+              className={`font-medium ${
+                isDark ? "text-blue-400" : "text-blue-600"
+              }`}
+            >
+              {word}{" "}
+            </span>
+          );
+        }
+
+        return <span key={key}>{word} </span>;
+      });
+    },
+    [isDark]
+  );
 
   return (
     <section className={`py-20 relative ${isDark ? "bg-black" : "bg-white"}`}>
@@ -26,8 +90,9 @@ export const Experience = () => {
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
         <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={fadeInUpVariants}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
           className={`text-3xl font-bold text-center ${
             isDark ? "text-white" : "text-gray-900"
@@ -55,18 +120,21 @@ export const Experience = () => {
               key={exp.company}
               variants={cardVariants}
               className="relative group"
+              whileHover={{ y: -5 }}
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-lg blur opacity-30 group-hover:opacity-50 transition duration-300" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-lg blur opacity-30 group-hover:opacity-70 transition duration-300" />
 
               <div
-                className={`relative p-6 rounded-lg border h-full backdrop-blur-sm transition-colors duration-300 ${
+                className={`relative p-6 rounded-lg border h-full backdrop-blur-sm transition-all duration-300 ${
                   isDark
-                    ? "bg-black border-indigo-500/30 group-hover:border-indigo-400"
-                    : "bg-white border-indigo-300/50 group-hover:border-indigo-500"
+                    ? "bg-black/90 border-indigo-500/30 group-hover:border-indigo-400"
+                    : "bg-white/90 border-indigo-300/50 group-hover:border-indigo-500"
                 }`}
               >
                 <div className="relative mb-4 flex items-center">
-                  <div
+                  <motion.div
+                    initial={{ scale: 1 }}
+                    whileHover={{ scale: 1.1 }}
                     className={`p-3 rounded-lg transition-colors duration-300 ${
                       isDark
                         ? "bg-indigo-500/10 group-hover:bg-indigo-500/20"
@@ -80,7 +148,7 @@ export const Experience = () => {
                           : "text-indigo-600 group-hover:text-indigo-500"
                       }`}
                     />
-                  </div>
+                  </motion.div>
                   <div className="ml-4">
                     <h3
                       className={`text-xl font-bold transition-colors duration-300 ${
@@ -115,9 +183,8 @@ export const Experience = () => {
                   {exp.description.map((item, i) => (
                     <motion.li
                       key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.1 }}
+                      custom={i}
+                      variants={itemVariants}
                       className={`flex items-start group/item p-2 rounded-lg transition-colors duration-300 ${
                         isDark
                           ? "text-gray-300 hover:bg-indigo-500/10"
@@ -134,45 +201,31 @@ export const Experience = () => {
                           isDark ? "text-gray-200" : "text-gray-900"
                         } transition-colors duration-300`}
                       >
-                        {item.split(" ").map((word, wordIndex) => {
-                          if (
-                            word.match(
-                              /(managed|developed|improved|conducted|organized|enhanced|contributed|maintained|successfully|implemented)/i
-                            )
-                          ) {
-                            return (
-                              <span
-                                key={wordIndex}
-                                className={`font-semibold ${
-                                  isDark ? "text-indigo-400" : "text-indigo-600"
-                                }`}
-                              >
-                                {word}{" "}
-                              </span>
-                            );
-                          } else if (
-                            word.match(
-                              /(technical|community|documentation|frontend|GitHub|codebase|PR|UI|communication)/i
-                            )
-                          ) {
-                            return (
-                              <span
-                                key={wordIndex}
-                                className={`font-medium ${
-                                  isDark ? "text-blue-400" : "text-blue-600"
-                                }`}
-                              >
-                                {word}{" "}
-                              </span>
-                            );
-                          } else {
-                            return word + " ";
-                          }
-                        })}
+                        {highlightText(item)}
                       </span>
                     </motion.li>
                   ))}
                 </ul>
+
+                {/* Skills/Keywords Tags */}
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {exp.skills &&
+                    exp.skills.map((skill, i) => (
+                      <motion.span
+                        key={skill}
+                        variants={fadeInUpVariants}
+                        transition={{ delay: i * 0.05 + 0.3 }}
+                        className={twMerge(
+                          `px-3 py-1 text-sm border rounded-full transition-all`,
+                          isDark
+                            ? "bg-indigo-500/20 text-indigo-400 border-indigo-500/30"
+                            : "bg-indigo-100/80 text-indigo-600 border-indigo-300/70"
+                        )}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                </div>
               </div>
             </motion.div>
           ))}

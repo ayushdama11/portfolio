@@ -263,18 +263,16 @@ const ToolsShowcase = () => {
 
   return (
     <section className={`py-20 relative ${isDark ? "bg-black" : "bg-white"}`}>
+      {/* Background effects */}
       <div
-        className={`absolute inset-0 bg-gradient-to-b 
-        ${
+        className={`absolute inset-0 bg-gradient-to-b ${
           isDark
-            ? "from-indigo-900/10 via-black to-black"
+            ? "from-indigo-900/1 via-black to-black"
             : "from-indigo-100/50 via-white to-white"
         }`}
       />
-
       <div
-        className={`absolute inset-0 
-        ${
+        className={`absolute inset-0 ${
           isDark
             ? "bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)]"
             : "bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.15),transparent_50%)]"

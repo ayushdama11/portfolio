@@ -108,7 +108,7 @@ export const Contact = () => {
         }`}
       />
 
-      <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+      <div className="max-w-4xl mx-auto px-4 text-center relative">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}

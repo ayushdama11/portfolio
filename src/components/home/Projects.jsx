@@ -11,7 +11,6 @@ import {
 import { useTheme } from "../ThemeToggle";
 import { twMerge } from "tailwind-merge";
 
-// Item variant for list items inside project cards
 const itemVariants = {
   hidden: { opacity: 0, x: -10 },
   visible: (i) => ({
@@ -25,7 +24,6 @@ const itemVariants = {
   }),
 };
 
-// LinkButton component with animation variants
 const LinkButton = ({ href, children, isDark, ariaLabel }) => (
   <motion.a
     href={href}
@@ -45,9 +43,7 @@ const LinkButton = ({ href, children, isDark, ariaLabel }) => (
   </motion.a>
 );
 
-// Extract ProjectCard component for better organization
 const ProjectCard = ({ project, isDark }) => {
-  // Memo for performance optimization
   const tagColors = useMemo(() => {
     const keyTechs = {
       React: {
@@ -87,7 +83,6 @@ const ProjectCard = ({ project, isDark }) => {
     });
   }, [project.tech]);
 
-  // Extract description highlighting logic
   const highlightText = useCallback(
     (text) => {
       return text.split(" ").map((word, i) => {
@@ -243,7 +238,6 @@ const ProjectCard = ({ project, isDark }) => {
   );
 };
 
-// Main Projects component
 export const Projects = () => {
   const { isDark } = useTheme();
 
@@ -253,7 +247,7 @@ export const Projects = () => {
       <div
         className={`absolute inset-0 bg-gradient-to-b ${
           isDark
-            ? "from-indigo-900/10 via-black to-black"
+            ? "from-indigo-900/1 via-black to-black"
             : "from-indigo-100/50 via-white to-white"
         }`}
       />
