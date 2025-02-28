@@ -36,7 +36,6 @@ export const BackButton = ({
 
   const handleBack = useCallback(async () => {
     if (isLoading) return;
-
     try {
       setIsLoading(true);
       await onBeforeNavigate();
@@ -72,24 +71,24 @@ export const BackButton = ({
       aria-label={isLoading ? "Loading..." : `Navigate ${text}`}
       title={`Go ${text}`}
       className={`
-        fixed top-6 left-6 z-50 
-        flex items-center gap-3 px-6 py-2
-        backdrop-blur-sm rounded-full border
+        fixed top-6 left-6 z-50
+        flex items-center gap-3 px-6 py-2.5
+        backdrop-blur-sm rounded-full border shadow-lg
         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent
-        transition-all duration-300
+        transition-all duration-300 group
         ${
           isDark
-            ? "bg-black/40 border-indigo-500/30 focus:ring-indigo-500"
-            : "bg-white/40 border-indigo-300/50 focus:ring-indigo-400"
+            ? "bg-gradient-to-r from-indigo-600/20 to-indigo-400/10 border-indigo-500/40 focus:ring-indigo-500"
+            : "bg-gradient-to-r from-indigo-100 to-indigo-50 border-indigo-300/60 focus:ring-indigo-400"
         }
         ${
           isLoading
             ? isDark
-              ? "text-indigo-600"
-              : "text-indigo-700"
+              ? "text-indigo-400/70"
+              : "text-indigo-600/70"
             : isDark
-            ? "text-indigo-400 hover:text-white hover:border-indigo-400 hover:bg-black/60"
-            : "text-indigo-600 hover:text-indigo-900 hover:border-indigo-500 hover:bg-white/60"
+            ? "text-indigo-300 hover:text-white hover:border-indigo-400/80 hover:from-indigo-600/30 hover:to-indigo-400/20"
+            : "text-indigo-600 hover:text-indigo-900 hover:border-indigo-500 hover:from-indigo-200 hover:to-indigo-100"
         }
         cursor-${isLoading ? "not-allowed" : "pointer"}
         ${className}
@@ -114,13 +113,39 @@ export const BackButton = ({
             <Loader className="w-5 h-5" />
           </motion.div>
         ) : (
-          <ArrowLeft className="w-5 h-5 relative" />
+          <>
+            <motion.div
+              className={`absolute inset-0 rounded-full blur-md ${
+                isDark ? "bg-indigo-500/30" : "bg-indigo-400/30"
+              }`}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.2, 0.5, 0.2],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <ArrowLeft className="w-5 h-5 relative z-10 group-hover:-translate-x-1 transition-transform duration-300" />
+          </>
         )}
       </div>
-
-      <span className="font-medium relative pr-1">
+      <span className="font-semibold tracking-wide relative pr-1">
         {isLoading ? "Loading..." : text}
       </span>
+
+      {/* Add a subtle background effect */}
+      {!isLoading && (
+        <motion.div
+          className={`absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
+            isDark
+              ? "bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.15),transparent_70%)]"
+              : "bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.1),transparent_70%)]"
+          }`}
+        />
+      )}
     </motion.button>
   );
 };
