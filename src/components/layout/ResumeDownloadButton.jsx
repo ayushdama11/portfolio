@@ -26,7 +26,7 @@ const ResumeDownloadButton = () => {
     setDownloadProgress(0);
 
     try {
-      const resumeUrl = "Ashparsh.pdf";
+      const resumeUrl = "ashparsh.pdf";
       const response = await fetch(resumeUrl);
 
       if (!response.ok) throw new Error("Download failed");
