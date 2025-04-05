@@ -1,26 +1,12 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import {
-  Terminal,
-  GithubIcon,
-  LinkedinIcon,
-  Mail,
-  Calendar,
-} from "lucide-react";
-import ResumeDownloadButton from "../layout/ResumeDownloadButton";
+import { ChevronDown, Github, Linkedin, Mail, Download, ArrowRight } from "lucide-react";
 import { useTheme } from "../ThemeToggle";
 
-export const Hero = () => {
+const Hero = () => {
   const { isDark } = useTheme();
   const [typedText, setTypedText] = useState("");
-  const fullText = "< Full Stack Developer />";
-  const name = {
-    first: "ASHPARSH",
-    last: "PANDEY",
-  };
-  const gradientClass = isDark
-    ? "bg-gradient-to-r from-indigo-500 via-indigo-300 to-indigo-500"
-    : "bg-gradient-to-r from-indigo-400 via-indigo-200 to-indigo-400";
+  const fullText = "Software Developer";
 
   useEffect(() => {
     let currentIndex = 0;
@@ -35,407 +21,185 @@ export const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleScheduleCall = () => {
-    window.open("https://calendly.com/ashparshpandey00", "_blank");
-  };
+  // Social links with animated variants
+  const socialLinks = [
+    {
+      icon: Github,
+      href: "https://github.com/aakash-kumar-singh",
+      label: "GitHub Profile",
+    },
+    {
+      icon: Linkedin,
+      href: "https://linkedin.com/in/aakash82",
+      label: "LinkedIn Profile",
+    },
+    {
+      icon: Mail,
+      href: "mailto:aakashkumarsingh824301@gmail.com",
+      label: "Email Me",
+    },
+  ];
 
-  const gridVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 0.3,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const cellVariants = {
-    hidden: { scale: 0 },
-    visible: {
-      scale: 1,
-      transition: { type: "spring", stiffness: 200, damping: 10 },
-    },
-  };
-
-  const mobileNameVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8 },
-    },
-  };
-
-  const scheduleButtonVariants = {
-    initial: {
-      opacity: 0,
-      y: 20,
-      scale: 0.95,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-    hover: {
-      scale: 1.05,
-      transition: {
-        duration: 0.2,
-        ease: "easeInOut",
-      },
-    },
-    tap: {
-      scale: 0.98,
-      transition: {
-        duration: 0.1,
-        ease: "easeInOut",
-      },
-    },
-  };
-
-  const socialLinkVariants = {
-    initial: { opacity: 0, x: -20 },
-    animate: (i) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: i * 0.2,
-        duration: 0.3,
-        ease: "easeOut",
-      },
-    }),
-    hover: {
-      scale: 1.2,
-      transition: {
-        duration: 0.2,
-        ease: "easeInOut",
-      },
-    },
+  const scrollToProjects = () => {
+    document.getElementById("projects").scrollIntoView({
+      behavior: "smooth",
+    });
   };
 
   return (
-    <div
-      className={`relative min-h-screen flex items-center justify-center ${
-        isDark ? "bg-black" : "bg-white"
-      } overflow-hidden pt-20 pb-9`}
-    >
-      <ResumeDownloadButton />
-      <motion.div
-        className="absolute inset-0 grid grid-cols-8 grid-rows-6 gap-4 p-8"
-        variants={gridVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {[...Array(48)].map((_, i) => (
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Shapes */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-primary-50 to-transparent dark:from-primary-900/10 transform -skew-x-12" />
+        <div className="absolute bottom-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary-50 to-transparent dark:from-primary-900/10 transform skew-x-12" />
+        
+        {/* Subtle Animated Circles */}
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.1 }}
+          transition={{ duration: 1.5, delay: 0.5 }}
+          className="absolute top-1/4 -left-20 w-80 h-80 bg-primary-100 dark:bg-primary-900 rounded-full blur-3xl"
+        />
+        <motion.div
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.1 }}
+          transition={{ duration: 1.5, delay: 0.7 }}
+          className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary-100 dark:bg-primary-900 rounded-full blur-3xl"
+        />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div
-            key={i}
-            variants={cellVariants}
-            className={`w-full h-full rounded-lg ${
-              isDark
-                ? "bg-indigo-500/5 border-indigo-500/10"
-                : "bg-indigo-200/5 border-indigo-300/10"
-            } border`}
-          />
-        ))}
-      </motion.div>
-
-      <motion.div
-        className="relative z-10 max-w-4xl mx-auto px-4 text-center"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        <motion.div
-          initial={{ scale: 0.5, rotate: -20 }}
-          animate={{
-            scale: 1,
-            rotate: 0,
-            transition: {
-              type: "spring",
-              stiffness: 260,
-              damping: 20,
-            },
-          }}
-          className="mb-12"
-        >
-          <div className="w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-8 relative group">
-            <motion.div
-              className="absolute inset-0 border-4 rounded-2xl transition-colors duration-700"
-              animate={{
-                rotate: 360,
-                scale: [1, 1.08, 1],
-                borderColor: isDark
-                  ? [
-                      "rgba(99, 102, 241, 1)",
-                      "rgba(124, 58, 237, 1)",
-                      "rgba(99, 102, 241, 1)",
-                    ]
-                  : [
-                      "rgba(129, 140, 248, 1)",
-                      "rgba(165, 180, 252, 1)",
-                      "rgba(129, 140, 248, 1)",
-                    ],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                scale: {
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                },
-              }}
-            />
-            <Terminal
-              className={`w-full h-full relative z-10 p-4 transition-colors duration-700
-                ${
-                  isDark
-                    ? "text-indigo-400 group-hover:text-purple-400"
-                    : "text-indigo-600 group-hover:text-purple-600"
-                }`}
-            />
-          </div>
-        </motion.div>
-
-        {/* Mobile Name Display */}
-        <motion.div
-          className="block sm:hidden relative mb-8"
-          variants={mobileNameVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <h1
-            className={`text-5xl font-black mb-2 text-indigo-${
-              isDark ? "400" : "600"
-            }`}
-            style={{
-              fontFamily: "'Montserrat', sans-serif",
-              textShadow: isDark
-                ? "2px 2px 0px rgba(99, 102, 241, 0.3)"
-                : "2px 2px 0px rgba(99, 102, 241, 0.2)",
-            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            {name.first}
-          </h1>
-          <h1
-            className={`text-6xl font-black text-indigo-${
-              isDark ? "400" : "600"
-            } drop-shadow-lg`}
-            style={{
-              fontFamily: "'Montserrat', sans-serif",
-            }}
-          >
-            {name.last}
-          </h1>
-          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-3/5 flex gap-1">
-            {[...Array(8)].map((_, i) => (
-              <motion.div
-                key={i}
-                className={`${gradientClass} h-1 flex-1`}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{
-                  delay: i * 0.1,
-                  duration: 0.3,
-                  ease: "easeOut",
-                }}
-              />
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Desktop Name Animation */}
-        <motion.div
-          className="hidden sm:block relative mb-8"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* First Name */}
-          <motion.div
-            className="text-7xl font-black mb-2 relative"
-            style={{
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-            }}
-          >
-            {name.first.split("").map((letter, i) => (
-              <motion.span
-                key={i}
-                className={`inline-block font-bold text-indigo-${
-                  isDark ? "400" : "600"
-                }`}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  delay: i * 0.1,
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 15,
-                }}
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.2 },
-                }}
-                style={{
-                  textShadow: isDark
-                    ? "2px 2px 0px rgba(99, 102, 241, 0.3)"
-                    : "2px 2px 0px rgba(99, 102, 241, 0.2)",
-                  fontFamily: "'Montserrat', sans-serif",
-                  letterSpacing: "0.05em",
-                }}
-              >
-                {letter}
-              </motion.span>
-            ))}
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              <span className="block text-slate-800 dark:text-white">Hi, I'm </span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400">
+                Aakash Kumar Singh
+              </span>
+            </h1>
           </motion.div>
 
           <motion.div
-            className="text-7xl font-black relative"
-            style={{
-              fontFamily: "'Montserrat', sans-serif",
-              letterSpacing: "0.1em",
-              "--gradient-bg": isDark
-                ? "linear-gradient(135deg, #6366f1 0%, #818cf8 100%)"
-                : "linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)",
-              "--drop-shadow": isDark
-                ? "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.3))"
-                : "drop-shadow(0 4px 6px rgba(99, 102, 241, 0.2))",
-            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mb-6 h-10"
           >
-            {name.last.split("").map((letter, i) => (
-              <motion.span
-                key={i}
-                className="inline-block"
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  delay: i * 0.1 + 0.5,
-                  type: "spring",
-                  stiffness: 200,
-                  damping: 15,
-                }}
-                whileHover={{
-                  scale: 1.1,
-                  transition: { duration: 0.2 },
-                }}
-                style={{
-                  background: "var(--gradient-bg)", // Uses CSS variable
-                  filter: "var(--drop-shadow)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                {letter}
-              </motion.span>
-            ))}
-          </motion.div>
-
-          <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-3/5 flex gap-1">
-            {[...Array(8)].map((_, i) => (
-              <motion.div
-                key={i}
-                className={`${gradientClass} h-1 flex-1`}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{
-                  delay: i * 0.1,
-                  duration: 0.3,
-                  ease: "easeOut",
-                }}
-              />
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          className={`sm:text-2xl font-mono mb-12 h-10 flex justify-center items-center text-xl
-            ${isDark ? "text-indigo-400" : "text-indigo-600"}`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.6 }}
-          style={{ fontFamily: "'Fira Code', monospace" }}
-        >
-          <span className="relative">
-            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <span className="text-xl md:text-2xl font-mono text-slate-700 dark:text-slate-300">
               {typedText}
-            </motion.span>
-            <motion.span
-              animate={{ opacity: [0, 1] }}
-              transition={{ duration: 0.5, repeat: Infinity }}
-              className="ml-1 inline-block"
-            >
-              |
-            </motion.span>
-          </span>
-        </motion.div>
+              <motion.span
+                initial={{ opacity: 1 }}
+                animate={{ opacity: [1, 0, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity }}
+                className="inline-block w-2 h-5 ml-1 bg-primary-500 dark:bg-primary-400"
+              />
+            </span>
+          </motion.div>
 
-        {/* Social Links and Schedule Call */}
-        <div className="flex flex-col items-center space-y-6">
-          <div className="flex justify-center space-x-6">
-            {[
-              {
-                Icon: GithubIcon,
-                href: "https://github.com/Ashparshp",
-                color: "hover:text-white hover:bg-gray-800",
-              },
-              {
-                Icon: LinkedinIcon,
-                href: "https://www.linkedin.com/in/ashparsh",
-                color: "hover:text-white hover:bg-blue-600",
-              },
-              {
-                Icon: Mail,
-                href: "mailto:ashparsh.connects@gmail.com",
-                color: "hover:text-white hover:bg-red-500",
-              },
-            ].map(({ Icon, href, color }, i) => (
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8"
+          >
+            Passionate computer science student at Lovely Professional University 
+            with a focus on building responsive and functional web applications.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="flex flex-col sm:flex-row justify-center gap-4 mb-8"
+          >
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary-600 hover:bg-primary-700 transition-all"
+            >
+              <Download className="mr-2 group-hover:animate-bounce" size={20} />
+              Download Resume
+            </a>
+            <button 
+              onClick={scrollToProjects} 
+              className="group inline-flex items-center justify-center px-6 py-3 border border-primary-600 text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 rounded-full transition-all"
+            >
+              View Projects
+              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
+            </button>
+          </motion.div>
+
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            className="flex flex-col sm:flex-row justify-center items-center gap-4 text-slate-600 dark:text-slate-400 mb-8"
+          >
+            <div>Aurangabad, Bihar 824301</div>
+            <div className="hidden sm:block">•</div>
+            <div>
+              <a 
+                href="tel:+919835381345" 
+                className="hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+              >
+                +91-9835381345
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Social Links */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 1 }}
+            className="flex justify-center gap-4"
+          >
+            {socialLinks.map(({ icon: Icon, href, label }) => (
               <motion.a
                 key={href}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                variants={socialLinkVariants}
-                custom={i}
-                initial="initial"
-                animate="animate"
-                whileHover="hover"
-                className={`p-4 rounded-xl transition-colors duration-300 
-                  ${
-                    isDark
-                      ? "bg-indigo-900/30 text-indigo-400 border-indigo-500/30"
-                      : "bg-indigo-100/30 text-indigo-600 border-indigo-300/30"
-                  } 
-                  border ${color}`}
+                aria-label={label}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center justify-center w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 transition-all"
               >
-                <Icon className="w-6 h-6" />
+                <Icon size={24} />
               </motion.a>
             ))}
-          </div>
-
-          <motion.button
-            onClick={handleScheduleCall}
-            variants={scheduleButtonVariants}
-            initial="initial"
-            animate="animate"
-            whileHover="hover"
-            whileTap="tap"
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl 
-                     transition-colors duration-300
-                     ${
-                       isDark
-                         ? "bg-indigo-500/10 text-indigo-400 border-indigo-500/30 hover:bg-indigo-500/20 hover:border-indigo-400"
-                         : "bg-indigo-100/30 text-indigo-600 border-indigo-300/30 hover:bg-indigo-200/30 hover:border-indigo-500"
-                     } border`}
-          >
-            <Calendar className="w-5 h-5" />
-            <span className="font-medium">Schedule a Call</span>
-          </motion.button>
+          </motion.div>
         </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center"
+      >
+        <span className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+          Scroll Down
+        </span>
+        <motion.div
+          animate={{ 
+            y: [0, 10, 0],
+            transition: {
+              duration: 1.5,
+              repeat: Infinity,
+              repeatType: "loop",
+            }
+          }}
+        >
+          <ChevronDown className="w-6 h-6 text-slate-600 dark:text-slate-400" />
+        </motion.div>
       </motion.div>
     </div>
   );

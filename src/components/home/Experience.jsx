@@ -88,7 +88,7 @@ export const Experience = () => {
         }`}
       />
 
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
+      <div className=" mx-auto px-4 relative z-10">
         <motion.h2
           variants={fadeInUpVariants}
           initial="hidden"

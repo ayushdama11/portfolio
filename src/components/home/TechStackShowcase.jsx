@@ -161,7 +161,7 @@ export const TechStackShowcase = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-7xl mx-auto px-4 relative z-10"
+        className=" mx-auto px-4 relative z-10"
       >
         <motion.h2
           initial={{ opacity: 0, y: -20 }}

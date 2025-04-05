@@ -2,23 +2,18 @@ import { useState, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "@/pages/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage";
-import InteractiveGames from "@/games/InteractiveGames";
-import ColorMatchGame from "@/games/components/ColorMatchGame/index";
-import TypingSpeedTest from "@/games/components/TypingSpeedTest/index";
-import FirstLoading from "@/components/common/EnhancedLoadingSpinner";
-import SlidingPuzzle from "@/games/components/SlidingPuzzle/SlidingPuzzle";
-import MemoryMatch from "@/games/components/MemoryMatch/MemoryMatch";
-import ComingSoon from "@/components/common/ComingSoon";
-import ImageCompressor from "./tools/Image";
-import QRGenerator from "./tools/QRGenerator";
+import ProjectDetailPage from "@/pages/ProjectDetailPage";
+import BlogPage from "@/pages/BlogPage";
+import InitialLoadingScreen from "@/components/common/InitialLoadingScreen";
+import WeatherDashboardPage from "@/pages/WeatherDashboardPage";
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const location = useLocation(); // useLocation inside a Router context
+  const location = useLocation();
 
   useEffect(() => {
     if (location.pathname === "/") {
-      setTimeout(() => setIsLoading(false), 1500); // Show loading animation for homepage
+      setTimeout(() => setIsLoading(false), 1800); // Show loading animation for homepage
     } else {
       setIsLoading(false); // No loading on other pages
     }
@@ -26,17 +21,12 @@ const App = () => {
 
   return (
     <>
-      {isLoading && <FirstLoading />}
+      {isLoading && <InitialLoadingScreen />}
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/blog" element={<ComingSoon />} />
-        <Route path="/games" element={<InteractiveGames />} />
-        <Route path="/games/color-match" element={<ColorMatchGame />} />
-        <Route path="/games/typing-test" element={<TypingSpeedTest />} />
-        <Route path="/games/sliding-puzzle" element={<SlidingPuzzle />} />
-        <Route path="/games/memory-match" element={<MemoryMatch />} />
-        <Route path="tools/image-compressor" element={<ImageCompressor />} />
-        <Route path="tools/qr-generator" element={<QRGenerator />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/project/:id" element={<ProjectDetailPage />} />
+        <Route path="/projects/weather-dashboard" element={<WeatherDashboardPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>

@@ -1,278 +1,243 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  MessageCircle,
-  Mail,
-  GithubIcon,
-  LinkedinIcon,
-  Loader,
-  Calendar,
-} from "lucide-react";
+import { Mail, MapPin, Phone, MessageSquare, Send, Github, Linkedin, CheckCircle, AlertCircle } from "lucide-react";
 import { useTheme } from "../ThemeToggle";
 
-const NotificationToast = ({ message, type }) => {
+const Contact = () => {
   const { isDark } = useTheme();
-
-  const styles = {
-    success: {
-      background: isDark
-        ? "bg-gradient-to-r from-green-500/20 to-emerald-500/20"
-        : "bg-gradient-to-r from-green-500/10 to-emerald-500/10",
-      border: isDark ? "border-green-500/30" : "border-green-400/30",
-      text: isDark ? "text-green-400" : "text-green-600",
-    },
-    error: {
-      background: isDark
-        ? "bg-gradient-to-r from-red-500/20 to-rose-500/20"
-        : "bg-gradient-to-r from-red-500/10 to-rose-500/10",
-      border: isDark ? "border-red-500/30" : "border-red-400/30",
-      text: isDark ? "text-red-400" : "text-red-600",
-    },
-  };
-
-  const { background, border, text } = styles[type];
-
-  return (
-    <motion.div
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: -100, opacity: 0 }}
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50
-                px-6 py-3 rounded-lg backdrop-blur-sm
-                border ${border} ${background} ${
-        isDark ? "bg-black/50" : "bg-white/50"
-      }
-                flex items-center gap-2 shadow-lg`}
-    >
-      <span className={`text-sm font-medium ${text}`}>{message}</span>
-    </motion.div>
-  );
-};
-
-export const Contact = () => {
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState(null);
-  const { isDark } = useTheme();
 
-  const showNotification = (message, type) => {
-    setNotification({ message, type });
-    setTimeout(() => setNotification(null), 3000);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleEmailClick = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const mailtoUrl = encodeURI(
-        "mailto:ashparsh.connects@gmail.com" +
-          "?subject=Project Collaboration Interest" +
-          "&body=Hi Ashparsh,%0D%0A%0D%0AI came across your portfolio and would love to discuss potential collaboration opportunities.%0D%0A%0D%0ABest regards"
-      );
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      window.location.href = mailtoUrl;
-      showNotification("Opening your email client...", "success");
+      // Clear form after successful submission
+      setFormState({ name: "", email: "", message: "" });
+      setNotification({
+        type: "success",
+        message: "Message sent successfully! I'll get back to you soon.",
+      });
     } catch (error) {
-      showNotification(
-        "Could not open email client. Please try again.",
-        "error"
-      );
+      setNotification({
+        type: "error",
+        message: "Failed to send message. Please try again later.",
+      });
     } finally {
       setIsSubmitting(false);
+      
+      // Clear notification after 5 seconds
+      setTimeout(() => {
+        setNotification(null);
+      }, 5000);
     }
   };
 
-  const handleScheduleCall = () => {
-    window.open("https://calendly.com/ashparshpandey00", "_blank");
-    showNotification("Opening scheduling calendar...", "success");
-  };
-
   return (
-    <section
-      className={`py-20 relative overflow-hidden ${
-        isDark ? "bg-black" : "bg-white"
-      }`}
-    >
-      <div
-        className={`absolute inset-0 bg-gradient-to-b ${
-          isDark
-            ? "from-indigo-900/1 via-black to-black"
-            : "from-indigo-100/50 via-white to-white"
-        }`}
-      />
-      <div
-        className={`absolute inset-0 ${
-          isDark
-            ? "bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.1),transparent_50%)]"
-            : "bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.15),transparent_50%)]"
-        }`}
-      />
-
-      <div className="max-w-4xl mx-auto px-4 text-center relative">
-        <motion.h2
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className={`text-3xl font-bold text-center ${
-            isDark ? "text-white" : "text-gray-900"
-          } mb-16`}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-16">
+      <div className="container mx-auto px-4">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden"
         >
-          Let's Connect
-          <div
-            className={`w-24 h-1 bg-gradient-to-r ${
-              isDark
-                ? "from-white to-gray-500"
-                : "from-indigo-600 to-indigo-300"
-            } mx-auto mt-4 rounded-full`}
-          />
-        </motion.h2>
+          {/* Contact Information Side */}
+          <div className="p-10 bg-primary-50 dark:bg-primary-900/20 flex flex-col justify-between">
+            <div>
+              <h2 className="text-3xl font-bold text-primary-600 dark:text-primary-400 mb-6">
+                Get In Touch
+              </h2>
+              <p className="text-slate-600 dark:text-slate-300 mb-8">
+                Feel free to reach out through any of these channels. I'm always eager to discuss new projects and opportunities.
+              </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="relative group"
-        >
-          {/* Animated gradient background */}
-          <motion.div
-            className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-xl blur opacity-30 
-                     group-hover:opacity-50 transition duration-300"
-            animate={{
-              scale: [1, 1.02, 1],
-              opacity: [0.2, 0.3, 0.2],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
-
-          <div
-            className={`relative rounded-xl p-8 backdrop-blur-sm 
-                     border transition-all duration-300
-                     hover:shadow-[0_0_30px_-5px] ${
-                       isDark
-                         ? "bg-black border-indigo-500/30 group-hover:border-indigo-400 hover:shadow-indigo-500/20"
-                         : "bg-white border-indigo-300/50 group-hover:border-indigo-500 hover:shadow-indigo-400/20"
-                     }`}
-          >
-            <div
-              className={`p-3 mx-auto mb-4 w-fit rounded-lg transition-colors duration-300 ${
-                isDark
-                  ? "bg-indigo-500/10 group-hover:bg-indigo-500/20"
-                  : "bg-indigo-100/50 group-hover:bg-indigo-200/70"
-              }`}
-            >
-              <MessageCircle
-                className={`w-8 h-8 transition-colors duration-300 ${
-                  isDark
-                    ? "text-indigo-400 group-hover:text-indigo-300"
-                    : "text-indigo-600 group-hover:text-indigo-500"
-                }`}
-              />
+              <div className="space-y-6">
+                <ContactMethod 
+                  icon={MapPin} 
+                  title="Location" 
+                  detail="Aurangabad, Bihar 824301" 
+                />
+                <ContactMethod 
+                  icon={Mail} 
+                  title="Email" 
+                  detail="aakashkumarsingh824301@gmail.com"
+                  link="mailto:aakashkumarsingh824301@gmail.com"
+                />
+                <ContactMethod 
+                  icon={Phone} 
+                  title="Phone" 
+                  detail="+91-9835381345"
+                  link="tel:+919835381345"
+                />
+              </div>
             </div>
-            <p
-              className={`text-xl ${
-                isDark ? "text-gray-300" : "text-gray-600"
-              }`}
-            >
-              Ready to collaborate or chat about tech? Let's create something
-              amazing together!
-            </p>
+
+            <div className="mt-8">
+              <h4 className="text-lg font-medium text-slate-800 dark:text-white mb-4">
+                Connect Socially
+              </h4>
+              <div className="flex space-x-4">
+                <SocialLink 
+                  href="https://github.com/aakash-kumar-singh"
+                  icon={Github}
+                />
+                <SocialLink 
+                  href="https://linkedin.com/in/aakash82"
+                  icon={Linkedin}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form Side */}
+          <div className="p-10">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formState.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 dark:bg-slate-700 dark:text-white transition-all"
+                  placeholder="Your full name"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 dark:bg-slate-700 dark:text-white transition-all"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formState.message}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 dark:bg-slate-700 dark:text-white transition-all"
+                  placeholder="Write your message here..."
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-primary-600 text-white py-3 rounded-lg hover:bg-primary-700 focus:ring-2 focus:ring-primary-500 flex items-center justify-center gap-2 transition-all"
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="animate-spin inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send size={20} />
+                    Send Message
+                  </>
+                )}
+              </button>
+            </form>
           </div>
         </motion.div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 mb-6 max-w-md mx-auto">
-          {/* Send Email Button */}
-          <motion.button
-            onClick={handleEmailClick}
-            disabled={isSubmitting}
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 0 20px rgba(99, 102, 241, 0.3)",
-            }}
-            className={`w-full px-6 py-3 rounded-lg font-semibold
-                       disabled:opacity-50 transition-all duration-300 
-                       disabled:cursor-not-allowed flex items-center gap-2 
-                       justify-center shadow-md ${
-                         isDark
-                           ? "bg-gradient-to-r from-indigo-50 to-indigo-100 hover:from-indigo-100 hover:to-indigo-200 text-indigo-700 border border-indigo-100 hover:border-indigo-200 hover:text-indigo-800 hover:shadow-indigo-100/20"
-                           : "bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white border border-transparent hover:shadow-indigo-500/20"
-                       }`}
-            aria-label="Send Email"
-          >
-            {isSubmitting ? (
-              <Loader className="w-5 h-5 animate-spin" />
-            ) : (
-              <Mail className="w-5 h-5" />
-            )}
-            Send Email
-          </motion.button>
-
-          {/* Schedule Call Button */}
-          <motion.button
-            onClick={handleScheduleCall}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className={`w-full px-6 py-3 rounded-lg
-                       border flex items-center gap-2 justify-center
-                       transition-colors duration-200 ${
-                         isDark
-                           ? "bg-transparent text-gray-300 border-gray-700 hover:bg-gray-900"
-                           : "bg-transparent text-gray-600 border-gray-300 hover:bg-gray-50"
-                       }`}
-            aria-label="Schedule Call"
-          >
-            <Calendar className="w-5 h-5" />
-            <span>Schedule Call</span>
-          </motion.button>
-        </div>
-
-        <div
-          className={`p-1.5 border rounded-lg backdrop-blur-sm inline-block ${
-            isDark
-              ? "bg-black/80 border-indigo-500/10"
-              : "bg-white/80 border-indigo-300/10"
-          }`}
-        >
-          <div className="flex justify-center gap-4">
-            {[
-              { icon: GithubIcon, href: "https://github.com/Ashparshp" },
-              {
-                icon: LinkedinIcon,
-                href: "https://www.linkedin.com/in/ashparsh",
-              },
-            ].map(({ icon: Icon, href }) => (
-              <motion.a
-                key={href}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className={`p-2 rounded-md transition-all duration-300 ${
-                  isDark
-                    ? "bg-indigo-500/10 text-indigo-400 hover:text-white hover:bg-indigo-500/20"
-                    : "bg-indigo-100/50 text-indigo-600 hover:text-indigo-900 hover:bg-indigo-200/70"
-                }`}
-              >
-                <Icon className="w-5 h-5" />
-              </motion.a>
-            ))}
-          </div>
-        </div>
       </div>
 
+      {/* Notification */}
       <AnimatePresence>
         {notification && (
-          <NotificationToast
-            message={notification.message}
-            type={notification.type}
-          />
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className={`fixed top-20 right-5 p-4 rounded-lg shadow-lg max-w-md z-50 ${
+              notification.type === "success"
+                ? "bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-800/30"
+                : "bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-200 border border-red-200 dark:border-red-800/30"
+            }`}
+          >
+            <div className="flex items-start gap-3">
+              {notification.type === "success" ? (
+                <CheckCircle className="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" />
+              ) : (
+                <AlertCircle className="flex-shrink-0 w-5 h-5 text-red-500 dark:text-red-400" />
+              )}
+              <div className="flex-1">{notification.message}</div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </div>
   );
 };
+
+const ContactMethod = ({ icon: Icon, title, detail, link }) => (
+  <div className="flex items-center space-x-4">
+    <div className="bg-primary-100 dark:bg-primary-900/30 p-3 rounded-full">
+      <Icon className="text-primary-600 dark:text-primary-400" size={24} />
+    </div>
+    <div>
+      <h4 className="font-semibold text-slate-800 dark:text-white">{title}</h4>
+      {link ? (
+        <a 
+          href={link} 
+          className="text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+        >
+          {detail}
+        </a>
+      ) : (
+        <p className="text-slate-600 dark:text-slate-300">{detail}</p>
+      )}
+    </div>
+  </div>
+);
+
+const SocialLink = ({ href, icon: Icon }) => (
+  <motion.a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.95 }}
+    className="w-12 h-12 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center text-slate-700 dark:text-slate-300 hover:bg-primary-500 hover:text-white dark:hover:bg-primary-600 transition-all"
+  >
+    <Icon size={24} />
+  </motion.a>
+);
 
 export default Contact;

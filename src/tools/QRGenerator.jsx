@@ -125,7 +125,7 @@ const QRGenerator = () => {
             : "bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.15),transparent_50%)]"
         }`}
       />
-      <div className="max-w-7xl mx-auto px-4 relative z-10">
+      <div className=" mx-auto px-4 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}

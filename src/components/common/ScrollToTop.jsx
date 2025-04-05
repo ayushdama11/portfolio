@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronUp } from "lucide-react";
-import { useTheme } from "../ThemeToggle";
+import { useTheme } from "@/components/ThemeToggle";
 
-export const ScrollToTop = () => {
+const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { isDark } = useTheme();
 
   useEffect(() => {
     const toggleVisibility = () => {
-      if (window.pageYOffset > 500) {
+      if (window.pageYOffset > 400) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -27,77 +27,26 @@ export const ScrollToTop = () => {
     });
   };
 
-  const buttonVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: { type: "spring", stiffness: 260, damping: 20 },
-    },
-    exit: {
-      opacity: 0,
-      y: 20,
-      scale: 0.8,
-      transition: { duration: 0.2 },
-    },
-    hover: {
-      y: -5,
-      scale: 1.1,
-      transition: { type: "spring", stiffness: 400, damping: 10 },
-    },
-    tap: { scale: 0.95 },
-  };
-
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.button
-          className={`fixed bottom-8 right-8 z-50 p-3 rounded-full 
-            backdrop-blur-sm focus:outline-none focus:ring-2
-            ${
-              isDark
-                ? "bg-indigo-500/20 border-indigo-500/30 text-indigo-400 focus:ring-indigo-500/20"
-                : "bg-indigo-400/20 border-indigo-400/30 text-indigo-600 focus:ring-indigo-400/20"
-            } border`}
           onClick={scrollToTop}
-          variants={buttonVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          whileHover="hover"
-          whileTap="tap"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.5 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className={`fixed bottom-6 left-6 p-3 rounded-full z-40 
+          shadow-lg focus:outline-none border
+          ${
+            isDark
+              ? "bg-slate-800 border-slate-700 text-slate-200 hover:bg-primary-600 hover:text-white"
+              : "bg-white border-slate-200 text-slate-700 hover:bg-primary-500 hover:text-white"
+          } transition-colors duration-300`}
           aria-label="Scroll to top"
         >
-          <div className="relative">
-            <motion.div
-              className={`absolute inset-0 rounded-full blur-md opacity-30 
-                ${isDark ? "bg-indigo-500" : "bg-indigo-400"}`}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            <ChevronUp className="w-6 h-6 relative z-10" />
-            <motion.div
-              className={`absolute inset-0 border-2 rounded-full 
-                ${isDark ? "border-indigo-500/50" : "border-indigo-400/50"}`}
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 0.8, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </div>
+          <ChevronUp size={20} />
         </motion.button>
       )}
     </AnimatePresence>

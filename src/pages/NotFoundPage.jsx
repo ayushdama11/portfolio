@@ -1,50 +1,76 @@
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Home } from "lucide-react";
-import { FloatingCubes } from "../components/common/FloatingCubes";
+import { useTheme } from "../components/ThemeToggle";
 
 const NotFoundPage = () => {
-  const navigate = useNavigate();
-
+  const { isDark } = useTheme();
+  
   return (
-    <div className="min-h-screen bg-black overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-indigo-900/20 via-black to-black" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.1),transparent_50%)]" />
-      <FloatingCubes />
-
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-9xl font-bold text-white mb-4"
+    <div className={`min-h-screen flex items-center justify-center ${
+      isDark ? "bg-slate-950" : "bg-white"
+    }`}>
+      <div className="max-w-md w-full mx-auto px-4 py-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, type: "spring" }}
+          className="mb-8"
         >
-          404
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-2xl text-gray-400 mb-8 text-center"
-        >
-          Oops! Looks like you've ventured into the void.
-        </motion.p>
-
-        <motion.button
-          onClick={() => navigate("/")}
+          <div className="w-40 h-40 mx-auto relative">
+            <motion.div 
+              className="absolute inset-0 rounded-full bg-primary-50 dark:bg-primary-900/20"
+              animate={{ 
+                scale: [1, 1.1, 1],
+                opacity: [0.5, 0.8, 0.5] 
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <motion.h1 
+                className="text-7xl font-bold text-primary-500 dark:text-primary-400"
+                animate={{ 
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                404
+              </motion.h1>
+            </div>
+          </div>
+        </motion.div>
+        
+        <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-6 py-3 bg-indigo-500/10 border border-indigo-500/30
-                   text-indigo-400 rounded-full hover:bg-indigo-500/20
-                   hover:border-indigo-400 transition-all duration-300
-                   flex items-center gap-2"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-2xl font-bold mb-4 text-slate-900 dark:text-white"
         >
-          <Home className="w-5 h-5" />
-          Back to Home
-        </motion.button>
+          Page Not Found
+        </motion.h2>
+        
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-slate-600 dark:text-slate-400 mb-8"
+        >
+          The page you're looking for doesn't exist or has been moved.
+        </motion.p>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <Link 
+            to="/" 
+            className="btn btn-primary inline-flex items-center gap-2"
+          >
+            <Home size={18} />
+            Back to Home
+          </Link>
+        </motion.div>
       </div>
     </div>
   );
