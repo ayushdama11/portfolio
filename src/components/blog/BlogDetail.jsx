@@ -5,7 +5,7 @@ import { X, Loader } from "lucide-react";
 export const BlogDetail = ({ onClose }) => {
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  useEffect(() => { 
     const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
