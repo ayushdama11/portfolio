@@ -7,21 +7,21 @@ const educationData = [
     institution: "Lovely Professional University",
     location: "Phagwara, Punjab",
     period: "2022 – 2026",
-    grade: "CGPA: 8.8",
+    grade: "CGPA: 7.94",
   },
   {
     degree: "12th with Science (BSEB)",
     institution: "Sachidanand Sinha College",
     location: "Aurangabad, Bihar",
     period: "2020 – 2021",
-    grade: "Percentage: 82.00%",
+    grade: "Percentage: 84.00%",
   },
   {
     degree: "10th (CBSE)",
-    institution: "Vivekanand Mission School",
+    institution: "Vivekanand Vision Ideal Public School",
     location: "Aurangabad, Bihar",
     period: "2018 – 2019",
-    grade: "Percentage: 93.40%",
+    grade: "Percentage: 87.40%",
   },
 ];
 
