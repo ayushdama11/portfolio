@@ -12,18 +12,12 @@ const skillsData = [
   },
   {
     category: "Technologies & Frameworks",
-    icon: Layers,
-    skills: ["React", "NodeJS", "Express JS", "MongoDB", "Git", "GitHub"],
-  },
+    icon: "Layers",
+    skills: ["Random Forest", "Time-Series Forecasting", "Regression Analysis"] },
   {
     category: "Core Competencies",
     icon: Cpu,
-    skills: [
-      "Data Structures and Algorithms",
-      "Problem-Solving",
-      "Responsive Web Design",
-      "Backend Development",
-    ],
+    skills: ["SQL", "MySQL", "MS Word", "PowerPoint", "Power BI", "Excel"],
   },
 ];
 
