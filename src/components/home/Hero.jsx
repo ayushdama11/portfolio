@@ -46,7 +46,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background Effects */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-primary-50 to-transparent dark:from-primary-900/10 transform -skew-x-12" />
@@ -69,7 +69,7 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Flex row with reversed order - image first on desktop (left side) */}
-          <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
+          <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-12 pt-8">
             {/* Profile Image Section - Now on left on desktop */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -116,8 +116,9 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
+                className="mb-6"
               >
-                <h1 className="text-4xl md:text-6xl font-bold mb-6">
+                <h1 className="text-4xl md:text-6xl font-bold">
                   <span className="block text-slate-800 dark:text-white">Hi, I'm </span>
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400">
                     Ayush Dama
@@ -148,7 +149,7 @@ const Hero = () => {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8"
               >
-               👋 Hi, I’m a Computer Science student passionate about coding and turning ideas into real-world solutions. I love solving complex problems, building interactive dashboards, and creating clean, responsive web apps. With 400+ DSA problems solved and hands-on projects in AI and Web dev, I’m all about learning, building, and leveling up.
+               👋 Hi, I'm a Computer Science student passionate about coding and turning ideas into real-world solutions. I love solving complex problems, building interactive dashboards, and creating clean, responsive web apps. With 400+ DSA problems solved and hands-on projects in AI and Web dev, I'm all about learning, building, and leveling up.
 
 
               </motion.p>
