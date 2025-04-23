@@ -26,7 +26,7 @@ const ResumeDownloadButton = () => {
     setDownloadProgress(0);
 
     try {
-      const resumeUrl = "ashparsh.pdf";
+      const resumeUrl = "resume.pdf";
       const response = await fetch(resumeUrl);
 
       if (!response.ok) throw new Error("Download failed");
@@ -54,7 +54,7 @@ const ResumeDownloadButton = () => {
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = "Ashparsh_Pandey_Resume.pdf";
+      link.download = "resume.pdf";
 
       document.body.appendChild(link);
       link.click();

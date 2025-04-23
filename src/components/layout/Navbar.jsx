@@ -14,17 +14,14 @@ const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   useEffect(() => {
-    // Close menu when route changes
     setIsOpen(false);
   }, [location.pathname]);
 
-  // Handle scroll events for styling and active section tracking
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       setIsScrolled(scrollPosition > 20);
 
-      // Determine which section is currently in view
       const sections = [
         "home",
         "projects",
@@ -35,19 +32,15 @@ const Navbar = () => {
         "contact",
       ];
 
-      // Find the section that is currently most visible in the viewport
-      let currentSection = "home"; // Default to home
+      let currentSection = "home";
       let maxVisibility = 0;
 
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          // Calculate how much of the section is visible in the viewport
           const visibility =
             Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-
-          // If this section has more visibility than previous sections and is at least partially visible
           if (visibility > maxVisibility && visibility > 0) {
             maxVisibility = visibility;
             currentSection = section;
@@ -62,13 +55,8 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock scroll when mobile menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
@@ -92,12 +80,11 @@ const Navbar = () => {
       if (element) {
         const offsetTop =
           element.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({ top: offsetTop - 80, behavior: "smooth" }); // Offset for navbar height
+        window.scrollTo({ top: offsetTop - 80, behavior: "smooth" });
       }
     }
   }, []);
 
-  // Variants for navbar animations
   const navbarVariants = {
     initial: { opacity: 0, y: -20 },
     animate: {
@@ -124,7 +111,7 @@ const Navbar = () => {
             : "bg-transparent"
         }`}
       >
-        <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link
@@ -133,28 +120,19 @@ const Navbar = () => {
               onClick={() => scrollToSection("#home")}
             >
               <div className="flex items-center">
-                {/* Logo circle with animation */}
                 <div className="relative w-8 h-8 mr-2">
                   <motion.div
                     className="absolute inset-0 rounded-full bg-primary-500 dark:bg-primary-400 opacity-80 group-hover:opacity-100"
-                    animate={{
-                      scale: [1, 1.05, 1],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                   />
                   <div className="absolute inset-0 flex items-center justify-center text-white font-bold">
                     A
                   </div>
                 </div>
                 <span className="text-xl font-bold text-slate-900 dark:text-white">
-                  Aakash
-                  <span className="text-primary-500 dark:text-primary-400">
-                    .dev
-                  </span>
+                  Ayush
+                  <span className="text-primary-500 dark:text-primary-400">Dama</span>
                 </span>
               </div>
             </Link>
@@ -171,16 +149,15 @@ const Navbar = () => {
                       e.preventDefault();
                       scrollToSection(link.href);
                     }}
-                    className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300
-                      ${
-                        isActive
-                          ? isDark
-                            ? "text-primary-400 bg-primary-500/10"
-                            : "text-primary-600 bg-primary-50"
-                          : isDark
-                          ? "text-slate-300 hover:text-white hover:bg-slate-800/50"
-                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                      }`}
+                    className={`relative px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                      isActive
+                        ? isDark
+                          ? "text-primary-400 bg-primary-500/10"
+                          : "text-primary-600 bg-primary-50"
+                        : isDark
+                        ? "text-slate-300 hover:text-white hover:bg-slate-800/50"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    }`}
                   >
                     {link.name}
                     {isActive && (
@@ -195,17 +172,15 @@ const Navbar = () => {
                   </a>
                 );
               })}
-
               <a
-                href="/resume.pdf"
+                href="/ats2.pdf" // Updated the path here
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-1 ml-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors
-                  ${
-                    isDark
-                      ? "bg-primary-500 hover:bg-primary-600 text-white"
-                      : "bg-primary-500 hover:bg-primary-600 text-white"
-                  }`}
+                className={`flex items-center gap-1 ml-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isDark
+                    ? "bg-primary-500 hover:bg-primary-600 text-white"
+                    : "bg-primary-500 hover:bg-primary-600 text-white"
+                }`}
               >
                 Resume
                 <ExternalLink size={14} />
@@ -229,7 +204,7 @@ const Navbar = () => {
         </div>
       </motion.header>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -265,10 +240,8 @@ const Navbar = () => {
                       A
                     </div>
                     <span className="text-lg font-bold text-slate-900 dark:text-white">
-                      Aakash
-                      <span className="text-primary-500 dark:text-primary-400">
-                        .dev
-                      </span>
+                      Lucky
+                      <span className="text-primary-500 dark:text-primary-400">.dev</span>
                     </span>
                   </Link>
 
@@ -321,7 +294,7 @@ const Navbar = () => {
 
                 <div className="pt-6 border-t border-slate-200 dark:border-slate-800">
                   <a
-                    href="/resume.pdf"
+                    href="/resume.pdf" // Updated the path here
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 w-full py-3 px-4 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-colors"

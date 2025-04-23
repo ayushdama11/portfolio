@@ -5,37 +5,44 @@ const certificationsData = [
   {
     title: "Cloud Computing",
     issuer: "NPTEL",
-    date: "Dec 2024",
-    credential: "#NPTEL123456789",
-    link: "#",
+    date: "Oct 2024",
+    credential: "#NPTEL24CS118S1570200651",
+    link: "https://nptel.ac.in/noc/E_Certificate/NPTEL24CS118S157020065104430667",
   },
   {
-    title: "Server-Side JavaScript with Node.js",
-    issuer: "Coursera",
+    title: "Data Structures and Algorithms",
+    issuer: "PW Skills",
+    date: "Aug 2024",
+    credential: "1d272c90-cd94-4e50-9da7-a088bcbe4d87",
+    link: "https://cdn.pwskills.com/learn/certificates/1d272c90-cd94-4e50-9da7-a088bcbe4d87.pdf",
+  },
+  {
+    title: "SQL Advanced",
+    issuer: "Hackerrank",
+    date: "May 2024",
+    credential: "1607FFA18226C",
+    link: "https://www.hackerrank.com/certificates/1607ffa1826c"
+  },
+  {
+    title: "Build AI Apps with ChatGPT and Dall-E",
+    issuer: "Scrimba",
+    date: "Apr 2024",
+    credential: "4Z794MV8QQ3D",
+    link: "https://www.coursera.org/account/accomplishments/records/4Z794MV8QQ3D"
+  },
+  {
+    title: "Generative AI with Large Language Models",
+    issuer: "DeepLearning.AI",
     date: "Mar 2024",
-    credential: "#COURSERA123456789",
-    link: "#",
+    credential: "CYJKG9D2EKZL",
+    link: "https://www.coursera.org/account/accomplishments/records/CYJKG9D2EKZL"
   },
   {
-    title: "Mastering DSA with C & C++",
-    issuer: "Udemy",
-    date: "Nov 2023",
-    credential: "#UDEMY123456789",
-    link: "#",
-  },
-  {
-    title: "Programming in C++: A hands on Introduction",
-    issuer: "Coursera",
-    date: "Nov 2023",
-    credential: "#COURSERA987654321",
-    link: "#",
-  },
-  {
-    title: "The Bits and Bytes of Computer Networking",
-    issuer: "Coursera",
-    date: "Nov 2023",
-    credential: "#COURSERA987654321",
-    link: "#",
+    title: "Introduction to Large Language Models",
+    issuer: "Google Cloud",
+    date: "Jan 2024",
+    credential: "RVVTGZTNZCMR",
+    link: "https://www.coursera.org/account/accomplishments/records/RVVTGZTNZCMR"
   },
 ];
 

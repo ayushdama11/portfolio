@@ -1,27 +1,27 @@
 import { motion } from "framer-motion";
 import { GraduationCap, MapPin, Calendar, BookOpen } from "lucide-react";
 
-const educationData = [
+const educationData =[
   {
-    degree: "Computer Science and Engineering",
+    degree: "B.Tech in Computer Science and Engineering",
     institution: "Lovely Professional University",
     location: "Phagwara, Punjab",
     period: "2022 – 2026",
-    grade: "CGPA: 7.94",
+    grade: "CGPA: 7.53",
   },
   {
-    degree: "12th with Science (BSEB)",
-    institution: "Sachidanand Sinha College",
-    location: "Aurangabad, Bihar",
-    period: "2020 – 2021",
-    grade: "Percentage: 84.00%",
+    degree: "12th with Science (CBSE)",
+    institution: "Shree Swaminarayan Gurukul Salvav",
+    location: "Vapi, Gujarat",
+    period: "2021 – 2022",
+    grade: "Percentage: 77%",
   },
   {
     degree: "10th (CBSE)",
-    institution: "Vivekanand Vision Ideal Public School",
-    location: "Aurangabad, Bihar",
-    period: "2018 – 2019",
-    grade: "Percentage: 87.40%",
+    institution: "Shree Swaminarayan Gurukul Salvav",
+    location: "Vapi, Gujarat",
+    period: "2019 – 2020",
+    grade: "Percentage: 87%",
   },
 ];
 

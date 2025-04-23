@@ -52,7 +52,7 @@ const InitialLoadingScreen = () => {
             <div className={`text-xl font-bold ${
               isDark ? "text-white" : "text-slate-900"
             }`}>
-              A<span className="text-primary-500">.K</span>
+              A<span className="text-primary-500">.D</span>
             </div>
           </motion.div>
         </motion.div>

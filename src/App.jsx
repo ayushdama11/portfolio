@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "@/pages/HomePage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import ProjectDetailPage from "@/pages/ProjectDetailPage";
-import BlogPage from "@/pages/BlogPage";
+
 import InitialLoadingScreen from "@/components/common/InitialLoadingScreen";
 import WeatherDashboardPage from "@/pages/WeatherDashboardPage";
 
@@ -24,7 +24,7 @@ const App = () => {
       {isLoading && <InitialLoadingScreen />}
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/blog" element={<BlogPage />} />
+      
         <Route path="/project/:id" element={<ProjectDetailPage />} />
         <Route path="/projects/weather-dashboard" element={<WeatherDashboardPage />} />
         <Route path="*" element={<NotFoundPage />} />

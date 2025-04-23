@@ -48,7 +48,7 @@ const ProjectCard = ({ project, index, isHovered, onHover, onLeave }) => {
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
-      <div className="relative h-48 bg-slate-200 dark:bg-slate-800">
+      <div className="relative h-80 bg-slate-200 dark:bg-slate-800">
         {project.image ? (
           <img
             src={project.image}
@@ -131,39 +131,36 @@ export default Projects;
 
 const projectsData = [
   {
-    id: "weather-dashboard",
-    title: "Weather Dashboard",
+    id: "yatrazen",
+    title: "Yatrazen : AI Trip Planner",
     description:
-      "A modern, responsive weather dashboard application built with React that allows users to search for any city and view its current weather information and forecasts.",
-    image: "/assets/projects/weather-dashboard.jpg",
-    tech: ["React", "Context API", "Tailwind CSS", "Framer Motion", "OpenWeatherMap API"],
-    github: "https://github.com/aakash-kumar-singh/WeatherForecast",
-    liveLink: "https://weather-dashboard-aakash.vercel.app",
+      "YatraZen is an intelligent, AI-powered travel planning web application built with React that helps users effortlessly plan their trips. By entering details like destination, budget, number of travelers, and duration, users receive personalized itineraries, travel suggestions, and budget breakdowns—making trip planning fast, smart, and hassle-free.",
+    image: "yzen.png",
+    tech: ["React", "Firebase", "Tailwind CSS", "Gemini API", "Google Place API"],
+    github: "https://github.com/ayushdama11/yatrazen",
+    liveLink: "https://yatrazen-tawny.vercel.app/",
     featured: true,
-    period: "Mar 2024 - Present",
-    detailLink: "/projects/weather-dashboard",
+    period: "Dec 2024 - Jan 2025",
   },
   {
-    id: "car-service",
-    title: "Car Service",
-    description:
-      "A fully functional car rental website with a user-friendly interface and robust backend, tailored to streamline the car rental process for customers and administrators.",
-    image: "/assets/projects/car-service.jpg",
-    tech: ["HTML", "CSS", "JavaScript", "React", "Express", "MongoDB"],
-    github: "https://github.com/aakash-kumar-singh/car-service",
-    liveLink: "",
+    id: "trend-trove",
+    title: "Trend Trove : Ecommerce Website",
+    description: "Trend-Trove is a full-stack e-commerce web application built with React, Node.js, Express.js, TypeScript, and MongoDB. It offers a seamless shopping experience with categorized product listings and a dynamic admin dashboard for managing products, inventory, and orders.",
+    image: "tt.png",
+    tech: ["React", "Node", "Express", "MongoDB", "TypeScript"],
+    github: "https://github.com/ayushdama11/trend-trove",
     featured: true,
-    period: "Dec 2024 - Present",
+    period: "Apr 2024 - Jun 2024",
   },
   {
-    id: "lifeguard-solutions",
-    title: "Lifeguard Solutions",
-    description:
-      "An innovative insurance website tailored specifically for LIC field agents, aimed at streamlining their daily operations with features like premium calculator and claim management.",
-    image: "/assets/projects/lifeguard.jpg",
-    tech: ["HTML", "CSS", "JavaScript", "jQuery", "Express"],
-    github: "https://github.com/aakash-kumar-singh/lifeguard-solutions",
-    liveLink: "",
-    period: "Feb 2024 - Jun 2024",
-  },
+    id: "burgerBliss",
+    title: "Burger Bliss : Fast Food Website",
+    description: "Burger Bliss is a responsive fast-food website built using HTML, CSS, JavaScript, and Tailwind CSS. Designed for an engaging user experience, it features a clean layout, mobile-first design, and optimized performance for fast loading. With visually appealing UI and smooth navigation, Burger Bliss enhances user interaction and satisfaction across all devices.",
+    image: "bb.png",
+    tech: ["HTML", "CSS", "JavaScript", "Tailwind CSS"],
+    github: "https://github.com/ayushdama11/burger-bliss",
+    liveLink: "https://burgerblisss.netlify.app/",
+    featured: true,
+    period: "Dec 2024 - Jan 2025",
+  }
 ];

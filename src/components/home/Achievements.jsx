@@ -1,32 +1,32 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Trophy, Star, Code, CheckCircle2 } from "lucide-react";
+import { Trophy, Star, Code, Award } from "lucide-react";
 
 const achievementsData = [
   {
     icon: Code,
-    title: "250+ Problems Solved",
-    description: "Solved over 250 data structures and algorithms problems on LeetCode.",
+    title: "400+ Problems Solved",
+    description: "Solved over 400 problems on LeetCode, GeeksforGeeks and CodeStudio enhancing problem-solving and algorithmic skills.",
     color: "blue",
   },
   {
-    icon: Code,
-    title: "150+ Problems Solved",
-    description: "Solved over 150 problems on Coding Ninja's platform.",
+    icon: Award,
+    title: "Hackathon Winner",
+    description: "Placed 2nd runner-up in WebKaHackathon where I led the frontend development of a Finance management system.",
     color: "green",
   },
   {
-    icon: Code,
-    title: "100+ Problems Solved",
-    description: "Solved over 100 problems on GeeksforGeeks platform.",
+    icon: Star,
+    title: "5-Star Problem Solving Badge",
+    description: "Earned a 5-star badge in Problem Solving on HackerRank.",
     color: "orange",
   },
   {
-    icon: Star,
-    title: "Five Star Badge",
-    description: "Earned five star badge on HackerRank for problem solving.",
+    icon: Award,
+    title: "Relevant Coursework",
+    description: "Completed courses in Problem Solving, Data Structures and Algorithms, and Database Management.",
     color: "yellow",
-  },
+  }
 ];
 
 const Achievements = () => {
@@ -41,7 +41,7 @@ const Achievements = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-16">
+    <div className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-8">
       <div className="container mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
