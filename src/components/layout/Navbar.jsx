@@ -240,18 +240,10 @@ const Navbar = () => {
                       A
                     </div>
                     <span className="text-lg font-bold text-slate-900 dark:text-white">
-                      Lucky
+                      Ayush
                       <span className="text-primary-500 dark:text-primary-400">.dev</span>
                     </span>
                   </Link>
-
-                  <button
-                    className="p-2 rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white focus:outline-none"
-                    onClick={() => setIsOpen(false)}
-                    aria-label="Close menu"
-                  >
-                    <X size={24} />
-                  </button>
                 </div>
 
                 <div className="space-y-1">

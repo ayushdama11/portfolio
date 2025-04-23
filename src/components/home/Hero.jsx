@@ -46,7 +46,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 md:pt-20">
       {/* Background Effects */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-r from-primary-50 to-transparent dark:from-primary-900/10 transform -skew-x-12" />
@@ -150,8 +150,6 @@ const Hero = () => {
                 className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mb-8"
               >
                👋 Hi, I'm a Computer Science student passionate about coding and turning ideas into real-world solutions. I love solving complex problems, building interactive dashboards, and creating clean, responsive web apps. With 400+ DSA problems solved and hands-on projects in AI and Web dev, I'm all about learning, building, and leveling up.
-
-
               </motion.p>
 
               <motion.div
